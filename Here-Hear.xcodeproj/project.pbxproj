@@ -116,6 +116,7 @@
 		04A746B82B8464A700182C5F /* Here-Hear */ = {
 			isa = PBXGroup;
 			children = (
+				04A746BF2B8464A800182C5F /* Preview Content */,
 				04A7470A2B84681A00182C5F /* General */,
 				04A746EB2B84668E00182C5F /* App */,
 				04A746EA2B84665100182C5F /* Resource */,
@@ -219,7 +220,6 @@
 		04A746EA2B84665100182C5F /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				04A746BF2B8464A800182C5F /* Preview Content */,
 				04A746BD2B8464A800182C5F /* Assets.xcassets */,
 			);
 			path = Resource;
