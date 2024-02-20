@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+class DIContainer: ObservableObject {
+    var services: ServicesInterface
+    
+    init(services: ServicesInterface) {
+        self.services = services
+    }
+}
