@@ -25,6 +25,10 @@
 		04A747032B8467A300182C5F /* Feeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A747022B8467A300182C5F /* Feeling.swift */; };
 		04A747072B8467E100182C5F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A747062B8467E100182C5F /* MainView.swift */; };
 		04A747092B8467FB00182C5F /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A747082B8467FB00182C5F /* Services.swift */; };
+		5BDBBD192B846F9400DEB7DC /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDBBD182B846F9400DEB7DC /* Utility.swift */; };
+		5BDBBD1B2B846F9F00DEB7DC /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDBBD1A2B846F9F00DEB7DC /* DIContainer.swift */; };
+		5BDBBD1D2B846FA900DEB7DC /* ViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDBBD1C2B846FA900DEB7DC /* ViewComponent.swift */; };
+		5BDBBD1F2B846FB000DEB7DC /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDBBD1E2B846FB000DEB7DC /* ButtonStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +70,10 @@
 		04A747022B8467A300182C5F /* Feeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feeling.swift; sourceTree = "<group>"; };
 		04A747062B8467E100182C5F /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		04A747082B8467FB00182C5F /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		5BDBBD182B846F9400DEB7DC /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		5BDBBD1A2B846F9F00DEB7DC /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		5BDBBD1C2B846FA900DEB7DC /* ViewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewComponent.swift; sourceTree = "<group>"; };
+		5BDBBD1E2B846FB000DEB7DC /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,8 +124,8 @@
 		04A746B82B8464A700182C5F /* Here-Hear */ = {
 			isa = PBXGroup;
 			children = (
+				5BDBBD132B846F4C00DEB7DC /* General */,
 				04A746BF2B8464A800182C5F /* Preview Content */,
-				04A7470A2B84681A00182C5F /* General */,
 				04A746EB2B84668E00182C5F /* App */,
 				04A746EA2B84665100182C5F /* Resource */,
 				04A746E92B84663A00182C5F /* Manager */,
@@ -233,43 +241,47 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		04A7470A2B84681A00182C5F /* General */ = {
+		5BDBBD132B846F4C00DEB7DC /* General */ = {
 			isa = PBXGroup;
 			children = (
-				04A7470E2B84687600182C5F /* ButtonStyle */,
-				04A7470D2B84684A00182C5F /* ViewComponent */,
-				04A7470C2B84683500182C5F /* DIContainer */,
-				04A7470B2B84682900182C5F /* Utility */,
+				5BDBBD172B846F7E00DEB7DC /* Utility */,
+				5BDBBD162B846F6A00DEB7DC /* DIContainer */,
+				5BDBBD152B846F6000DEB7DC /* ViewComponent */,
+				5BDBBD142B846F5A00DEB7DC /* ButtonStyle */,
 			);
 			path = General;
 			sourceTree = "<group>";
 		};
-		04A7470B2B84682900182C5F /* Utility */ = {
+		5BDBBD142B846F5A00DEB7DC /* ButtonStyle */ = {
 			isa = PBXGroup;
 			children = (
+				5BDBBD1E2B846FB000DEB7DC /* ButtonStyle.swift */,
 			);
-			path = Utility;
+			path = ButtonStyle;
 			sourceTree = "<group>";
 		};
-		04A7470C2B84683500182C5F /* DIContainer */ = {
+		5BDBBD152B846F6000DEB7DC /* ViewComponent */ = {
 			isa = PBXGroup;
 			children = (
-			);
-			path = DIContainer;
-			sourceTree = "<group>";
-		};
-		04A7470D2B84684A00182C5F /* ViewComponent */ = {
-			isa = PBXGroup;
-			children = (
+				5BDBBD1C2B846FA900DEB7DC /* ViewComponent.swift */,
 			);
 			path = ViewComponent;
 			sourceTree = "<group>";
 		};
-		04A7470E2B84687600182C5F /* ButtonStyle */ = {
+		5BDBBD162B846F6A00DEB7DC /* DIContainer */ = {
 			isa = PBXGroup;
 			children = (
+				5BDBBD1A2B846F9F00DEB7DC /* DIContainer.swift */,
 			);
-			path = ButtonStyle;
+			path = DIContainer;
+			sourceTree = "<group>";
+		};
+		5BDBBD172B846F7E00DEB7DC /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				5BDBBD182B846F9400DEB7DC /* Utility.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -402,16 +414,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BDBBD192B846F9400DEB7DC /* Utility.swift in Sources */,
 				04A747092B8467FB00182C5F /* Services.swift in Sources */,
 				04A746F52B84673900182C5F /* FeelingEntity.swift in Sources */,
 				04A747072B8467E100182C5F /* MainView.swift in Sources */,
 				04A746F32B84673200182C5F /* MusicEntity.swift in Sources */,
 				04A746FD2B84678F00182C5F /* User.swift in Sources */,
 				04A747012B84679E00182C5F /* Music.swift in Sources */,
+				5BDBBD1F2B846FB000DEB7DC /* ButtonStyle.swift in Sources */,
+				5BDBBD1B2B846F9F00DEB7DC /* DIContainer.swift in Sources */,
 				04A746F12B84672300182C5F /* HearEntity.swift in Sources */,
 				04A746ED2B84670300182C5F /* NotificationManager.swift in Sources */,
 				04A746BC2B8464A700182C5F /* ContentView.swift in Sources */,
 				04A746BA2B8464A700182C5F /* Here_HearApp.swift in Sources */,
+				5BDBBD1D2B846FA900DEB7DC /* ViewComponent.swift in Sources */,
 				04A746FF2B84679700182C5F /* Hear.swift in Sources */,
 				04A746EF2B84671900182C5F /* UserEntity.swift in Sources */,
 				04A747032B8467A300182C5F /* Feeling.swift in Sources */,
