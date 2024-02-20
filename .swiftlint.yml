@@ -29,6 +29,8 @@ opt_in_rules: # 옵트 인 룰
     - discouraged_optional_boolean # Bool을 옵셔널하게 선언하면 안됨
     - legacy_random # Swift 4.2 이상부터 arc4random -> Int.random으로 작성
     - switch_case_on_newline # case 와 : 사이에 새 줄을 넣는 것을 선호
+    - force_try
+    - force_unwrapping
 
 force_unwrapping: error # 암시적으로 지정
 force_try:

@@ -35,5 +35,3 @@ class StubServices: ServicesInterface {
     var musicService: MusicServiceInterface = StubMusicService()
     var authService: AuthServiceInterface = StubAuthService()
 }
-
-

@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct Here_HearApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
     @StateObject private var container: DIContainer = DIContainer(services: Services())
     var body: some Scene {
         WindowGroup {
