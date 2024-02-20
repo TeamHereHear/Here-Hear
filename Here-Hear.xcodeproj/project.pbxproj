@@ -1,0 +1,593 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04A746BA2B8464A700182C5F /* Here_HearApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A746B92B8464A700182C5F /* Here_HearApp.swift */; };
+		04A746BC2B8464A700182C5F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A746BB2B8464A700182C5F /* ContentView.swift */; };
+		04A746BE2B8464A800182C5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A746BD2B8464A800182C5F /* Assets.xcassets */; };
+		04A746C12B8464A800182C5F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A746C02B8464A800182C5F /* Preview Assets.xcassets */; };
+		04A746CB2B8464A800182C5F /* Here_HearTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A746CA2B8464A800182C5F /* Here_HearTests.swift */; };
+		04A746D52B8464A800182C5F /* Here_HearUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A746D42B8464A800182C5F /* Here_HearUITests.swift */; };
+		04A746D72B8464A800182C5F /* Here_HearUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A746D62B8464A800182C5F /* Here_HearUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		04A746C72B8464A800182C5F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A746AE2B8464A700182C5F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 04A746B52B8464A700182C5F;
+			remoteInfo = "Here-Hear";
+		};
+		04A746D12B8464A800182C5F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04A746AE2B8464A700182C5F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 04A746B52B8464A700182C5F;
+			remoteInfo = "Here-Hear";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		04A746B62B8464A700182C5F /* Here-Hear.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Here-Hear.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		04A746B92B8464A700182C5F /* Here_HearApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Here_HearApp.swift; sourceTree = "<group>"; };
+		04A746BB2B8464A700182C5F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		04A746BD2B8464A800182C5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		04A746C02B8464A800182C5F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		04A746C62B8464A800182C5F /* Here-HearTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Here-HearTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		04A746CA2B8464A800182C5F /* Here_HearTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Here_HearTests.swift; sourceTree = "<group>"; };
+		04A746D02B8464A800182C5F /* Here-HearUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Here-HearUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		04A746D42B8464A800182C5F /* Here_HearUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Here_HearUITests.swift; sourceTree = "<group>"; };
+		04A746D62B8464A800182C5F /* Here_HearUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Here_HearUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		04A746B32B8464A700182C5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04A746C32B8464A800182C5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04A746CD2B8464A800182C5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		04A746AD2B8464A700182C5F = {
+			isa = PBXGroup;
+			children = (
+				04A746B82B8464A700182C5F /* Here-Hear */,
+				04A746C92B8464A800182C5F /* Here-HearTests */,
+				04A746D32B8464A800182C5F /* Here-HearUITests */,
+				04A746B72B8464A700182C5F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		04A746B72B8464A700182C5F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				04A746B62B8464A700182C5F /* Here-Hear.app */,
+				04A746C62B8464A800182C5F /* Here-HearTests.xctest */,
+				04A746D02B8464A800182C5F /* Here-HearUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		04A746B82B8464A700182C5F /* Here-Hear */ = {
+			isa = PBXGroup;
+			children = (
+				04A746B92B8464A700182C5F /* Here_HearApp.swift */,
+				04A746BB2B8464A700182C5F /* ContentView.swift */,
+				04A746BD2B8464A800182C5F /* Assets.xcassets */,
+				04A746BF2B8464A800182C5F /* Preview Content */,
+			);
+			path = "Here-Hear";
+			sourceTree = "<group>";
+		};
+		04A746BF2B8464A800182C5F /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				04A746C02B8464A800182C5F /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		04A746C92B8464A800182C5F /* Here-HearTests */ = {
+			isa = PBXGroup;
+			children = (
+				04A746CA2B8464A800182C5F /* Here_HearTests.swift */,
+			);
+			path = "Here-HearTests";
+			sourceTree = "<group>";
+		};
+		04A746D32B8464A800182C5F /* Here-HearUITests */ = {
+			isa = PBXGroup;
+			children = (
+				04A746D42B8464A800182C5F /* Here_HearUITests.swift */,
+				04A746D62B8464A800182C5F /* Here_HearUITestsLaunchTests.swift */,
+			);
+			path = "Here-HearUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		04A746B52B8464A700182C5F /* Here-Hear */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04A746DA2B8464A800182C5F /* Build configuration list for PBXNativeTarget "Here-Hear" */;
+			buildPhases = (
+				04A746B22B8464A700182C5F /* Sources */,
+				04A746B32B8464A700182C5F /* Frameworks */,
+				04A746B42B8464A700182C5F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Here-Hear";
+			productName = "Here-Hear";
+			productReference = 04A746B62B8464A700182C5F /* Here-Hear.app */;
+			productType = "com.apple.product-type.application";
+		};
+		04A746C52B8464A800182C5F /* Here-HearTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04A746DD2B8464A800182C5F /* Build configuration list for PBXNativeTarget "Here-HearTests" */;
+			buildPhases = (
+				04A746C22B8464A800182C5F /* Sources */,
+				04A746C32B8464A800182C5F /* Frameworks */,
+				04A746C42B8464A800182C5F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				04A746C82B8464A800182C5F /* PBXTargetDependency */,
+			);
+			name = "Here-HearTests";
+			productName = "Here-HearTests";
+			productReference = 04A746C62B8464A800182C5F /* Here-HearTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		04A746CF2B8464A800182C5F /* Here-HearUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04A746E02B8464A800182C5F /* Build configuration list for PBXNativeTarget "Here-HearUITests" */;
+			buildPhases = (
+				04A746CC2B8464A800182C5F /* Sources */,
+				04A746CD2B8464A800182C5F /* Frameworks */,
+				04A746CE2B8464A800182C5F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				04A746D22B8464A800182C5F /* PBXTargetDependency */,
+			);
+			name = "Here-HearUITests";
+			productName = "Here-HearUITests";
+			productReference = 04A746D02B8464A800182C5F /* Here-HearUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		04A746AE2B8464A700182C5F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					04A746B52B8464A700182C5F = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					04A746C52B8464A800182C5F = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 04A746B52B8464A700182C5F;
+					};
+					04A746CF2B8464A800182C5F = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 04A746B52B8464A700182C5F;
+					};
+				};
+			};
+			buildConfigurationList = 04A746B12B8464A700182C5F /* Build configuration list for PBXProject "Here-Hear" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 04A746AD2B8464A700182C5F;
+			productRefGroup = 04A746B72B8464A700182C5F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				04A746B52B8464A700182C5F /* Here-Hear */,
+				04A746C52B8464A800182C5F /* Here-HearTests */,
+				04A746CF2B8464A800182C5F /* Here-HearUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		04A746B42B8464A700182C5F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04A746C12B8464A800182C5F /* Preview Assets.xcassets in Resources */,
+				04A746BE2B8464A800182C5F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04A746C42B8464A800182C5F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04A746CE2B8464A800182C5F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		04A746B22B8464A700182C5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04A746BC2B8464A700182C5F /* ContentView.swift in Sources */,
+				04A746BA2B8464A700182C5F /* Here_HearApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04A746C22B8464A800182C5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04A746CB2B8464A800182C5F /* Here_HearTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04A746CC2B8464A800182C5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04A746D72B8464A800182C5F /* Here_HearUITestsLaunchTests.swift in Sources */,
+				04A746D52B8464A800182C5F /* Here_HearUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		04A746C82B8464A800182C5F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 04A746B52B8464A700182C5F /* Here-Hear */;
+			targetProxy = 04A746C72B8464A800182C5F /* PBXContainerItemProxy */;
+		};
+		04A746D22B8464A800182C5F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 04A746B52B8464A700182C5F /* Here-Hear */;
+			targetProxy = 04A746D12B8464A800182C5F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		04A746D82B8464A800182C5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		04A746D92B8464A800182C5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		04A746DB2B8464A800182C5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Here-Hear/Preview Content\"";
+				DEVELOPMENT_TEAM = QUMNMR4BSR;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.HereHear.Here-Hear";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		04A746DC2B8464A800182C5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Here-Hear/Preview Content\"";
+				DEVELOPMENT_TEAM = QUMNMR4BSR;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.HereHear.Here-Hear";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		04A746DE2B8464A800182C5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QUMNMR4BSR;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.HereHear.Here-HearTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Here-Hear.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Here-Hear";
+			};
+			name = Debug;
+		};
+		04A746DF2B8464A800182C5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QUMNMR4BSR;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.HereHear.Here-HearTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Here-Hear.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Here-Hear";
+			};
+			name = Release;
+		};
+		04A746E12B8464A800182C5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QUMNMR4BSR;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.HereHear.Here-HearUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Here-Hear";
+			};
+			name = Debug;
+		};
+		04A746E22B8464A800182C5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QUMNMR4BSR;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.HereHear.Here-HearUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Here-Hear";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		04A746B12B8464A700182C5F /* Build configuration list for PBXProject "Here-Hear" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04A746D82B8464A800182C5F /* Debug */,
+				04A746D92B8464A800182C5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04A746DA2B8464A800182C5F /* Build configuration list for PBXNativeTarget "Here-Hear" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04A746DB2B8464A800182C5F /* Debug */,
+				04A746DC2B8464A800182C5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04A746DD2B8464A800182C5F /* Build configuration list for PBXNativeTarget "Here-HearTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04A746DE2B8464A800182C5F /* Debug */,
+				04A746DF2B8464A800182C5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04A746E02B8464A800182C5F /* Build configuration list for PBXNativeTarget "Here-HearUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04A746E12B8464A800182C5F /* Debug */,
+				04A746E22B8464A800182C5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 04A746AE2B8464A700182C5F /* Project object */;
+}
