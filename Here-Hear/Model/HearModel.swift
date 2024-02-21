@@ -6,5 +6,29 @@
 //
 
 import Foundation
+import CoreLocation
 
-struct HearModel {}
+struct HearModel {
+    var id: String
+    var userId: String
+    var coordinate: CLLocationCoordinate2D
+    var music: MusicModel
+    var feeling: FeelingModel
+    var like: Int
+    var createdAt: Date
+    var weather: Weather?
+}
+
+extension HearModel {
+    func toEntity() -> HearEntity {
+        .init(
+            id: id,
+            userId: userId,
+            coordinate: coordinate,
+            music: music.toEntity(),
+            feeling: feeling.toEntity(),
+            like: like,
+            createdAt: createdAt
+        )
+    }
+}

@@ -55,12 +55,12 @@ identifier_name:
 
 # 함수의 본문 길이
 function_body_length:
-    warning: 15
+    warning: 20 #15 -> 20줄 수정
     error: 30
     
 # 함수의 복잡성(조건문, 반복문 등의 중첩)를 제한합니다
 cyclomatic_complexity:
-    warning: 2    # 복잡도가 2를 초과할 경우 경고
+    warning: 3    # 복잡도가 2를 초과할 경우 경고
     error: 5      # 복잡도가 5를 초과할 경우 에러
 
 # 보고 유형

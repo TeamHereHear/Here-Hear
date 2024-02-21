@@ -6,5 +6,20 @@
 //
 
 import Foundation
+import SwiftUI
 
-struct FeelingModel {}
+struct FeelingModel {
+    var expressionText: String?
+    var color: Color?
+    var textLocation: CGPoint?
+}
+
+extension FeelingModel {
+    func toEntity() -> FeelingEntity {
+        .init(
+            expressionText: expressionText,
+            colorHexString: color?.toHex(),
+            textLocation: textLocation?.toDoubleArray()
+        )
+    }
+}

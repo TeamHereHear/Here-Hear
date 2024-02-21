@@ -7,4 +7,18 @@
 
 import Foundation
 
-struct UserModel {}
+struct UserModel {
+    var id: String
+    var nickname: String
+    var createdAt: Date
+}
+
+extension UserModel {
+    func toEntity() -> UserEntity {
+        .init(
+            id: id,
+            nickname: nickname,
+            createdAt: createdAt
+        )
+    }
+}

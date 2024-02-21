@@ -6,3 +6,23 @@
 //
 
 import Foundation
+
+struct MusicEntity {
+    var id: String
+    var album: String
+    var title: String
+    var artist: String
+    var artwork: String?
+}
+
+extension MusicEntity {
+    func toModel() -> MusicModel {
+        .init(
+            id: id,
+            album: album,
+            title: title,
+            artist: artist,
+            artwork: URL(string: artwork ?? "")
+        )
+    }
+}

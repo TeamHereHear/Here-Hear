@@ -7,4 +7,22 @@
 
 import Foundation
 
-struct MusicModel {}
+struct MusicModel {
+    var id: String
+    var album: String
+    var title: String
+    var artist: String
+    var artwork: URL?
+}
+
+extension MusicModel {
+    func toEntity() -> MusicEntity {
+        .init(
+            id: id,
+            album: album,
+            title: title,
+            artist: artist,
+            artwork: artwork?.absoluteString
+        )
+    }
+}
