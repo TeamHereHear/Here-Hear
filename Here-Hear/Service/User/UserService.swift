@@ -9,6 +9,7 @@ import Foundation
 
 protocol UserServiceInterface {
 }
+
 class UserService: UserServiceInterface {
 }
 
