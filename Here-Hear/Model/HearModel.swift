@@ -24,7 +24,10 @@ extension HearModel {
         .init(
             id: id,
             userId: userId,
-            coordinate: coordinate,
+            coordinate: .init(
+                latitude: coordinate.latitude,
+                longitude: coordinate.longitude
+            ),
             music: music.toEntity(),
             feeling: feeling.toEntity(),
             like: like,
