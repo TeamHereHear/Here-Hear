@@ -7,17 +7,25 @@
 
 import Foundation
 import Combine
+import CoreLocation
 
 import FirebaseFirestore
 
 enum HearRepositoryError: Error {
     case nilSelf
+    case emptySearchingGeohash
     case invalidEntity
     case custom(Error)
 }
 
 protocol HearRepositoryInterface {
-    func fetchAroundHears() -> AnyPublisher<[HearEntity], HearRepositoryError>
+    func fetchAroundHears(
+        latitude: Double,
+        longitude: Double,
+        radiusInMeter radius: Double,
+        searchingIn geohashArray: [String]
+    ) -> AnyPublisher<[HearEntity], HearRepositoryError>
+    
     func add(_ hear: HearEntity) -> AnyPublisher<HearEntity, HearRepositoryError>
     func update(_ hear: HearEntity) -> AnyPublisher<HearEntity, HearRepositoryError>
     func deleteHear(_ hear: HearEntity) -> AnyPublisher<Void, HearRepositoryError>
@@ -27,9 +35,65 @@ class HearRepository: HearRepositoryInterface {
     
     let collectionRef = Firestore.firestore().collection("Hear")
 
-    func fetchAroundHears() -> AnyPublisher<[HearEntity], HearRepositoryError> {
-        Empty().eraseToAnyPublisher()
-        
+    func fetchAroundHears(
+        latitude: Double,
+        longitude: Double,
+        radiusInMeter radius: Double,
+        searchingIn geohashArray: [String]
+    ) -> AnyPublisher<[HearEntity], HearRepositoryError> {
+        Future { [weak self] promise in
+            guard let self else {
+                promise(.failure(.nilSelf))
+                return
+            }
+            
+            guard let precision = geohashArray.first?.count else {
+                promise(.failure(.emptySearchingGeohash))
+                return
+            }
+            
+            self.completeFetchingAroundHears(
+                locationOfCenter: .init(latitude: latitude, longitude: longitude),
+                radiusInMeter: radius,
+                precision: precision,
+                searchingIn: geohashArray,
+                promise
+            )
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    private func completeFetchingAroundHears(
+        locationOfCenter: CLLocation,
+        radiusInMeter radius: Double,
+        precision: Int,
+        searchingIn geohashArray: [String],
+        _ promise: @escaping((Result<[HearEntity], HearRepositoryError>) -> Void)
+    ) {
+        self.collectionRef
+            .whereField(.init(["location", "geohash\(precision)"]), in: geohashArray)
+            .getDocuments { snapshot, error in
+                guard let snapshot else {
+                    promise(.success([HearEntity]()))
+                    return
+                }
+                
+                if let error {
+                    promise(.failure(HearRepositoryError.custom(error)))
+                }
+                
+                let entities = snapshot.documents
+                    .compactMap { try? $0.data(as: HearEntity.self) }
+                    .filter {
+                        let locationOfEntity = CLLocation(latitude: $0.location.latitude, longitude: $0.location.longitude)
+                        
+                        let distance: Double = locationOfEntity.distance(from: locationOfCenter)
+                        
+                        return distance <= radius
+                    }
+                
+                promise(.success(entities))
+            }
     }
     
     // MARK: - 새로운 HearEntity 추가
@@ -107,14 +171,13 @@ class HearRepository: HearRepositoryInterface {
 
 class StubHearRepository: HearRepositoryInterface {
     
-    func fetchAroundHears() -> AnyPublisher<[HearEntity], HearRepositoryError> {
-        guard let mock = HearEntity.mock else {
-            return Fail<[HearEntity], HearRepositoryError>(error: .invalidEntity).eraseToAnyPublisher()
-        }
-        
-        return Just([mock])
-            .setFailureType(to: HearRepositoryError.self)
-            .eraseToAnyPublisher()
+    func fetchAroundHears(
+        latitude: Double,
+        longitude: Double,
+        radiusInMeter radius: Double,
+        searchingIn geohashArray: [String]
+    ) -> AnyPublisher<[HearEntity], HearRepositoryError> {
+        Empty().eraseToAnyPublisher()
     }
     
     func add(_ hear: HearEntity) -> AnyPublisher<HearEntity, HearRepositoryError> {

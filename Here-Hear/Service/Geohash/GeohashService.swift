@@ -42,7 +42,7 @@ class GeohashService: GeohashServiceInterface {
 
 class StubGeohashService: GeohashServiceInterface {
     func geohashExact(latitude: Double, longitude: Double) -> String {
-        //37.566406, 126.977822
+        // 37.566406, 126.977822
         "wydm9qy2jtws"
     }
     func overlappingGeohash(latitude: Double, longitude: Double, precision: Int) -> [String] {
