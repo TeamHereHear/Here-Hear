@@ -9,11 +9,19 @@ import Foundation
 import CoreLocation
 
 extension HearEntity {
-    static var mock: HearEntity {
-        .init(
+    static var mock: HearEntity? {
+        guard let location = LocationEntity(
+            latitude: 37.566406,
+            longitude: 126.977822,
+            geohashExact: "wydm9qy2jtws"
+        ) else {
+            return nil
+        }
+        
+        return .init(
             id: "1",
             userId: "user_1",
-            coordinate: .init(latitude: 33, longitude: 100),
+            location: location,
             music: .mock,
             feeling: .mock,
             like: 120,

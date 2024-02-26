@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 extension MusicEntity {
     static var mock: MusicEntity {
         .init(

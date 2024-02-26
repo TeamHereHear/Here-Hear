@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 extension FeelingEntity {
     static var mock: FeelingEntity {
         .init(

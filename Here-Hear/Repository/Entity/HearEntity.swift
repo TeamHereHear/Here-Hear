@@ -11,12 +11,13 @@ import CoreLocation
 struct HearEntity: Codable {
     var id: String
     var userId: String
-    var coordinate: Coordinate
+    var location: LocationEntity
     var music: MusicEntity
     var feeling: FeelingEntity
     var like: Int
     var createdAt: Date
     var weather: String?
+    
 }
 
 extension HearEntity {
@@ -24,22 +25,12 @@ extension HearEntity {
         .init(
             id: id,
             userId: userId,
-            coordinate: .init(
-                latitude: coordinate.latitude,
-                longitude: coordinate.longitude
-            ),
+            location: location.toModel(),
             music: music.toModel(),
             feeling: feeling.toModel(),
             like: like,
             createdAt: createdAt,
             weather: .init(rawValue: weather ?? "sunny")
         )
-    }
-}
-
-extension HearEntity {
-    struct Coordinate: Codable {
-        var latitude: Double
-        var longitude: Double
     }
 }
