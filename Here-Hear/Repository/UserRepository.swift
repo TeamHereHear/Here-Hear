@@ -53,7 +53,7 @@ class UserRepository: UserRepositoryInterface {
         
         var ref: DocumentReference?
         ref = database.collection("User").addDocument(data: user.toDictionary()) { error in
-            if let error = error {
+            if error != nil {
                 subject.send(completion: .failure(.dataUnavailable))
             } else {
                 if let ref = ref {
@@ -72,7 +72,7 @@ class UserRepository: UserRepositoryInterface {
         let subject = PassthroughSubject<UserEntity, UserRepositoryError>()
         
         database.collection("User").document(user.id).setData(user.toDictionary()) { error in
-            if let error = error {
+            if error != nil {
                 subject.send(completion: .failure(.dataUnavailable))
             } else {
                 subject.send(user)

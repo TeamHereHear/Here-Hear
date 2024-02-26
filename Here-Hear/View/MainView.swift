@@ -8,8 +8,23 @@
 import SwiftUI
 
 struct MainView: View {
+    @EnvironmentObject var authViewModel: AuthViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("this is MainView")
+                .padding()
+            
+            Button(action: {
+                authViewModel.send(action: .logout)
+            }, label: {
+                Text("로그아웃")
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color("HHTertiary"))
+                    .cornerRadius(50)
+            })
+        }
     }
 }
 
