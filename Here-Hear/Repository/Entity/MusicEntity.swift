@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MusicEntity {
+struct MusicEntity: Codable {
     var id: String
     var album: String
     var title: String

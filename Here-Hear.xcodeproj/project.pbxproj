@@ -42,6 +42,11 @@
 		04A747392B89AD6F00182C5F /* LoginButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A747382B89AD6F00182C5F /* LoginButtonStyle.swift */; };
 		04A747402B8C31E900182C5F /* RandomNonceString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A7473F2B8C31E900182C5F /* RandomNonceString.swift */; };
 		04A747422B8C320C00182C5F /* SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A747412B8C320C00182C5F /* SHA256.swift */; };
+		5B9BBE662B8C5289003566EA /* Geohash in Frameworks */ = {isa = PBXBuildFile; productRef = 5B9BBE652B8C5289003566EA /* Geohash */; };
+		5B9BBE682B8C5302003566EA /* LocationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9BBE672B8C5302003566EA /* LocationEntity.swift */; };
+		5B9BBE6A2B8C54A7003566EA /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9BBE692B8C54A7003566EA /* LocationModel.swift */; };
+		5B9BBE6C2B8C54B3003566EA /* GeohashPrecision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9BBE6B2B8C54B3003566EA /* GeohashPrecision.swift */; };
+		5B9BBE6E2B8C5B98003566EA /* GeohashService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9BBE6D2B8C5B98003566EA /* GeohashService.swift */; };
 		5BDBBD192B846F9400DEB7DC /* Color+HexConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDBBD182B846F9400DEB7DC /* Color+HexConverter.swift */; };
 		5BDBBD1B2B846F9F00DEB7DC /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDBBD1A2B846F9F00DEB7DC /* DIContainer.swift */; };
 		5BDBBD1D2B846FA900DEB7DC /* ViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDBBD1C2B846FA900DEB7DC /* ViewComponent.swift */; };
@@ -56,6 +61,10 @@
 		5BDBBD352B8483D500DEB7DC /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5BDBBD342B8483D500DEB7DC /* Localizable.xcstrings */; };
 		5BDBBD382B84844200DEB7DC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BDBBD3A2B84844200DEB7DC /* InfoPlist.strings */; };
 		5BDBBD3F2B84888500DEB7DC /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5BDBBD3E2B84888500DEB7DC /* .swiftlint.yml */; };
+		5BDBBD412B84A0CC00DEB7DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BDBBD402B84A0CC00DEB7DC /* GoogleService-Info.plist */; };
+		5BF669C72B870A8900279E08 /* HearEntity+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF669C62B870A8900279E08 /* HearEntity+Mock.swift */; };
+		5BF669C92B870AEB00279E08 /* MusicEntity+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF669C82B870AEB00279E08 /* MusicEntity+Mock.swift */; };
+		5BF669CB2B870C3000279E08 /* FeelingEntity+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF669CA2B870C3000279E08 /* FeelingEntity+Mock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +118,10 @@
 		04A7473E2B89D47A00182C5F /* Here-Hear.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Here-Hear.entitlements"; sourceTree = "<group>"; };
 		04A7473F2B8C31E900182C5F /* RandomNonceString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNonceString.swift; sourceTree = "<group>"; };
 		04A747412B8C320C00182C5F /* SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA256.swift; sourceTree = "<group>"; };
+		5B9BBE672B8C5302003566EA /* LocationEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEntity.swift; sourceTree = "<group>"; };
+		5B9BBE692B8C54A7003566EA /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
+		5B9BBE6B2B8C54B3003566EA /* GeohashPrecision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeohashPrecision.swift; sourceTree = "<group>"; };
+		5B9BBE6D2B8C5B98003566EA /* GeohashService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeohashService.swift; sourceTree = "<group>"; };
 		5BDBBD182B846F9400DEB7DC /* Color+HexConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+HexConverter.swift"; sourceTree = "<group>"; };
 		5BDBBD1A2B846F9F00DEB7DC /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		5BDBBD1C2B846FA900DEB7DC /* ViewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewComponent.swift; sourceTree = "<group>"; };
@@ -125,6 +138,10 @@
 		5BDBBD3B2B84844700DEB7DC /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5BDBBD3C2B8484F000DEB7DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5BDBBD3E2B84888500DEB7DC /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		5BDBBD402B84A0CC00DEB7DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5BF669C62B870A8900279E08 /* HearEntity+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HearEntity+Mock.swift"; sourceTree = "<group>"; };
+		5BF669C82B870AEB00279E08 /* MusicEntity+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MusicEntity+Mock.swift"; sourceTree = "<group>"; };
+		5BF669CA2B870C3000279E08 /* FeelingEntity+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeelingEntity+Mock.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +155,7 @@
 				04A747292B8738F900182C5F /* GoogleSignInSwift in Frameworks */,
 				04A747142B849BFA00182C5F /* FirebaseAuth in Frameworks */,
 				04A747162B849BFA00182C5F /* FirebaseFirestore in Frameworks */,
+				5B9BBE662B8C5289003566EA /* Geohash in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +221,9 @@
 			isa = PBXGroup;
 			children = (
 				04A746C02B8464A800182C5F /* Preview Assets.xcassets */,
+				5BF669C62B870A8900279E08 /* HearEntity+Mock.swift */,
+				5BF669C82B870AEB00279E08 /* MusicEntity+Mock.swift */,
+				5BF669CA2B870C3000279E08 /* FeelingEntity+Mock.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -231,7 +252,9 @@
 				04A746FE2B84679700182C5F /* HearModel.swift */,
 				04A747002B84679E00182C5F /* MusicModel.swift */,
 				04A747022B8467A300182C5F /* FeelingModel.swift */,
+				5B9BBE692B8C54A7003566EA /* LocationModel.swift */,
 				04A7471F2B85C37E00182C5F /* Weather.swift */,
+				5B9BBE6B2B8C54B3003566EA /* GeohashPrecision.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -259,6 +282,7 @@
 			children = (
 				04A747082B8467FB00182C5F /* Services.swift */,
 				04A747362B8872D100182C5F /* ServiceError.swift */,
+				5B9BBE6F2B8C5B9D003566EA /* Geohash */,
 				5BDBBD302B847A3100DEB7DC /* Hear */,
 				5BDBBD2F2B847A2A00DEB7DC /* Auth */,
 				5BDBBD312B847A3800DEB7DC /* Music */,
@@ -283,6 +307,7 @@
 			children = (
 				04A746EE2B84671900182C5F /* UserEntity.swift */,
 				04A746F02B84672300182C5F /* HearEntity.swift */,
+				5B9BBE672B8C5302003566EA /* LocationEntity.swift */,
 				04A746F22B84673200182C5F /* MusicEntity.swift */,
 				04A746F42B84673900182C5F /* FeelingEntity.swift */,
 			);
@@ -315,6 +340,14 @@
 				04A7471B2B849C2E00182C5F /* AppDelegate.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		5B9BBE6F2B8C5B9D003566EA /* Geohash */ = {
+			isa = PBXGroup;
+			children = (
+				5B9BBE6D2B8C5B98003566EA /* GeohashService.swift */,
+			);
+			path = Geohash;
 			sourceTree = "<group>";
 		};
 		5BDBBD132B846F4C00DEB7DC /* General */ = {
@@ -420,6 +453,7 @@
 				04A747192B849BFA00182C5F /* FirebaseStorage */,
 				04A747262B8738F900182C5F /* GoogleSignIn */,
 				04A747282B8738F900182C5F /* GoogleSignInSwift */,
+				5B9BBE652B8C5289003566EA /* Geohash */,
 			);
 			productName = "Here-Hear";
 			productReference = 04A746B62B8464A700182C5F /* Here-Hear.app */;
@@ -497,6 +531,7 @@
 			packageReferences = (
 				04A747122B849BFA00182C5F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				04A747252B8738F900182C5F /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				5B9BBE642B8C5289003566EA /* XCRemoteSwiftPackageReference "Geohash" */,
 			);
 			productRefGroup = 04A746B72B8464A700182C5F /* Products */;
 			projectDirPath = "";
@@ -575,15 +610,22 @@
 				04A746F52B84673900182C5F /* FeelingEntity.swift in Sources */,
 				04A747372B8872D100182C5F /* ServiceError.swift in Sources */,
 				04A747072B8467E100182C5F /* MainView.swift in Sources */,
-				04A746F32B84673200182C5F /* MusicEntity.swift in Sources */,
 				04A746FD2B84678F00182C5F /* UserModel.swift in Sources */,
 				04A747392B89AD6F00182C5F /* LoginButtonStyle.swift in Sources */,
+				5B9BBE682B8C5302003566EA /* LocationEntity.swift in Sources */,
+				04A746F32B84673200182C5F /* MusicEntity.swift in Sources */,
+				5BF669C72B870A8900279E08 /* HearEntity+Mock.swift in Sources */,
 				04A747012B84679E00182C5F /* MusicModel.swift in Sources */,
 				5BDBBD1B2B846F9F00DEB7DC /* DIContainer.swift in Sources */,
+				5B9BBE6E2B8C5B98003566EA /* GeohashService.swift in Sources */,
+				5BF669C92B870AEB00279E08 /* MusicEntity+Mock.swift in Sources */,
+				5B9BBE6C2B8C54B3003566EA /* GeohashPrecision.swift in Sources */,
 				04A747242B85DCDB00182C5F /* Color+StringConverter.swift in Sources */,
 				5BDBBD2C2B8479E700DEB7DC /* MusicService.swift in Sources */,
+				5B9BBE6A2B8C54A7003566EA /* LocationModel.swift in Sources */,
 				04A747202B85C37E00182C5F /* Weather.swift in Sources */,
 				04A746F12B84672300182C5F /* HearEntity.swift in Sources */,
+				5BF669CB2B870C3000279E08 /* FeelingEntity+Mock.swift in Sources */,
 				04A7471C2B849C2E00182C5F /* AppDelegate.swift in Sources */,
 				04A746ED2B84670300182C5F /* NotificationManager.swift in Sources */,
 				5BDBBD252B8477C500DEB7DC /* MusicRepository.swift in Sources */,
@@ -992,6 +1034,12 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 7.0.0;
+		5B9BBE642B8C5289003566EA /* XCRemoteSwiftPackageReference "Geohash" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nh7a/Geohash.git";
+			requirement = {
+				branch = main;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1026,6 +1074,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 04A747252B8738F900182C5F /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		5B9BBE652B8C5289003566EA /* Geohash */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5B9BBE642B8C5289003566EA /* XCRemoteSwiftPackageReference "Geohash" */;
+			productName = Geohash;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
