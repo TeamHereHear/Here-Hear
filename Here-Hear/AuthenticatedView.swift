@@ -21,6 +21,7 @@ struct AuthenticatedView: View {
             }
         }.onAppear {
             authViewModel.send(action: .checkAuthenticationState)
+            
         }.environmentObject(authViewModel)
     }
 }

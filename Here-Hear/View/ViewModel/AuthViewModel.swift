@@ -22,7 +22,7 @@ class AuthViewModel: ObservableObject {
         case appleLogin(ASAuthorizationAppleIDRequest)
         case appleLoginCompletion(Result<ASAuthorization, Error>)
         case logout
-        case signInAnonymously
+        case anonymousLogin
     }
     
     @Published var authState: AuthState = .unauthenticated
@@ -39,6 +39,7 @@ class AuthViewModel: ObservableObject {
     }
     
     func send(action: Action) {
+        
         switch action {
         case .checkAuthenticationState:
             checkAuthenticationState()
@@ -50,8 +51,8 @@ class AuthViewModel: ObservableObject {
             appleLoginCompletion(result: result)
         case .logout:
             logout()
-        case .signInAnonymously:
-            signInAnonymously()
+        case .anonymousLogin:
+            anonymousLogin()
         }
     }
     
@@ -87,17 +88,9 @@ class AuthViewModel: ObservableObject {
             
             container.services.authService.handleSignInWithAppleCompletion(authorization, none: nonce)
                 .sink { [weak self] completion in
-//                    if case .failure = completion {
-//                        self?.isLoading = false
-//                    }
-                    switch completion {
-                    case .failure:
+                    if case .failure = completion {
                         self?.isLoading = false
-                    case .finished:
-                        self?.isLoading = false
-                        self?.authState = .authenticated
                     }
-                
                 }receiveValue: { [weak self] user in
                     self?.isLoading = false
                     self?.userId = user.id
@@ -118,9 +111,9 @@ class AuthViewModel: ObservableObject {
             }.store(in: &subscriptions)
     }
     
-    private func signInAnonymously() {
+    private func anonymousLogin() {
         isLoading = true
-        container.services.authService.signInAnonyMously()
+        container.services.authService.anonymousLogin()
             .sink { [weak self] completion in
                 self?.isLoading = false
                 if case .failure = completion {

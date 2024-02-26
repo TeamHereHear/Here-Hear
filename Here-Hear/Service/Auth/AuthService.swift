@@ -24,11 +24,11 @@ protocol AuthServiceInterface {
     func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest) -> String
     func handleSignInWithAppleCompletion(_ authorization: ASAuthorization, none: String) -> AnyPublisher<UserEntity, ServiceError>
     func logout() -> AnyPublisher<Void, ServiceError>
-    func signInAnonyMously() -> AnyPublisher<UserEntity, ServiceError>
+    func anonymousLogin() -> AnyPublisher<UserEntity, ServiceError>
 }
 
 class AuthService: AuthServiceInterface {
-    func signInAnonyMously() -> AnyPublisher<UserEntity, ServiceError> {
+    func anonymousLogin() -> AnyPublisher<UserEntity, ServiceError> {
         Future<UserEntity, ServiceError> { promise in
             Auth.auth().signInAnonymously { authResult, error in
                 if let error = error {
@@ -161,6 +161,7 @@ extension AuthService {
                 user.nickname = [appleIdCredential.fullName?.givenName, appleIdCredential.fullName?.familyName]
                     .compactMap({$0})
                     .joined(separator: " ")
+                completion(.success(user))
             case let .failure(error):
                 completion(.failure(error))
             }
@@ -190,7 +191,7 @@ extension AuthService {
 }
 
 class StubAuthService: AuthServiceInterface {
-    func signInAnonyMously() -> AnyPublisher<UserEntity, ServiceError> {
+    func anonymousLogin() -> AnyPublisher<UserEntity, ServiceError> {
         Empty().eraseToAnyPublisher()
     }
     

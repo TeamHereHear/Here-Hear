@@ -36,7 +36,7 @@ struct LoginView: View {
                 
             }
             Button {
-                authViewModel.send(action: .signInAnonymously)
+                authViewModel.send(action: .anonymousLogin)
             } label: {
                 Text("로그인 없이 바로 실행하기")
             }.buttonStyle(LoginButtonStyle(textColor: .black, borderColor: Color("HHTertiary"), backgroundColor: Color("HHTertiary")))
@@ -47,11 +47,7 @@ struct LoginView: View {
             } label: {
                 Text("Google로 로그인")
             }.buttonStyle(LoginButtonStyle(textColor: .black, borderColor: Color("HHTertiary"), backgroundColor: Color("HHTertiary")))
-                .onChange(of: authViewModel.authState) { newState in
-                    if newState == .authenticated {
-                        
-                    }
-                }
+
             SignInWithAppleButton { request in
                 authViewModel.send(action: .appleLogin(request))
             } onCompletion: { result in
