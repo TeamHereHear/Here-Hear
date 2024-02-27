@@ -37,6 +37,15 @@
       }
     },
     {
+      "identity" : "geohash",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nh7a/Geohash",
+      "state" : {
+        "branch" : "main",
+        "revision" : "927b1f402650ab18ee0714cf099122606390646c"
+      }
+    },
+    {
       "identity" : "googleappmeasurement",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleAppMeasurement.git",
