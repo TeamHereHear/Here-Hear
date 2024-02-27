@@ -12,7 +12,7 @@ struct HearEntity: Codable {
     var id: String
     var userId: String
     var location: LocationEntity
-    var music: MusicEntity
+    var musicIds: [String]
     var feeling: FeelingEntity
     var like: Int
     var createdAt: Date
@@ -26,7 +26,7 @@ extension HearEntity {
             id: id,
             userId: userId,
             location: location.toModel(),
-            music: music.toModel(),
+            musicIds: musicIds,
             feeling: feeling.toModel(),
             like: like,
             createdAt: createdAt,

@@ -12,7 +12,7 @@ struct HearModel {
     var id: String
     var userId: String
     var location: LocationModel
-    var music: MusicModel
+    var musicIds: [String]
     var feeling: FeelingModel
     var like: Int
     var createdAt: Date
@@ -29,7 +29,7 @@ extension HearModel {
             id: id,
             userId: userId,
             location: locationEntity,
-            music: music.toEntity(),
+            musicIds: musicIds,
             feeling: feeling.toEntity(),
             like: like,
             createdAt: createdAt
