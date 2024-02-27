@@ -22,7 +22,7 @@ extension HearEntity {
             id: "1",
             userId: "user_1",
             location: location,
-            music: .mock,
+            musicIds: [],
             feeling: .mock,
             like: 120,
             createdAt: .distantPast,
