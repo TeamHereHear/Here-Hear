@@ -11,7 +11,7 @@ import CoreLocation
 struct HearModel {
     var id: String
     var userId: String
-    var coordinate: CLLocationCoordinate2D
+    var location: LocationModel
     var music: MusicModel
     var feeling: FeelingModel
     var like: Int
@@ -20,11 +20,15 @@ struct HearModel {
 }
 
 extension HearModel {
-    func toEntity() -> HearEntity {
-        .init(
+    func toEntity() -> HearEntity? {
+        guard let locationEntity = location.toEntity() else {
+            return nil
+        }
+        
+        return .init(
             id: id,
             userId: userId,
-            coordinate: coordinate,
+            location: locationEntity,
             music: music.toEntity(),
             feeling: feeling.toEntity(),
             like: like,

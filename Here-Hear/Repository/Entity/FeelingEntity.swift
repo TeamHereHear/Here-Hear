@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FeelingEntity {
+struct FeelingEntity: Codable {
     var expressionText: String?
     var colorHexString: String?
     var textLocation: [Double]?

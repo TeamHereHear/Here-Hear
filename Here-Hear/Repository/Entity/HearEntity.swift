@@ -8,15 +8,16 @@
 import Foundation
 import CoreLocation
 
-struct HearEntity {
+struct HearEntity: Codable {
     var id: String
     var userId: String
-    var coordinate: CLLocationCoordinate2D
+    var location: LocationEntity
     var music: MusicEntity
     var feeling: FeelingEntity
     var like: Int
     var createdAt: Date
     var weather: String?
+    
 }
 
 extension HearEntity {
@@ -24,7 +25,7 @@ extension HearEntity {
         .init(
             id: id,
             userId: userId,
-            coordinate: coordinate,
+            location: location.toModel(),
             music: music.toModel(),
             feeling: feeling.toModel(),
             like: like,
