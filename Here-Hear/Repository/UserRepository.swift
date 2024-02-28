@@ -49,8 +49,6 @@ class UserRepository: UserRepositoryInterface {
     func addUser(_ user: UserEntity) -> AnyPublisher<UserEntity, UserRepositoryError> {
         let subject = PassthroughSubject<UserEntity, UserRepositoryError>()
         
-        let data = user.toDictionary()
-        
         var ref: DocumentReference?
         ref = database.collection("User").addDocument(data: user.toDictionary()) { error in
             if error != nil {

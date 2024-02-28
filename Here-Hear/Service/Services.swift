@@ -26,7 +26,7 @@ class Services: ServicesInterface {
     init() {
         self.userService = UserService(repository: UserRepository())
         self.geohashService = GeohashService()
-        self.hearService = HearService(repository: HearRepository(), geohashService: geohashService)
+        self.hearService = HearService(repository: HearRepository())
         self.musicService = MusicService()
         self.authService = AuthService()
     }
