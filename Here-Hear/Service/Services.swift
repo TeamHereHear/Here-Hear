@@ -9,6 +9,7 @@ import Foundation
 
 protocol ServicesInterface {
     var userService: UserServiceInterface { get set }
+    var geohashService: GeohashServiceInterface { get set }
     var hearService: HearServiceInterface { get set }
     var musicService: MusicServiceInterface { get set }
     var authService: AuthServiceInterface { get set }
@@ -17,13 +18,15 @@ protocol ServicesInterface {
 
 class Services: ServicesInterface {
     var userService: UserServiceInterface
+    var geohashService: GeohashServiceInterface
     var hearService: HearServiceInterface
     var musicService: MusicServiceInterface
     var authService: AuthServiceInterface
     
     init() {
         self.userService = UserService()
-        self.hearService = HearService()
+        self.geohashService = GeohashService()
+        self.hearService = HearService(repository: HearRepository(), geohashService: geohashService)
         self.musicService = MusicService()
         self.authService = AuthService()
     }
@@ -31,6 +34,7 @@ class Services: ServicesInterface {
 
 class StubServices: ServicesInterface {
     var userService: UserServiceInterface = StubUserService()
+    var geohashService: GeohashServiceInterface = StubGeohashService()
     var hearService: HearServiceInterface = StubHearService()
     var musicService: MusicServiceInterface = StubMusicService()
     var authService: AuthServiceInterface = StubAuthService()

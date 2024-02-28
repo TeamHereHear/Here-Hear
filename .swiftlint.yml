@@ -62,6 +62,9 @@ function_body_length:
 cyclomatic_complexity:
     warning: 6    # 복잡도가 6를 초과할 경우 경고
     error: 15      # 복잡도가 15를 초과할 경우 에러
+    excluded:
+    - "switch"
+
 
 # 보고 유형
 reporter: "xcode"

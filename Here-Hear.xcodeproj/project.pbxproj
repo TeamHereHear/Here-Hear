@@ -278,9 +278,9 @@
 		04A746E62B8465C200182C5F /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				04A747562B8DBBE600182C5F /* Geohash */,
 				04A747082B8467FB00182C5F /* Services.swift */,
 				04A747362B8872D100182C5F /* ServiceError.swift */,
+				04A747562B8DBBE600182C5F /* Geohash */,
 				5BDBBD302B847A3100DEB7DC /* Hear */,
 				5BDBBD2F2B847A2A00DEB7DC /* Auth */,
 				5BDBBD312B847A3800DEB7DC /* Music */,
