@@ -269,11 +269,8 @@ extension AuthService {
         }
         
         user.link(with: credetial) { result, error in
-            if let error, let errorCode = AuthErrorCode.Code(rawValue: error._code) {
-                // 이미 소셜로그인한 사용자가 익명로그인으로 소셜로그인을 하려는 경우 따로 알려줘야 하기 때문에
-                let isAlreadyInUse: Bool = errorCode == .credentialAlreadyInUse
-                let serviceError: ServiceError = .error(isAlreadyInUse ? AuthServiceError.credentialAlreadyInUse : error)
-                completion(.failure(serviceError))
+            if let error {
+                completion(.failure(.error(error)))
                 return
             }
             
