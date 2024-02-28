@@ -23,10 +23,14 @@ class AuthViewModel: ObservableObject {
         case appleLoginCompletion(Result<ASAuthorization, Error>)
         case logout
         case anonymousLogin
+        case checkAnonymousUser
+        case linkAppleLoginCompletion(Result<ASAuthorization, Error>)
+        case linkGoogleLogin
     }
     
     @Published var authState: AuthState = .unauthenticated
     @Published var isLoading = false
+    @Published var isAnonymousUser = false
     
     var userId: String?
     
@@ -53,14 +57,20 @@ class AuthViewModel: ObservableObject {
             logout()
         case .anonymousLogin:
             anonymousLogin()
+        case .checkAnonymousUser:
+            isAnonymousUser = checkIsAnonymousUser()
+        case .linkAppleLoginCompletion(let result):
+            linkAppleLoginCompletion(result: result)
+        case .linkGoogleLogin:
+            linkGoogleLogin()
         }
     }
     
     private func checkAuthenticationState() {
-                if let userId = container.services.authService.checkAuthenticationState() {
-                    self.userId = userId
-                    self.authState = .authenticated
-                }
+        if let userId = container.services.authService.checkAuthenticationState() {
+            self.userId = userId
+            self.authState = .authenticated
+        }
     }
     
     private func googleLogin() {
@@ -86,7 +96,7 @@ class AuthViewModel: ObservableObject {
         if case let .success(authorization) = result {
             guard let nonce = currentNonce else { return }
             
-            container.services.authService.handleSignInWithAppleCompletion(authorization, none: nonce)
+            container.services.authService.handleSignInWithAppleCompletion(authorization, nonce: nonce)
                 .sink { [weak self] completion in
                     if case .failure = completion {
                         self?.isLoading = false
@@ -113,7 +123,7 @@ class AuthViewModel: ObservableObject {
     
     private func anonymousLogin() {
         isLoading = true
-        container.services.authService.anonymousLogin()
+        container.services.authService.anonymousSignIn()
             .sink { [weak self] completion in
                 self?.isLoading = false
                 if case .failure = completion {
@@ -123,5 +133,55 @@ class AuthViewModel: ObservableObject {
                 self?.userId = user.id
                 self?.authState = .authenticated
             }.store(in: &subscriptions)
+    }
+    
+    private func checkIsAnonymousUser() -> Bool {
+        container.services.authService.isAnonyMousUser()
+    }
+    
+    private func linkGoogleLogin() {
+        guard container.services.authService.isAnonyMousUser()  else {
+            return
+        }
+        
+        isLoading = true
+        
+        container.services.authService.linkGoogleAccount()
+            .sink { [weak self] completion in
+                if case .failure = completion {
+                    self?.isLoading = false
+                }
+            } receiveValue: { [weak self] user in
+                self?.isLoading = false
+                self?.userId = user.id
+                self?.authState = .authenticated
+                self?.isAnonymousUser = false
+            }.store(in: &subscriptions)
+    }
+    
+    private func linkAppleLoginCompletion(result: Result<ASAuthorization, Error>) {
+        isLoading = true
+        
+        guard case let .success(authorization) = result else {
+            isLoading = false
+            return
+        }
+        
+        guard let nonce = currentNonce else {
+            return
+        }
+        
+        container.services.authService.handleLinkWithAppleCompletion(authorization, nonce: nonce)
+            .sink { [weak self] completion in
+                if case .failure = completion {
+                    self?.isLoading = false
+                }
+            }receiveValue: { [weak self] user in
+                self?.isLoading = false
+                self?.userId = user.id
+                self?.authState = .authenticated
+                self?.isAnonymousUser = false
+            }
+            .store(in: &subscriptions)
     }
 }

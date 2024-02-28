@@ -16,58 +16,42 @@ enum AuthServiceError: Error {
     case clientIdError
     case tokenError
     case invalidated
+    case failedToRetrieveAnonymousUserData
+    case credentialAlreadyInUse
 }
 
 protocol AuthServiceInterface {
+    // MARK: - User ID 확인
     func checkAuthenticationState() -> String?
-    func signInWithGoogle() -> AnyPublisher<UserEntity, ServiceError>
+    // MARK: - Sign In
+    func signInWithGoogle() -> AnyPublisher<UserModel, ServiceError>
+    
     func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest) -> String
-    func handleSignInWithAppleCompletion(_ authorization: ASAuthorization, none: String) -> AnyPublisher<UserEntity, ServiceError>
+    func handleSignInWithAppleCompletion(_ authorization: ASAuthorization, nonce: String) -> AnyPublisher<UserModel, ServiceError>
+    // MARK: - Log Out
     func logout() -> AnyPublisher<Void, ServiceError>
-    func anonymousLogin() -> AnyPublisher<UserEntity, ServiceError>
+    // MARK: - Anonymous Sign In
+    func anonymousSignIn() -> AnyPublisher<UserModel, ServiceError>
+    func isAnonyMousUser() -> Bool
+    // MARK: - Linking
+    func linkGoogleAccount() -> AnyPublisher<UserModel, ServiceError>
+    func handleLinkWithAppleCompletion(_ authorization: ASAuthorization, nonce: String) -> AnyPublisher<UserModel, ServiceError>
 }
 
 class AuthService: AuthServiceInterface {
-    func anonymousLogin() -> AnyPublisher<UserEntity, ServiceError> {
-        Future<UserEntity, ServiceError> { promise in
-            Auth.auth().signInAnonymously { authResult, error in
-                if let error = error {
-                    promise(.failure(.error(error)))
-                    return
-                }
-                guard let user = authResult?.user else {
-                    let customError = NSError(domain: "AuthService", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to retrieve user data after anonymous sign-in."])
-                    promise(.failure(.error(customError as Error)))
-                    return
-                }
-                let newUser = UserEntity(
-                    id: user.uid,
-                    nickname: "익명 사용자",
-                    createdAt: user.metadata.creationDate ?? Date()
-                )
-                promise(.success(newUser))
-            }
-        }.eraseToAnyPublisher()
-    }
-    
+    // MARK: - User ID 확인
     func checkAuthenticationState() -> String? {
         if let user = Auth.auth().currentUser {
             return user.uid
-        } else {
-            return nil
         }
+        
+        return nil
     }
     
-    func signInWithGoogle() -> AnyPublisher<UserEntity, ServiceError> {
+    // MARK: - Sign In
+    func signInWithGoogle() -> AnyPublisher<UserModel, ServiceError> {
         Future { [weak self] promise in
-            self?.signInWithGoogle { result in
-                switch result {
-                case .success(let user):
-                    promise(.success(user))
-                case .failure(let error):
-                    promise(.failure(.error(error)))
-                }
-            }
+            self?.signInWithGoogle(isLinkingUser: false, completion: promise)
         }.eraseToAnyPublisher()
     }
     
@@ -78,19 +62,13 @@ class AuthService: AuthServiceInterface {
         return nonce
     }
     
-    func handleSignInWithAppleCompletion(_ authorization: ASAuthorization, none: String) -> AnyPublisher<UserEntity, ServiceError> {
+    func handleSignInWithAppleCompletion(_ authorization: ASAuthorization, nonce: String) -> AnyPublisher<UserModel, ServiceError> {
         Future { [weak self] promise in
-            self?.handleSignInWithAppleCompletion(authorization, nonce: none) { result in
-                switch result {
-                case .success(let user):
-                    promise(.success(user))
-                case .failure(let error):
-                    promise(.failure(.error(error)))
-                }
-            }
+            self?.handleSignInWithAppleCompletion(authorization, nonce: nonce, completion: promise)
         }.eraseToAnyPublisher()
     }
     
+    // MARK: - Log Out
     func logout() -> AnyPublisher<Void, ServiceError> {
         Future { promise in
             do {
@@ -101,52 +79,113 @@ class AuthService: AuthServiceInterface {
             }
         }.eraseToAnyPublisher()
     }
+    
+    // MARK: - Anonymous Sign In
+    func anonymousSignIn() -> AnyPublisher<UserModel, ServiceError> {
+        Future { promise in
+            Auth.auth().signInAnonymously { authResult, error in
+                
+                if let error = error {
+                    promise(.failure(.error(error)))
+                    return
+                }
+                
+                guard let user = authResult?.user else {
+                    promise(.failure(.error(AuthServiceError.failedToRetrieveAnonymousUserData)))
+                    return
+                }
+                
+                let newUser = UserModel(
+                    id: user.uid,
+                    nickname: "익명 사용자",
+                    createdAt: user.metadata.creationDate ?? Date()
+                )
+                
+                promise(.success(newUser))
+            }
+        }.eraseToAnyPublisher()
+    }
+    
+    func isAnonyMousUser() -> Bool {
+        Auth.auth().currentUser?.isAnonymous ?? true
+    }
+    
+    // MARK: - Linking
+    func linkGoogleAccount() -> AnyPublisher<UserModel, ServiceError> {
+        Future { [weak self] promise in
+            self?.signInWithGoogle(
+                isLinkingUser: true,
+                completion: promise
+            )
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func handleLinkWithAppleCompletion(
+        _ authorization: ASAuthorization,
+        nonce: String
+    ) -> AnyPublisher<UserModel, ServiceError> {
+        
+        Future { [weak self] promise in
+            self?.handleLinkWithAppleCompletion(
+                authorization,
+                nonce: nonce,
+                completion: promise
+            )
+        }
+        .eraseToAnyPublisher()
+    }
 }
 
 extension AuthService {
     
-    private func signInWithGoogle(completion: @escaping (Result<UserEntity, Error>) -> Void) {
+    /// Google Sign in 과정을 수행하는 메서드
+    /// - Parameters:
+    ///   - isLinkingUser: 익명로그인 사용자가 기존 계정에 연결하는지 여부
+    ///   - completion: (Result<UserModel, ServiceError>) -> Void
+    private func signInWithGoogle(isLinkingUser: Bool, completion: @escaping (Result<UserModel, ServiceError>) -> Void) {
         guard let clientID = FirebaseApp.app()?.options.clientID else {
-            completion(.failure(AuthServiceError.clientIdError))
+            completion(.failure(.error(AuthServiceError.clientIdError)))
             return
         }
-        let config = GIDConfiguration(clientID: clientID)
-        GIDSignIn.sharedInstance.configuration = config
+
+        GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: clientID)
         
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first,
               let rootViewController = window.rootViewController else {
+            completion(.failure(.error(AuthServiceError.invalidated)))
             return
         }
         
         GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController) { [weak self] result, error in
             if let error {
-                completion(.failure(error))
+                completion(.failure(.error(error)))
                 return
             }
             guard let user = result?.user, let idToken = user.idToken?.tokenString else {
-                completion(.failure(AuthServiceError.tokenError))
+                completion(.failure(.error(AuthServiceError.tokenError)))
                 return
             }
             
             let credential = GoogleAuthProvider.credential(withIDToken: idToken,
                                                            accessToken: user.accessToken.tokenString)
-            
-            self?.authenticateUserWithFirebase(credential: credential, completion: completion)
-            
+            // 익명 사용자가 기존 계정에 연결하는지에 따라 분기
+            if isLinkingUser {
+                self?.linkUserWithFirebase(credetial: credential, completion: completion)
+            } else {
+                self?.authenticateUserWithFirebase(credential: credential, completion: completion)
+            }
         }
     }
     
     private func handleSignInWithAppleCompletion(_ authorization: ASAuthorization,
                                                  nonce: String,
-                                                 completion: @escaping (Result<UserEntity, Error>) -> Void) {
+                                                 completion: @escaping (Result<UserModel, ServiceError>) -> Void) {
         guard let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
-              let appleIDToken = appleIdCredential.identityToken else { // idToken은 데이터형식임 -> String형식으로 변환 필요하다
-            completion(.failure(AuthServiceError.tokenError))
-            return
-        }
-        guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-            completion(.failure(AuthServiceError.tokenError))
+              let appleIDToken = appleIdCredential.identityToken,
+              let idTokenString = String(data: appleIDToken, encoding: .utf8) else { // idToken은 데이터형식임 -> String형식으로 변환 필요하다
+            completion(.failure(.error(AuthServiceError.tokenError)))
             return
         }
         
@@ -155,6 +194,7 @@ extension AuthService {
             idToken: idTokenString,
             rawNonce: nonce
         )
+        
         authenticateUserWithFirebase(credential: credential) { result in
             switch result {
             case var .success(user):
@@ -168,19 +208,49 @@ extension AuthService {
         }
     }
     
+    private func handleLinkWithAppleCompletion(_ authorization: ASAuthorization,
+                                               nonce: String,
+                                               completion: @escaping (Result<UserModel, ServiceError>) -> Void) {
+        guard let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
+              let appleIDToken = appleIdCredential.identityToken,
+              let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+            // idToken은 데이터형식임 -> String형식으로 변환 필요하다
+            completion(.failure(.error(AuthServiceError.tokenError)))
+            return
+        }
+        
+        let credential = OAuthProvider.credential(
+            withProviderID: "apple.com",
+            idToken: idTokenString,
+            rawNonce: nonce
+        )
+        
+        linkUserWithFirebase(credetial: credential) { result in
+            switch result {
+            case var .success(user):
+                user.nickname = [appleIdCredential.fullName?.givenName, appleIdCredential.fullName?.familyName]
+                    .compactMap({$0})
+                    .joined(separator: " ")
+                completion(.success(user))
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     // MARK: Firebase 인증하는 함수
-    private func authenticateUserWithFirebase(credential: AuthCredential, completion: @escaping (Result<UserEntity, Error>) -> Void) {
+    private func authenticateUserWithFirebase(credential: AuthCredential, completion: @escaping (Result<UserModel, ServiceError>) -> Void) {
         Auth.auth().signIn(with: credential) { result, error in
             if let error {
-                completion(.failure(error))
+                completion(.failure(.error(error)))
                 return
             }
             guard let result else {
-                completion(.failure(AuthServiceError.invalidated))
+                completion(.failure(.error(AuthServiceError.invalidated)))
                 return
             }
             let firebaseUser = result.user
-            let user: UserEntity = .init(
+            let user: UserModel = .init(
                 id: firebaseUser.uid,
                 nickname: firebaseUser.displayName ?? "",
                 createdAt: firebaseUser.metadata.creationDate ?? Date()
@@ -188,10 +258,42 @@ extension AuthService {
             completion(.success(user))
         }
     }
+    
+    private func linkUserWithFirebase(
+        credetial: AuthCredential,
+        completion: @escaping ((Result<UserModel, ServiceError>) -> Void)
+    ) {
+        guard let user = Auth.auth().currentUser else {
+            completion(.failure(.error(AuthServiceError.invalidated)))
+            return
+        }
+        
+        user.link(with: credetial) { result, error in
+            if let error {
+                completion(.failure(.error(error)))
+                return
+            }
+            
+            guard let result else {
+                completion(.failure(.error(AuthServiceError.invalidated)))
+                return
+            }
+            
+            let linkingUser: UserModel = .init(
+                id: result.user.uid,
+                nickname: result.user.displayName ?? "",
+                createdAt: result.user.metadata.creationDate ?? Date()
+            )
+            
+            completion(.success(linkingUser))
+        }
+    }
+     
 }
 
 class StubAuthService: AuthServiceInterface {
-    func anonymousLogin() -> AnyPublisher<UserEntity, ServiceError> {
+    
+    func anonymousSignIn() -> AnyPublisher<UserModel, ServiceError> {
         Empty().eraseToAnyPublisher()
     }
     
@@ -199,7 +301,7 @@ class StubAuthService: AuthServiceInterface {
         return nil
     }
     
-    func signInWithGoogle() -> AnyPublisher<UserEntity, ServiceError> {
+    func signInWithGoogle() -> AnyPublisher<UserModel, ServiceError> {
         Empty().eraseToAnyPublisher()
 
     }
@@ -208,11 +310,23 @@ class StubAuthService: AuthServiceInterface {
         return ""
     }
     
-    func handleSignInWithAppleCompletion(_ authorization: ASAuthorization, none: String) -> AnyPublisher<UserEntity, ServiceError> {
+    func handleSignInWithAppleCompletion(_ authorization: ASAuthorization, nonce: String) -> AnyPublisher<UserModel, ServiceError> {
+        Empty().eraseToAnyPublisher()
+    }
+    
+    func linkGoogleAccount() -> AnyPublisher<UserModel, ServiceError> {
+        Empty().eraseToAnyPublisher()
+    }
+    
+    func handleLinkWithAppleCompletion(_ authorization: ASAuthorization, nonce: String) -> AnyPublisher<UserModel, ServiceError> {
         Empty().eraseToAnyPublisher()
     }
     
     func logout() -> AnyPublisher<Void, ServiceError> {
         Empty().eraseToAnyPublisher()
+    }
+    
+    func isAnonyMousUser() -> Bool {
+        true
     }
 }
