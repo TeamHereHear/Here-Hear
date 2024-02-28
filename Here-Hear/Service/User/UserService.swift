@@ -15,8 +15,6 @@ protocol UserServiceInterface {
     func deleteUser(_ user: UserModel) -> AnyPublisher<UserModel, ServiceError>
 }
 
-// TODO: - 지금은 레포지토리의 메서드를 그대로 따라서 구현했지만 추후 사용함에 있어 필요한 메서드가 있을 수 있다.
-// 예를들어 유저가 있는지 확인하고 추가하는 메서드는 먼저 GET 한 후 POST 해야하므로 레포지토리의 메서드를 조합해서 만들어야 한다.
 class UserService: UserServiceInterface {
     
     private let repository: UserRepositoryInterface
