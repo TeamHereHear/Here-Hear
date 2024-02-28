@@ -17,14 +17,20 @@ protocol HearServiceInterface {
 
 class HearService: HearServiceInterface {
     private let repository: HearRepositoryInterface
+    private let geohashService: GeohashServiceInterface
     
-    init(repository: HearRepositoryInterface) {
+    init(repository: HearRepositoryInterface, geohashService: GeohashServiceInterface) {
         self.repository = repository
+        self.geohashService = geohashService
     }
     
     func fetchAroundHears(latitude: Double, longitude: Double, radiusInMeter radius: Double) -> AnyPublisher<[HearModel], ServiceError> {
         
-        let geohashArray = [String]()
+        let geohashArray = geohashService.overlappingGeohash(
+            latitude: latitude,
+            longitude: longitude,
+            precision: GeohashPrecision.minimumGeohashPrecisionLength(when: radius)?.rawValue ?? 12
+        )
         
         return repository.fetchAroundHears(
             latitude: latitude,
