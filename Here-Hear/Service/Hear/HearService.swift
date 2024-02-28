@@ -9,7 +9,12 @@ import Foundation
 import Combine
 
 protocol HearServiceInterface {
-    func fetchAroundHears(latitude: Double, longitude: Double, radiusInMeter radius: Double) -> AnyPublisher<[HearModel], ServiceError>
+    func fetchAroundHears(
+        latitude: Double,
+        longitude: Double,
+        radiusInMeter radius: Double,
+        searchingIn geohashArray: [String]
+    ) -> AnyPublisher<[HearModel], ServiceError>
     func addHear(_ hear: HearModel) -> AnyPublisher<HearModel, ServiceError>
     func updateHear(_ hear: HearModel) -> AnyPublisher<HearModel, ServiceError>
     func deleteHear(_ hear: HearModel) -> AnyPublisher<Void, ServiceError>
@@ -17,22 +22,18 @@ protocol HearServiceInterface {
 
 class HearService: HearServiceInterface {
     private let repository: HearRepositoryInterface
-    private let geohashService: GeohashServiceInterface
-    
-    init(repository: HearRepositoryInterface, geohashService: GeohashServiceInterface) {
+
+    init(repository: HearRepositoryInterface) {
         self.repository = repository
-        self.geohashService = geohashService
     }
     
-    func fetchAroundHears(latitude: Double, longitude: Double, radiusInMeter radius: Double) -> AnyPublisher<[HearModel], ServiceError> {
-        
-        let geohashArray = geohashService.overlappingGeohash(
-            latitude: latitude,
-            longitude: longitude,
-            precision: GeohashPrecision.minimumGeohashPrecisionLength(when: radius)?.rawValue ?? 12
-        )
-        
-        return repository.fetchAroundHears(
+    func fetchAroundHears(
+        latitude: Double,
+        longitude: Double,
+        radiusInMeter radius: Double,
+        searchingIn geohashArray: [String]
+    ) -> AnyPublisher<[HearModel], ServiceError> {
+        repository.fetchAroundHears(
             latitude: latitude,
             longitude: longitude,
             radiusInMeter: radius,
@@ -77,7 +78,12 @@ class HearService: HearServiceInterface {
 }
 
 class StubHearService: HearServiceInterface {
-    func fetchAroundHears(latitude: Double, longitude: Double, radiusInMeter radius: Double) -> AnyPublisher<[HearModel], ServiceError> {
+    func fetchAroundHears(
+        latitude: Double,
+        longitude: Double,
+        radiusInMeter radius: Double,
+        searchingIn geohashArray: [String]
+    ) -> AnyPublisher<[HearModel], ServiceError> {
         Empty().eraseToAnyPublisher()
     }
     

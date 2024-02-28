@@ -24,9 +24,9 @@ class Services: ServicesInterface {
     var authService: AuthServiceInterface
     
     init() {
-        self.userService = UserService()
+        self.userService = UserService(repository: UserRepository())
         self.geohashService = GeohashService()
-        self.hearService = HearService(repository: HearRepository(), geohashService: geohashService)
+        self.hearService = HearService(repository: HearRepository())
         self.musicService = MusicService()
         self.authService = AuthService()
     }
