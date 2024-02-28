@@ -16,7 +16,7 @@ enum UserRepositoryError: Error {
 }
 
 protocol UserRepositoryInterface {
-    func fetchUser(_ user: UserEntity) -> AnyPublisher<UserEntity, UserRepositoryError>
+    func fetchUser(ofId userId: String) -> AnyPublisher<UserEntity, UserRepositoryError>
     func addUser(_ user: UserEntity) -> AnyPublisher<UserEntity, UserRepositoryError>
     func updateUser(_ user: UserEntity) -> AnyPublisher<UserEntity, UserRepositoryError>
     func deleteUser(_ user: UserEntity) -> AnyPublisher<UserEntity, UserRepositoryError>
@@ -26,10 +26,10 @@ class UserRepository: UserRepositoryInterface {
     private var database = Firestore.firestore()
     
     // MARK: 기존 유저 정보 FireStore에서 가져오기
-    func fetchUser(_ user: UserEntity) -> AnyPublisher<UserEntity, UserRepositoryError> {
+    func fetchUser(ofId userId: String) -> AnyPublisher<UserEntity, UserRepositoryError> {
         let subject = PassthroughSubject<UserEntity, UserRepositoryError>()
         
-        database.collection("User").document(user.id).getDocument { document, _  in
+        database.collection("User").document(userId).getDocument { document, _  in
             if let document = document, document.exists {
                 do {
                     let user = try document.data(as: UserEntity.self)
@@ -110,8 +110,8 @@ class StubUserRepository: UserRepositoryInterface {
         userArr[testUser.id] = testUser
         
     }
-    func fetchUser(_ user: UserEntity) -> AnyPublisher<UserEntity, UserRepositoryError> {
-        if let user = userArr[user.id] {
+    func fetchUser(ofId userId: String) -> AnyPublisher<UserEntity, UserRepositoryError> {
+        if let user = userArr[userId] {
             return Just(user).setFailureType(to: UserRepositoryError.self).eraseToAnyPublisher()
         } else {
             // 사용자 정보 존재하지 않을 경우, .notFound 에러 반환
