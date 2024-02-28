@@ -86,7 +86,7 @@ class AuthViewModel: ObservableObject {
         if case let .success(authorization) = result {
             guard let nonce = currentNonce else { return }
             
-            container.services.authService.handleSignInWithAppleCompletion(authorization, none: nonce)
+            container.services.authService.handleSignInWithAppleCompletion(authorization, nonce: nonce)
                 .sink { [weak self] completion in
                     if case .failure = completion {
                         self?.isLoading = false
@@ -113,7 +113,7 @@ class AuthViewModel: ObservableObject {
     
     private func anonymousLogin() {
         isLoading = true
-        container.services.authService.anonymousLogin()
+        container.services.authService.anonymousSignIn()
             .sink { [weak self] completion in
                 self?.isLoading = false
                 if case .failure = completion {

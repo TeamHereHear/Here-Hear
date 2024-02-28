@@ -106,8 +106,8 @@ class StubUserRepository: UserRepositoryInterface {
             createdAt: Date()
         )
         userArr[testUser.id] = testUser
-        
     }
+    
     func fetchUser(ofId userId: String) -> AnyPublisher<UserEntity, UserRepositoryError> {
         if let user = userArr[userId] {
             return Just(user).setFailureType(to: UserRepositoryError.self).eraseToAnyPublisher()
