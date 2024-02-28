@@ -23,7 +23,7 @@ class Services: ServicesInterface {
     
     init() {
         self.userService = UserService()
-        self.hearService = HearService()
+        self.hearService = HearService(repository: HearRepository())
         self.musicService = MusicService()
         self.authService = AuthService()
     }
