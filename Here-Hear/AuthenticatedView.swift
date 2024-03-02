@@ -13,7 +13,6 @@ struct AuthenticatedView: View {
     var body: some View {
         VStack {
             switch authViewModel.authState {
-                
             case .unauthenticated:
                 LoginView()
             case .authenticated:

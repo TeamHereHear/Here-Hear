@@ -49,6 +49,11 @@
 		04A747532B8DBB3600182C5F /* FeelingEntity+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A747522B8DBB3600182C5F /* FeelingEntity+Mock.swift */; };
 		04A747552B8DBB7500182C5F /* LocationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A747542B8DBB7500182C5F /* LocationEntity.swift */; };
 		04A747582B8DBBF900182C5F /* GeohashService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A747572B8DBBF900182C5F /* GeohashService.swift */; };
+		5B0142D42B9346F00033FB9C /* RegisterNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142D32B9346F00033FB9C /* RegisterNicknameView.swift */; };
+		5B0142D62B9347040033FB9C /* RegisterProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142D52B9347040033FB9C /* RegisterProfileImageView.swift */; };
+		5B0142D92B9356670033FB9C /* NicknameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142D82B9356670033FB9C /* NicknameTextField.swift */; };
+		5B0142DB2B9364170033FB9C /* RegisterProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142DA2B9364170033FB9C /* RegisterProfileView.swift */; };
+		5B0142DE2B9368CD0033FB9C /* OnBoardRouterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142DD2B9368CD0033FB9C /* OnBoardRouterView.swift */; };
 		5B0BFDE52B8DCE840010CF2B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B0BFDE42B8DCE840010CF2B /* GoogleService-Info.plist */; };
 		5BDBBD192B846F9400DEB7DC /* Color+HexConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDBBD182B846F9400DEB7DC /* Color+HexConverter.swift */; };
 		5BDBBD1B2B846F9F00DEB7DC /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDBBD1A2B846F9F00DEB7DC /* DIContainer.swift */; };
@@ -123,6 +128,11 @@
 		04A747522B8DBB3600182C5F /* FeelingEntity+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeelingEntity+Mock.swift"; sourceTree = "<group>"; };
 		04A747542B8DBB7500182C5F /* LocationEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEntity.swift; sourceTree = "<group>"; };
 		04A747572B8DBBF900182C5F /* GeohashService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeohashService.swift; sourceTree = "<group>"; };
+		5B0142D32B9346F00033FB9C /* RegisterNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNicknameView.swift; sourceTree = "<group>"; };
+		5B0142D52B9347040033FB9C /* RegisterProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProfileImageView.swift; sourceTree = "<group>"; };
+		5B0142D82B9356670033FB9C /* NicknameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameTextField.swift; sourceTree = "<group>"; };
+		5B0142DA2B9364170033FB9C /* RegisterProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProfileView.swift; sourceTree = "<group>"; };
+		5B0142DD2B9368CD0033FB9C /* OnBoardRouterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardRouterView.swift; sourceTree = "<group>"; };
 		5B0BFDE42B8DCE840010CF2B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5BDBBD182B846F9400DEB7DC /* Color+HexConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+HexConverter.swift"; sourceTree = "<group>"; };
 		5BDBBD1A2B846F9F00DEB7DC /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
@@ -263,6 +273,8 @@
 				04A746E52B8465BC00182C5F /* ViewModel */,
 				04A747062B8467E100182C5F /* MainView.swift */,
 				04A7472E2B88600100182C5F /* LoginView.swift */,
+				5B0142D72B9347080033FB9C /* RegisterProfile */,
+				5B0142DC2B9368A80033FB9C /* OnBoard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -348,6 +360,24 @@
 			path = Geohash;
 			sourceTree = "<group>";
 		};
+		5B0142D72B9347080033FB9C /* RegisterProfile */ = {
+			isa = PBXGroup;
+			children = (
+				5B0142DA2B9364170033FB9C /* RegisterProfileView.swift */,
+				5B0142D32B9346F00033FB9C /* RegisterNicknameView.swift */,
+				5B0142D52B9347040033FB9C /* RegisterProfileImageView.swift */,
+			);
+			path = RegisterProfile;
+			sourceTree = "<group>";
+		};
+		5B0142DC2B9368A80033FB9C /* OnBoard */ = {
+			isa = PBXGroup;
+			children = (
+				5B0142DD2B9368CD0033FB9C /* OnBoardRouterView.swift */,
+			);
+			path = OnBoard;
+			sourceTree = "<group>";
+		};
 		5BDBBD132B846F4C00DEB7DC /* General */ = {
 			isa = PBXGroup;
 			children = (
@@ -371,6 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				5BDBBD1C2B846FA900DEB7DC /* ViewComponent.swift */,
+				5B0142D82B9356670033FB9C /* NicknameTextField.swift */,
 			);
 			path = ViewComponent;
 			sourceTree = "<group>";
@@ -604,6 +635,7 @@
 				04A7472F2B88600100182C5F /* LoginView.swift in Sources */,
 				5BDBBD232B8476B900DEB7DC /* HearRepository.swift in Sources */,
 				04A747092B8467FB00182C5F /* Services.swift in Sources */,
+				5B0142DB2B9364170033FB9C /* RegisterProfileView.swift in Sources */,
 				5BDBBD212B8476AC00DEB7DC /* UserRepository.swift in Sources */,
 				04A746F52B84673900182C5F /* FeelingEntity.swift in Sources */,
 				04A747372B8872D100182C5F /* ServiceError.swift in Sources */,
@@ -627,7 +659,9 @@
 				5BDBBD272B8479C400DEB7DC /* UserService.swift in Sources */,
 				04A746BC2B8464A700182C5F /* AuthenticatedView.swift in Sources */,
 				04A7474F2B8DBB1700182C5F /* MusicEntity+Mock.swift in Sources */,
+				5B0142D42B9346F00033FB9C /* RegisterNicknameView.swift in Sources */,
 				04A746BA2B8464A700182C5F /* Here_HearApp.swift in Sources */,
+				5B0142D92B9356670033FB9C /* NicknameTextField.swift in Sources */,
 				04A7474D2B8DBAD200182C5F /* GeohashPrecision.swift in Sources */,
 				5BDBBD1D2B846FA900DEB7DC /* ViewComponent.swift in Sources */,
 				04A746FF2B84679700182C5F /* HearModel.swift in Sources */,
@@ -635,8 +669,10 @@
 				04A747332B88647800182C5F /* AuthViewModel.swift in Sources */,
 				04A747402B8C31E900182C5F /* RandomNonceString.swift in Sources */,
 				04A747032B8467A300182C5F /* FeelingModel.swift in Sources */,
+				5B0142D62B9347040033FB9C /* RegisterProfileImageView.swift in Sources */,
 				5BDBBD2A2B8479D900DEB7DC /* HearService.swift in Sources */,
 				04A7474B2B8DBA6100182C5F /* LocationModel.swift in Sources */,
+				5B0142DE2B9368CD0033FB9C /* OnBoardRouterView.swift in Sources */,
 				04A747552B8DBB7500182C5F /* LocationEntity.swift in Sources */,
 				04A747222B85D72400182C5F /* CGPoint+Extension.swift in Sources */,
 			);
@@ -815,7 +851,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Here-Hear/Preview Content\"";
-				DEVELOPMENT_TEAM = QUMNMR4BSR;
+				DEVELOPMENT_TEAM = SUDPP9C593;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -854,7 +890,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Here-Hear/Preview Content\"";
-				DEVELOPMENT_TEAM = QUMNMR4BSR;
+				DEVELOPMENT_TEAM = SUDPP9C593;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;

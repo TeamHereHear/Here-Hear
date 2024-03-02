@@ -101,7 +101,7 @@ class AuthViewModel: ObservableObject {
                     if case .failure = completion {
                         self?.isLoading = false
                     }
-                }receiveValue: { [weak self] user in
+                } receiveValue: { [weak self] user in
                     self?.isLoading = false
                     self?.userId = user.id
                     self?.authState = .authenticated

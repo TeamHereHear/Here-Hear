@@ -1,10 +1,89 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%lld/%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld/%2$lld"
+          }
+        }
+      }
+    },
+    "Anonymous" : {
+
+    },
     "Google로 로그인" : {
 
     },
+    "Hello, World!" : {
+
+    },
     "Here, Hear" : {
+
+    },
+    "Main" : {
+
+    },
+    "Next" : {
+
+    },
+    "nicknameTextField.nicknameLengthRules" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Please enter a nickname between 1 and 10 characters."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "10글자 이하로 만들어 주세요."
+          }
+        }
+      }
+    },
+    "nicknameTextField.nicknameLetterRules" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Please create a nickname using English, numbers, and Korean."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "닉네임은 영어 대소문자, 숫자, 한글을 사용하여 만들어 주세요."
+          }
+        }
+      }
+    },
+    "nicknameTextField.prompt" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Please enter your nickname."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "별명 입력하기"
+          }
+        }
+      }
+    },
+    "Signned" : {
+
+    },
+    "Tab Content 2" : {
 
     },
     "this is MainView" : {
@@ -14,6 +93,9 @@
 
     },
     "구글 계정으로 로그인" : {
+
+    },
+    "닉네임을 만들어주세요 :)" : {
 
     },
     "로그아웃" : {
