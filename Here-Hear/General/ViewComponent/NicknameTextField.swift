@@ -9,9 +9,13 @@ import SwiftUI
 
 struct NicknameTextField: View {
     @Binding private var nickname: String
-    
-    init(nickname: Binding<String>) {
+    @Binding private var isValid: Bool
+    init(
+        nickname: Binding<String>,
+        isValid: Binding<Bool>
+    ) {
         self._nickname = nickname
+        self._isValid = isValid
     }
     
     var body: some View {
@@ -52,6 +56,9 @@ struct NicknameTextField: View {
             .animation(.default, value: isValidLetter(self.nickname))
         }
         .font(.caption.weight(.semibold))
+        .onChange(of: nickname) { text in
+            self.isValid = isValidLength(text) && isValidLetter(text)
+        }
         
     }
     
@@ -128,5 +135,6 @@ extension View {
 
 #Preview {
     @State var text: String = ""
-    return NicknameTextField(nickname: $text)
+    @State var isValid: Bool = false
+    return NicknameTextField(nickname: $text, isValid: $isValid)
 }

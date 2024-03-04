@@ -9,32 +9,82 @@ import SwiftUI
 import Combine
 
 struct RegisterNicknameView: View {
-    @State private var nickname: String = ""
+    @StateObject private var viewModel: RegisterNicknameViewModel
     @FocusState private var isFocused: Bool
     
+    init(viewModel: RegisterNicknameViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
     var body: some View {
-        VStack(alignment: .leading) {
+        if #available(iOS 16.0, *) {
+            NavigationStack {
+                content
+                    .navigationDestination(isPresented: $viewModel.didSetNickname) {
+                        RegisterProfileImageView()
+                    }
+            }
+        } else {
+            NavigationView {
+                content
+                    .overlay {
+                        NavigationLink(
+                            destination: RegisterProfileImageView(),
+                            isActive: $viewModel.didSetNickname,
+                            label: {
+                                EmptyView()
+                            })
+                    }
+            }
+        }
+    }
+    
+    private var content: some View {
+        VStack(alignment: .leading, spacing: 18) {
+            HHProgressBar(value: 0.5)
+                .padding(.horizontal, -5)
             Text("닉네임을 만들어주세요 :)")
                 .font(.largeTitle)
                 .fontWeight(.heavy)
             
             Spacer()
-            
-            NicknameTextField(nickname: $nickname)
-                .focused($isFocused)
-                .submitLabel(.continue)
-                .onSubmit {
-                    print("Submit")
-                }
+
+            NicknameTextField(
+                nickname: $viewModel.nickname,
+                isValid: $viewModel.isValidNickname
+            )
+            .focused($isFocused)
+           
             Spacer()
         }
         .padding(.horizontal, 17)
         .onAppear {
             isFocused = true
         }
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
+                HStack {
+                    Spacer()
+                
+                    Button {
+                        viewModel.registerNickname()
+                    } label: {
+                        Text("저장")
+                    }
+                    .disabled(!viewModel.isValidNickname)
+                }
+            }
+        }
+        
     }
 }
 
-#Preview { 
-    RegisterNicknameView()
+#Preview {
+    RegisterNicknameView(
+        viewModel: .init(
+            container: .init(
+                services: StubServices()
+            )
+        )
+    )
 }

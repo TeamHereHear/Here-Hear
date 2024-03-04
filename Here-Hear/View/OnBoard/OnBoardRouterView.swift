@@ -8,28 +8,36 @@
 import SwiftUI
 
 struct OnBoardRouterView: View {
-    @State private var onBoardRoute: OnBoardRoute = .existingUser
+    @StateObject private var viewModel: OnBoardRouterViewModel
+    @EnvironmentObject private var authViewModel: AuthViewModel
+    @EnvironmentObject private var container: DIContainer
     
-    enum OnBoardRoute: Int, Hashable {
-        case existingUser = 1
-        case signnedInNewUser
-        case anonymousNewUser
+    init(viewModel: OnBoardRouterViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
     }
     
     var body: some View {
-        NavigationView {
-            switch onBoardRoute {
+        VStack {
+            switch viewModel.onBoardRoute {
             case .existingUser:
-                Text("Main")
-            case .signnedInNewUser:
-                Text("Signned")
-            case .anonymousNewUser:
-                Text("Anonymous")
+                /// 이미 등록되어 있다면
+                MainView()
+            case .newUser:
+                /// 등록되어 있는 UserModel 이 없다면
+                RegisterNicknameView(viewModel: .init(container: container))
+            case .anonymousUser:
+                /// 익명사용자라면
+                OnBoardingView()
+            case .failed:
+                /// 실패했다면
+                ProgressView()
+                    .onAppear {
+                        authViewModel.send(action: .logout)
+                    }
             }
         }
+        .onAppear {
+            viewModel.setOnBoardRoute()
+        }
     }
-}
-
-#Preview {
-    OnBoardRouterView()
 }

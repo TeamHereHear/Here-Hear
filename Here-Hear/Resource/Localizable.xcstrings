@@ -11,9 +11,6 @@
         }
       }
     },
-    "Anonymous" : {
-
-    },
     "Google로 로그인" : {
 
     },
@@ -21,12 +18,6 @@
 
     },
     "Here, Hear" : {
-
-    },
-    "Main" : {
-
-    },
-    "Next" : {
 
     },
     "nicknameTextField.nicknameLengthRules" : {
@@ -80,12 +71,6 @@
         }
       }
     },
-    "Signned" : {
-
-    },
-    "Tab Content 2" : {
-
-    },
     "this is MainView" : {
 
     },
@@ -114,6 +99,9 @@
 
     },
     "음악으로 기억되는 공간" : {
+
+    },
+    "저장" : {
 
     }
   },
