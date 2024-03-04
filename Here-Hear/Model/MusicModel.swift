@@ -7,12 +7,13 @@
 
 import Foundation
 
-struct MusicModel {
+struct MusicModel: Codable, Hashable, Identifiable {
     var id: String
-    var album: String
+    var album: String?
     var title: String
     var artist: String
     var artwork: URL?
+    var previewURL: URL?
 }
 
 extension MusicModel {
@@ -22,7 +23,8 @@ extension MusicModel {
             album: album,
             title: title,
             artist: artist,
-            artwork: artwork?.absoluteString
+            artwork: artwork?.absoluteString,
+            previewURL: previewURL?.absoluteString
         )
     }
 }

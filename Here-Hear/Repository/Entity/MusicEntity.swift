@@ -7,12 +7,14 @@
 
 import Foundation
 
-struct MusicEntity: Codable {
+struct MusicEntity: Codable, Hashable, Identifiable {
     var id: String
-    var album: String
+    var album: String?
     var title: String
     var artist: String
     var artwork: String?
+    var previewURL: String?
+
 }
 
 extension MusicEntity {
@@ -22,7 +24,8 @@ extension MusicEntity {
             album: album,
             title: title,
             artist: artist,
-            artwork: URL(string: artwork ?? "")
+            artwork: URL(string: artwork ?? ""),
+            previewURL: URL(string: previewURL ?? "")
         )
     }
 }
