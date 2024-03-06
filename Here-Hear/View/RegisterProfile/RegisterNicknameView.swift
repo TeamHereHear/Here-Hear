@@ -19,24 +19,20 @@ struct RegisterNicknameView: View {
     var body: some View {
         if #available(iOS 16.0, *) {
             NavigationStack {
-                content
-                    .navigationDestination(isPresented: $viewModel.didSetNickname) {
-                        RegisterProfileImageView()
-                    }
+                navigationAdaptedContent
             }
         } else {
             NavigationView {
-                content
-                    .overlay {
-                        NavigationLink(
-                            destination: RegisterProfileImageView(),
-                            isActive: $viewModel.didSetNickname,
-                            label: {
-                                EmptyView()
-                            })
-                    }
+                navigationAdaptedContent
             }
         }
+    }
+    
+    private var navigationAdaptedContent: some View {
+        content
+            .navigationAdaptor(isPresented: $viewModel.didSetNickname) {
+                RegisterProfileImageView()
+            }
     }
     
     private var content: some View {
@@ -44,16 +40,16 @@ struct RegisterNicknameView: View {
             HHProgressBar(value: 0.5)
                 .padding(.horizontal, -5)
             Text("닉네임을 만들어주세요 :)")
-                .font(.largeTitle)
+                .font(.title)
                 .fontWeight(.heavy)
             
             Spacer()
 
             NicknameTextField(
                 nickname: $viewModel.nickname,
-                isValid: $viewModel.isValidNickname
+                isValid: $viewModel.isValidNickname,
+                isFocused: $isFocused
             )
-            .focused($isFocused)
            
             Spacer()
         }
@@ -62,6 +58,19 @@ struct RegisterNicknameView: View {
             isFocused = true
         }
         .toolbar {
+            ToolbarItem(placement: .keyboard) {
+                HStack {
+                    Spacer()
+                
+                    Button {
+                        viewModel.registerNickname()
+                    } label: {
+                        Text("저장")
+                    }
+                    .disabled(!viewModel.isValidNickname)
+                }
+            }
+            
             ToolbarItem(placement: .bottomBar) {
                 HStack {
                     Spacer()

@@ -19,6 +19,8 @@ struct OnBoardRouterView: View {
     var body: some View {
         VStack {
             switch viewModel.onBoardRoute {
+            case .none:
+                ProgressView()
             case .existingUser:
                 /// 이미 등록되어 있다면
                 MainView()

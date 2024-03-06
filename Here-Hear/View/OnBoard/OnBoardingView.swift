@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct OnBoardingView: View {
+    @EnvironmentObject private var authViewModel: AuthViewModel
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button {
+            authViewModel.send(action: .logout)
+        } label: {
+            Text("logout")
+        }
+        
     }
 }
 

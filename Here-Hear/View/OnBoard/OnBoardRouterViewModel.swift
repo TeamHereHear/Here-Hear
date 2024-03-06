@@ -9,11 +9,12 @@ import Foundation
 import Combine
 
 final class OnBoardRouterViewModel: ObservableObject {
-    @Published var onBoardRoute: OnBoardRoute = .existingUser
+    @Published var onBoardRoute: OnBoardRoute = .none
     @Published var loadingState: LoadingState = .none
     
     enum OnBoardRoute: Int, Hashable {
-        case existingUser = 1
+        case none = 0
+        case existingUser
         case newUser
         case anonymousUser
         case failed
@@ -66,10 +67,13 @@ final class OnBoardRouterViewModel: ObservableObject {
             .sink { [weak self] completion in
                 guard let self else { return }
                 switch completion {
-                case .finished: self.onBoardRoute = .anonymousUser
-                case .failure: self.onBoardRoute = .failed
+                case .finished: 
+                    self.onBoardRoute = .anonymousUser
+                case .failure: 
+                    self.onBoardRoute = .failed
                 }
-            } receiveValue: { _ in }
+            } receiveValue: { _ in
+            }
             .store(in: &cancellables)
     }
 }

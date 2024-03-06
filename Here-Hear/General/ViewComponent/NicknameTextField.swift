@@ -10,12 +10,15 @@ import SwiftUI
 struct NicknameTextField: View {
     @Binding private var nickname: String
     @Binding private var isValid: Bool
+    private var isFocused: FocusState<Bool>.Binding
     init(
         nickname: Binding<String>,
-        isValid: Binding<Bool>
+        isValid: Binding<Bool>,
+        isFocused: FocusState<Bool>.Binding
     ) {
         self._nickname = nickname
         self._isValid = isValid
+        self.isFocused = isFocused
     }
     
     var body: some View {
@@ -73,6 +76,7 @@ struct NicknameTextField: View {
         }
     }
     
+    @Environment(\.colorScheme) private var scheme
     private var textField: some View {
         VStack(spacing: 0) {
             TextField(text: $nickname) {
@@ -83,8 +87,10 @@ struct NicknameTextField: View {
                         defaultValue: "Please enter your nickname."
                     )
                 )
+                .foregroundStyle(.gray)
             }
             .nicknameTextFieldStyle()
+            .focused(isFocused)
             
             HStack {
                 Spacer()
@@ -113,6 +119,8 @@ struct NicknameTextField: View {
 }
 
 private struct NicknameTextFieldStyleModifier: ViewModifier {
+    @Environment(\.colorScheme) private var scheme: ColorScheme
+    
     func body(content: Content) -> some View {
         content
             .multilineTextAlignment(.center)
@@ -136,5 +144,6 @@ extension View {
 #Preview {
     @State var text: String = ""
     @State var isValid: Bool = false
-    return NicknameTextField(nickname: $text, isValid: $isValid)
+    @FocusState var isFocused: Bool
+    return NicknameTextField(nickname: $text, isValid: $isValid, isFocused: $isFocused)
 }

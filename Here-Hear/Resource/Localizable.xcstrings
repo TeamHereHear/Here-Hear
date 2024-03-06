@@ -14,10 +14,10 @@
     "Google로 로그인" : {
 
     },
-    "Hello, World!" : {
+    "Here, Hear" : {
 
     },
-    "Here, Hear" : {
+    "logout" : {
 
     },
     "nicknameTextField.nicknameLengthRules" : {
@@ -77,6 +77,9 @@
     "개인정보 처리방침" : {
 
     },
+    "건너뛰기" : {
+
+    },
     "구글 계정으로 로그인" : {
 
     },
@@ -102,6 +105,9 @@
 
     },
     "저장" : {
+
+    },
+    "프로필 사진을 저장해 주세요." : {
 
     }
   },
