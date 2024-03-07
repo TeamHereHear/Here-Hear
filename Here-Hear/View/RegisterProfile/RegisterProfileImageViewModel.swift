@@ -6,9 +6,13 @@
 //
 
 import SwiftUI
-import PhotosUI
 
 final class RegisterProfileImageViewModel: ObservableObject {
+    @Published var showProfileImagePicker: Bool = false
+    @Published var image: UIImage?
+    @Published var didSetProfile: Bool = false
     
-    
+    func upload() {
+        
+    }
 }

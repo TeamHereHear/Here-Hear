@@ -36,8 +36,8 @@ struct RegisterProfileImageView: View {
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
                 HStack {
-                    NavigationLink {
-                        
+                    Button {
+                        didSetProfile = true
                     } label: {
                         Text("건너뛰기")
                     }
