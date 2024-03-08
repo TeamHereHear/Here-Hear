@@ -10,7 +10,7 @@ import Combine
 
 struct RegisterNicknameView: View {
     @StateObject private var viewModel: RegisterNicknameViewModel
-    @FocusState private var isFocused: Bool
+    @EnvironmentObject private var container: DIContainer
     
     init(viewModel: RegisterNicknameViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
@@ -31,7 +31,7 @@ struct RegisterNicknameView: View {
     private var navigationAdaptedContent: some View {
         content
             .navigationAdaptor(isPresented: $viewModel.didSetNickname) {
-                RegisterProfileImageView()
+                RegisterProfileImageView(viewModel: .init(container: container))
             }
     }
     
@@ -48,15 +48,12 @@ struct RegisterNicknameView: View {
             NicknameTextField(
                 nickname: $viewModel.nickname,
                 isValid: $viewModel.isValidNickname,
-                isFocused: $isFocused
+                focusedWhenAppearing: true
             )
            
             Spacer()
         }
         .padding(.horizontal, 17)
-        .onAppear {
-            isFocused = true
-        }
         .toolbar {
             ToolbarItem(placement: .keyboard) {
                 HStack {
@@ -89,11 +86,10 @@ struct RegisterNicknameView: View {
 }
 
 #Preview {
-    RegisterNicknameView(
-        viewModel: .init(
-            container: .init(
-                services: StubServices()
-            )
-        )
+    let container: DIContainer = .init(services: StubServices())
+    
+    return RegisterNicknameView(
+        viewModel: .init(container: container)
     )
+    .environmentObject(container)
 }

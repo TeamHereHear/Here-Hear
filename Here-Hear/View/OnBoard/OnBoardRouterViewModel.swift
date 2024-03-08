@@ -36,6 +36,7 @@ final class OnBoardRouterViewModel: ObservableObject {
     
     func setOnBoardRoute() {
         guard let id = container.services.authService.checkAuthenticationState() else {
+            self.onBoardRoute = .failed
             return
         }
         

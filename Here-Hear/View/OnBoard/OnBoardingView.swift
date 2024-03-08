@@ -9,6 +9,7 @@ import SwiftUI
 
 struct OnBoardingView: View {
     @EnvironmentObject private var authViewModel: AuthViewModel
+    @State private var didCompleteOnboard: Bool = false
     
     var body: some View {
         Button {
@@ -16,6 +17,10 @@ struct OnBoardingView: View {
         } label: {
             Text("logout")
         }
+        .navigationAdaptor(isPresented: $didCompleteOnboard) {
+            MainView()
+        }
+        .navigationBarBackButtonHidden()
         
     }
 }

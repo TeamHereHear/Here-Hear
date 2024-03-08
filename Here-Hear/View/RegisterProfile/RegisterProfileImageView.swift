@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct RegisterProfileImageView: View {
-    @State private var showProfileImagePicker: Bool = false
-    @State private var profileImage: UIImage?
-    @State private var didSetProfile: Bool = false
+    @StateObject private var viewModel: RegisterProfileImageViewModel
+    
+    init(viewModel: RegisterProfileImageViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+    }
     
     var body: some View {
         content
-            .navigationAdaptor(isPresented: $didSetProfile) {
+            .navigationAdaptor(isPresented: $viewModel.didComplete) {
                 OnBoardingView()
             }
     }
@@ -37,7 +39,7 @@ struct RegisterProfileImageView: View {
             ToolbarItem(placement: .bottomBar) {
                 HStack {
                     Button {
-                        didSetProfile = true
+                        viewModel.send(.skip)
                     } label: {
                         Text("건너뛰기")
                     }
@@ -45,7 +47,7 @@ struct RegisterProfileImageView: View {
                     Spacer()
                 
                     Button {
-                        
+                        viewModel.send(.upload)
                     } label: {
                         Text("저장")
                     }
@@ -57,12 +59,14 @@ struct RegisterProfileImageView: View {
     
     private var profileImagePickerButton: some View {
         Button {
-            showProfileImagePicker = true
+            DispatchQueue.main.async {
+                viewModel.send(.showImagePicker)
+            }
         } label: {
             Circle()
                 .foregroundStyle(.hhGray)
                 .overlay {
-                    if let profileImage {
+                    if let profileImage = viewModel.image {
                         Image(uiImage: profileImage)
                             .resizable()
                             .scaledToFill()
@@ -78,15 +82,8 @@ struct RegisterProfileImageView: View {
                 }
                 .padding(41)
         }
-        .sheet(isPresented: $showProfileImagePicker) {
-            ProfileImagePicker(image: $profileImage)
+        .sheet(isPresented: $viewModel.showProfileImagePicker) {
+            ProfileImagePicker(image: $viewModel.image)
         }
     }
-}
-
-#Preview {
-    NavigationView {
-        RegisterProfileImageView()
-    }
-        
 }

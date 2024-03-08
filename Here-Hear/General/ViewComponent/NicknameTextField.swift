@@ -10,15 +10,17 @@ import SwiftUI
 struct NicknameTextField: View {
     @Binding private var nickname: String
     @Binding private var isValid: Bool
-    private var isFocused: FocusState<Bool>.Binding
+    @FocusState private var isFocused: Bool
+    private let focusedWhenAppearing: Bool
+    
     init(
         nickname: Binding<String>,
         isValid: Binding<Bool>,
-        isFocused: FocusState<Bool>.Binding
+        focusedWhenAppearing: Bool
     ) {
         self._nickname = nickname
         self._isValid = isValid
-        self.isFocused = isFocused
+        self.focusedWhenAppearing = focusedWhenAppearing
     }
     
     var body: some View {
@@ -90,7 +92,12 @@ struct NicknameTextField: View {
                 .foregroundStyle(.gray)
             }
             .nicknameTextFieldStyle()
-            .focused(isFocused)
+            .focused($isFocused)
+            .onAppear {
+                if focusedWhenAppearing {
+                    isFocused = true
+                }                
+            }
             
             HStack {
                 Spacer()
@@ -144,6 +151,6 @@ extension View {
 #Preview {
     @State var text: String = ""
     @State var isValid: Bool = false
-    @FocusState var isFocused: Bool
-    return NicknameTextField(nickname: $text, isValid: $isValid, isFocused: $isFocused)
+    
+    return NicknameTextField(nickname: $text, isValid: $isValid, focusedWhenAppearing: true)
 }

@@ -13,6 +13,7 @@ enum UserRepositoryError: Error {
     case notFound
     case dataUnavailable
     case networkError
+    case error(Error)
 }
 
 protocol UserRepositoryInterface {
@@ -29,7 +30,12 @@ class UserRepository: UserRepositoryInterface {
     func fetchUser(ofId userId: String) -> AnyPublisher<UserEntity?, UserRepositoryError> {
         let subject = PassthroughSubject<UserEntity?, UserRepositoryError>()
         
-        database.collection("User").document(userId).getDocument { document, _  in
+        database.collection("User").document(userId).getDocument { document, error  in
+            if let error {
+                subject.send(completion: .failure(.error(error)))
+                return
+            }
+            
             if let document = document, document.exists {
                 do {
                     let user = try document.data(as: UserEntity?.self)
@@ -51,27 +57,23 @@ class UserRepository: UserRepositoryInterface {
     func addUser(_ user: UserEntity) -> AnyPublisher<UserEntity, UserRepositoryError> {
         let subject = PassthroughSubject<UserEntity, UserRepositoryError>()
         
-        var ref: DocumentReference?
-        ref = database.collection("User").addDocument(data: user.toDictionary()) { error in
+        database.collection("User").document(user.id).setData(user.toDictionary()) { error in
             if error != nil {
                 subject.send(completion: .failure(.dataUnavailable))
-            } else {
-                if let ref = ref {
-                    var newUser = user
-                    newUser.id = ref.documentID
-                    subject.send(newUser)
-                    subject.send(completion: .finished)
-                }
+                return
             }
+            
+            subject.send(user)
+            subject.send(completion: .finished)
         }
-        
+
         return subject.eraseToAnyPublisher()
     }
     // MARK: 기존 유저 정보 변경하기
     func updateUser(_ user: UserEntity) -> AnyPublisher<UserEntity, UserRepositoryError> {
         let subject = PassthroughSubject<UserEntity, UserRepositoryError>()
         
-        database.collection("User").document(user.id).setData(user.toDictionary()) { error in
+        database.collection("User").document(user.id).updateData(user.toDictionary()) { error in
             if error != nil {
                 subject.send(completion: .failure(.dataUnavailable))
             } else {
