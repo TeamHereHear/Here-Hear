@@ -48,7 +48,7 @@ struct MainView: View {
         }
         .onAppear {
             authViewModel.send(action: .checkAnonymousUser)
-        }
+        }   
     }
 }
 

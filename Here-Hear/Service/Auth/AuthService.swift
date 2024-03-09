@@ -199,7 +199,7 @@ extension AuthService {
             switch result {
             case var .success(user):
                 user.nickname = [appleIdCredential.fullName?.givenName, appleIdCredential.fullName?.familyName]
-                    .compactMap({$0})
+                    .compactMap({ $0 })
                     .joined(separator: " ")
                 completion(.success(user))
             case let .failure(error):
@@ -242,6 +242,7 @@ extension AuthService {
     private func authenticateUserWithFirebase(credential: AuthCredential, completion: @escaping (Result<UserModel, ServiceError>) -> Void) {
         Auth.auth().signIn(with: credential) { result, error in
             if let error {
+                print(error.localizedDescription)
                 completion(.failure(.error(error)))
                 return
             }

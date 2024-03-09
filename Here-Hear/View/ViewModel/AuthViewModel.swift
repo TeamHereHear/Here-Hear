@@ -99,9 +99,9 @@ class AuthViewModel: ObservableObject {
             container.services.authService.handleSignInWithAppleCompletion(authorization, nonce: nonce)
                 .sink { [weak self] completion in
                     if case .failure = completion {
-                        self?.isLoading = false
+                            self?.isLoading = false
                     }
-                }receiveValue: { [weak self] user in
+                } receiveValue: { [weak self] user in
                     self?.isLoading = false
                     self?.userId = user.id
                     self?.authState = .authenticated
