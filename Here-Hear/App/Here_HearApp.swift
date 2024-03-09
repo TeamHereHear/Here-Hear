@@ -24,9 +24,9 @@ struct Here_HearApp: App {
 
     var body: some Scene {
         WindowGroup {
-//            AuthenticatedView(authViewModel: .init(container: container))
-//                .environmentObject(container)
-            AddMusicToHear()
+            AuthenticatedView(authViewModel: .init(container: container))
+                .environmentObject(container)
+           
         }
     }
 }
