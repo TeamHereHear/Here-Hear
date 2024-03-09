@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct AuthenticatedView: View {
+    @EnvironmentObject private var container: DIContainer
     @StateObject var authViewModel: AuthViewModel
 
     var body: some View {
         VStack {
             switch authViewModel.authState {
-                
             case .unauthenticated:
                 LoginView()
             case .authenticated:
-                MainView()
+                OnBoardRouterView(viewModel: .init(container: container))
             }
         }.onAppear {
             authViewModel.send(action: .checkAuthenticationState)
@@ -26,8 +26,8 @@ struct AuthenticatedView: View {
     }
 }
 
-struct AuthenticatedView_Previews: PreviewProvider {
-    static var previews: some View {
-        AuthenticatedView(authViewModel: .init(container: .init(services: StubServices())))
-    }
+#Preview {
+    let container: DIContainer = .init(services: StubServices())
+    return AuthenticatedView(authViewModel: .init(container: container))
+        .environmentObject(container)
 }

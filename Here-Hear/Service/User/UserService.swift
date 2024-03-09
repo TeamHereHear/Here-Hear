@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol UserServiceInterface {
-    func fetchUser(ofId userId: String) -> AnyPublisher<UserModel, ServiceError>
+    func fetchUser(ofId userId: String) -> AnyPublisher<UserModel?, ServiceError>
     func addUser(_ user: UserModel) -> AnyPublisher<UserModel, ServiceError>
     func updateUser(_ user: UserModel) -> AnyPublisher<UserModel, ServiceError>
     func deleteUser(_ user: UserModel) -> AnyPublisher<UserModel, ServiceError>
@@ -28,9 +28,9 @@ class UserService: UserServiceInterface {
     /// userId가 주어졌을 때 해당하는 UserModel을 가져오는 메서드
     /// - Parameter userId: 가져올 사용자의 Id
     /// - Returns: AnyPublisher<UserModel, ServiceError>
-    func fetchUser(ofId userId: String) -> AnyPublisher<UserModel, ServiceError> {
+    func fetchUser(ofId userId: String) -> AnyPublisher<UserModel?, ServiceError> {
         repository.fetchUser(ofId: userId)
-            .map { $0.toModel() }
+            .map { $0?.toModel() }
             .mapError { ServiceError.error($0) }
             .eraseToAnyPublisher()
     }
@@ -73,7 +73,7 @@ class UserService: UserServiceInterface {
 }
 
 class StubUserService: UserServiceInterface {
-    func fetchUser(ofId userId: String) -> AnyPublisher<UserModel, ServiceError> {
+    func fetchUser(ofId userId: String) -> AnyPublisher<UserModel?, ServiceError> {
         Empty().eraseToAnyPublisher()
     }
     

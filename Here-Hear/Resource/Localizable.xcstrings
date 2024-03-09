@@ -1,11 +1,75 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%lld/%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld/%2$lld"
+          }
+        }
+      }
+    },
     "Google로 로그인" : {
 
     },
     "Here, Hear" : {
 
+    },
+    "logout" : {
+
+    },
+    "nicknameTextField.nicknameLengthRules" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Please enter a nickname between 1 and 10 characters."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "10글자 이하로 만들어 주세요."
+          }
+        }
+      }
+    },
+    "nicknameTextField.nicknameLetterRules" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Please create a nickname using English, numbers, and Korean."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "닉네임은 영어 대소문자, 숫자, 한글을 사용하여 만들어 주세요."
+          }
+        }
+      }
+    },
+    "nicknameTextField.prompt" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Please enter your nickname."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "별명 입력하기"
+          }
+        }
+      }
     },
     "this is MainView" : {
 
@@ -13,7 +77,13 @@
     "개인정보 처리방침" : {
 
     },
+    "건너뛰기" : {
+
+    },
     "구글 계정으로 로그인" : {
+
+    },
+    "닉네임을 만들어주세요 :)" : {
 
     },
     "로그아웃" : {
@@ -32,6 +102,12 @@
 
     },
     "음악으로 기억되는 공간" : {
+
+    },
+    "저장" : {
+
+    },
+    "프로필 사진을 저장해 주세요." : {
 
     }
   },

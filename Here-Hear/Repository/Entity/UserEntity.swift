@@ -22,14 +22,10 @@ extension UserEntity {
         )
     }
     func toDictionary() -> [String: Any] {
-        let dateFomatter = DateFormatter()
-        dateFomatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let createdAtString = dateFomatter.string(from: createdAt)
-        
         return [
             "id": id,
             "nickname": nickname,
-            "createdAt": createdAtString
+            "createdAt": createdAt
         ]
     }
 }
