@@ -14,7 +14,8 @@ protocol ServicesInterface {
     var musicService: MusicServiceInterface { get set }
     var authService: AuthServiceInterface { get set }
     var imageUploadService: ImageUploadServiceProtocol { get set }
-    
+    var storageImageService: StorageImageServiceProtocol { get set }
+    var imageService: ImageServiceProtocol { get set }
 }
 
 class Services: ServicesInterface {
@@ -24,6 +25,8 @@ class Services: ServicesInterface {
     var musicService: MusicServiceInterface
     var authService: AuthServiceInterface
     var imageUploadService: ImageUploadServiceProtocol
+    var storageImageService: StorageImageServiceProtocol
+    var imageService: ImageServiceProtocol
     
     init() {
         self.userService = UserService(repository: UserRepository())
@@ -32,6 +35,8 @@ class Services: ServicesInterface {
         self.musicService = MusicService(repository: MusicRepository())
         self.authService = AuthService()
         self.imageUploadService = ImageUploadService()
+        self.storageImageService = StorageImageService()
+        self.imageService = ImageService()
     }
 }
 
@@ -42,4 +47,6 @@ class StubServices: ServicesInterface {
     var musicService: MusicServiceInterface = StubMusicService()
     var authService: AuthServiceInterface = StubAuthService()
     var imageUploadService: ImageUploadServiceProtocol = StubImageUploadService()
+    var storageImageService: StorageImageServiceProtocol = StubStorageImageService()
+    var imageService: ImageServiceProtocol = StubImageService()
 }
