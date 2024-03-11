@@ -18,7 +18,7 @@ enum ImageServiceError: Error {
 }
 
 protocol ImageServiceProtocol {
-    func image(forPath path: String) async throws -> UIImage?
+    func image(forUrlPath path: String) async throws -> UIImage?
 }
 
 final class ImageService: ImageServiceProtocol {
@@ -33,7 +33,7 @@ final class ImageService: ImageServiceProtocol {
         self.diskStorage = diskStorage
     }
     
-    func image(forPath path: String) async throws -> UIImage? {
+    func image(forUrlPath path: String) async throws -> UIImage? {
         if let memoryCachedImage = memoryStorage.image(for: path) {
             return memoryCachedImage
         }
@@ -78,7 +78,7 @@ final class ImageService: ImageServiceProtocol {
 }
 
 final class StubImageService: ImageServiceProtocol {
-    func image(forPath path: String) async throws -> UIImage? {
+    func image(forUrlPath path: String) async throws -> UIImage? {
         nil
     }
 }

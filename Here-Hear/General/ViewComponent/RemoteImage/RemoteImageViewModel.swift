@@ -36,7 +36,7 @@ final class RemoteImageViewModel: ObservableObject {
         }
         
         do {
-            self.image = try await container.services.imageService.image(forPath: path)
+            self.image = try await container.services.imageService.image(forUrlPath: path)
             
             self.imageLoadingState = .finished
         } catch {
@@ -59,7 +59,7 @@ final class RemoteImageViewModel: ObservableObject {
         }
         
         do {
-            self.image = try await container.services.imageService.image(forPath: url.absoluteString)
+            self.image = try await container.services.imageService.image(forUrlPath: url.absoluteString)
             self.imageLoadingState = .finished
         } catch {
             self.imageLoadingState = .failed
