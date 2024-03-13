@@ -63,6 +63,8 @@
 		5B0142E42B95ED5B0033FB9C /* OnBoardRouterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142E32B95ED5B0033FB9C /* OnBoardRouterViewModel.swift */; };
 		5B0142E62B960BCB0033FB9C /* HHProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142E52B960BCB0033FB9C /* HHProgressBar.swift */; };
 		5B0142E82B973FDC0033FB9C /* RegisterProfileImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142E72B973FDC0033FB9C /* RegisterProfileImageViewModel.swift */; };
+		5B2F1BF72BA1CEE70058A64F /* HearBalloonBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F1BF62BA1CEE70058A64F /* HearBalloonBackground.swift */; };
+		5B2F1BF92BA1CF7B0058A64F /* HearBalloonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F1BF82BA1CF7B0058A64F /* HearBalloonViewModel.swift */; };
 		5B7690712B9892430023A26F /* ProfileImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7690702B9892430023A26F /* ProfileImagePicker.swift */; };
 		5B7690742B98A35E0023A26F /* NavigationAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7690732B98A35E0023A26F /* NavigationAdaptor.swift */; };
 		5B97692B2BA07F710054068F /* HearBalloon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B97692A2BA07F710054068F /* HearBalloon.swift */; };
@@ -162,6 +164,8 @@
 		5B0142E32B95ED5B0033FB9C /* OnBoardRouterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardRouterViewModel.swift; sourceTree = "<group>"; };
 		5B0142E52B960BCB0033FB9C /* HHProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HHProgressBar.swift; sourceTree = "<group>"; };
 		5B0142E72B973FDC0033FB9C /* RegisterProfileImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProfileImageViewModel.swift; sourceTree = "<group>"; };
+		5B2F1BF62BA1CEE70058A64F /* HearBalloonBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearBalloonBackground.swift; sourceTree = "<group>"; };
+		5B2F1BF82BA1CF7B0058A64F /* HearBalloonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearBalloonViewModel.swift; sourceTree = "<group>"; };
 		5B7690702B9892430023A26F /* ProfileImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePicker.swift; sourceTree = "<group>"; };
 		5B7690732B98A35E0023A26F /* NavigationAdaptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAdaptor.swift; sourceTree = "<group>"; };
 		5B97692A2BA07F710054068F /* HearBalloon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearBalloon.swift; sourceTree = "<group>"; };
@@ -428,6 +432,16 @@
 			path = OnBoard;
 			sourceTree = "<group>";
 		};
+		5B2F1BF52BA1CEC40058A64F /* HearBalloon */ = {
+			isa = PBXGroup;
+			children = (
+				5B97692A2BA07F710054068F /* HearBalloon.swift */,
+				5B2F1BF62BA1CEE70058A64F /* HearBalloonBackground.swift */,
+				5B2F1BF82BA1CF7B0058A64F /* HearBalloonViewModel.swift */,
+			);
+			path = HearBalloon;
+			sourceTree = "<group>";
+		};
 		5B7690722B98A3430023A26F /* ViewModifier */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,7 +454,7 @@
 			isa = PBXGroup;
 			children = (
 				04A747062B8467E100182C5F /* MainView.swift */,
-				5B97692A2BA07F710054068F /* HearBalloon.swift */,
+				5B2F1BF52BA1CEC40058A64F /* HearBalloon */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -726,6 +740,7 @@
 				5BDEDCED2B99D9800055D40A /* ImageUploadService.swift in Sources */,
 				04A747422B8C320C00182C5F /* SHA256.swift in Sources */,
 				5B0142E22B95EAC40033FB9C /* RegisterNicknameViewModel.swift in Sources */,
+				5B2F1BF92BA1CF7B0058A64F /* HearBalloonViewModel.swift in Sources */,
 				5BDBBD192B846F9400DEB7DC /* Color+HexConverter.swift in Sources */,
 				04A7472F2B88600100182C5F /* LoginView.swift in Sources */,
 				5BEA6B052B9F3D0A006C48AC /* RemoteImageLoadingState.swift in Sources */,
@@ -757,6 +772,7 @@
 				04A7471C2B849C2E00182C5F /* AppDelegate.swift in Sources */,
 				04A746ED2B84670300182C5F /* NotificationManager.swift in Sources */,
 				5BDBBD252B8477C500DEB7DC /* MusicRepository.swift in Sources */,
+				5B2F1BF72BA1CEE70058A64F /* HearBalloonBackground.swift in Sources */,
 				5BDBBD2E2B847A2700DEB7DC /* AuthService.swift in Sources */,
 				04A747582B8DBBF900182C5F /* GeohashService.swift in Sources */,
 				5B0142E02B9372CC0033FB9C /* OnBoardingView.swift in Sources */,

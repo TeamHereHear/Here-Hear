@@ -17,9 +17,6 @@
     "Here, Hear" : {
 
     },
-    "logout" : {
-
-    },
     "nicknameTextField.nicknameLengthRules" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
@@ -70,6 +67,15 @@
           }
         }
       }
+    },
+    "Tab Content 0" : {
+
+    },
+    "Tab Content 1" : {
+
+    },
+    "Tab Content 2" : {
+
     },
     "this is MainView" : {
 
