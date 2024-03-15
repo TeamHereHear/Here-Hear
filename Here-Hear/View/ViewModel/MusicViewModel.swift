@@ -14,40 +14,46 @@ class MusicViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published var playbackProgress: Float = 0.0
     @Published var isLoading = false // 음악 검색중인지 여부 나타내는 상태 변수임
+    @Published var isPlaying = false
     private var player: AVPlayer?
     var currentlyPlayingURL: URL?
     private var timeObserverToken: Any?
     private var musicManager: MusicMangerProtocol
     private var cancellables: Set<AnyCancellable> = []
+    private var searchCancellable: AnyCancellable? = nil
     
     init(musicManager: MusicMangerProtocol = MusicManger()) {
         self.musicManager = musicManager
+
     }
     
-    func searchMusic() {
+    func searchMusic(searchText: String) {
+        $searchText
+            .removeDuplicates()
+        guard !searchText.isEmpty else {
+            self.songs = []
+            return
+        }
         isLoading = true
         musicManager.fetchMusic(with: searchText)
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { [weak self] completion in
                     self?.isLoading = false
-                    switch completion {
-                    case .finished:
-                        break
-                    case .failure(let failure):
-                        print(failure.localizedDescription)
+                    if case .failure(let error) = completion {
+                        print(error.localizedDescription)
                     }
-                    
                 },
                 receiveValue: { [weak self] songs in
                     self?.songs = songs
-                })
+                }
+            )
             .store(in: &cancellables)
     }
     
     // 미리듣기 재생 및 일시정지
     func pauseMusic(url: URL) {
-        
+    
         // 현재 재생 중인 곡이 바뀌면, 기존의 Time Observer를 제거
         if let timeObserverToken = timeObserverToken {
             player?.removeTimeObserver(timeObserverToken)
@@ -64,14 +70,20 @@ class MusicViewModel: ObservableObject {
         // 이전과 동일한 곡을 다시 재생하려는 경우
         if currentlyPlayingURL == url, player?.timeControlStatus == .playing {
             player?.pause()
-            currentlyPlayingURL = nil
+            currentlyPlayingURL = url
+            isPlaying = false // 재생 중이 아님
+
+            
         } else if currentlyPlayingURL == url, player?.timeControlStatus != .playing {
             player?.play()
+            isPlaying = true // 재생 중
+
         } else {
             // 새로운 곡 재생하기
             player = AVPlayer(url: url)
             player?.play()
             currentlyPlayingURL = url
+            isPlaying = true // 재생 중
             setupEndPlaybackObserver()
         }
         // 새로운 곡을 재생할 때, Time Observer를 추가
@@ -105,6 +117,8 @@ class MusicViewModel: ObservableObject {
         ) {  _ in
             self.player?.seek(to: .zero) // 재생 위치 시작으로 이동
             self.currentlyPlayingURL = nil // 현재 재생중인 URL 초기화하기
+            self.isPlaying = false // 재생 중이 아님
+
         }
     }
 }
