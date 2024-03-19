@@ -35,4 +35,18 @@ extension HearModel {
             createdAt: createdAt
         )
     }
+    
+    static let onBoardingPageOneStub: HearModel = .init(
+        id: "3",
+        userId: "5",
+        location: .init(
+            latitude: 37.773619,
+            longitude: -122.418793,
+            geohashExact: "aaaaaa"
+        ),
+        musicIds: ["10"],
+        feeling: .init(expressionText: String(localized: "hearModel.onBoardingPageOneStub.feeling.expressionText")),
+        like: 400,
+        createdAt: .now
+    )
 }

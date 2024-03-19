@@ -57,7 +57,11 @@ class StubMusicService: MusicServiceInterface {
                 album: "Album \($0)",
                 title: "Title \($0)",
                 artist: "Artist \($0)",
-                artwork: nil
+                artwork:
+                    URL(
+                        string:  "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/9a/49/b2/9a49b2d2-2501-2fc7-60eb-2b8ff34a1412/TAEYEON-DIGITAL20COVER.jpg/200x200bb.jpg"
+                    )
+                   
             )
         }
         return Just(testModel)

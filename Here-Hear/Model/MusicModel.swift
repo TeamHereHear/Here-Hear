@@ -28,3 +28,34 @@ extension MusicModel {
         )
     }
 }
+
+// MARK: OnBoardingPage Mock
+extension MusicModel {
+    
+    static let onBoardingPageMockOne: MusicModel = .init(
+        id: "10",
+        album: "Windy Day",
+        title: "Windy Day",
+        artist: "Oh my girl",
+        artwork: nil,
+        previewURL: nil
+    )
+    
+    static let onBoardingPageMockTwo: MusicModel = .init(
+        id: "11",
+        album: "",
+        title: "",
+        artist: "",
+        artwork: nil,
+        previewURL: nil
+    )
+    
+    static let onBoardingPageMockThree: MusicModel = .init(
+        id: "12",
+        album: "",
+        title: "",
+        artist: "",
+        artwork: nil,
+        previewURL: nil
+    )
+}
