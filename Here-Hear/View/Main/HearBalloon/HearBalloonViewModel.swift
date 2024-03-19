@@ -38,6 +38,7 @@ final class HearBalloonViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] models in
                 guard let self else { return }
+              
                 Task {
                     await self.setMusic(models.first)
                 }

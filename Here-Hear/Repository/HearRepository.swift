@@ -31,6 +31,7 @@ protocol HearRepositoryInterface {
     func deleteHear(_ hear: HearEntity) -> AnyPublisher<Void, HearRepositoryError>
 }
 
+#warning("TODO: Firestore Cache Setting")
 class HearRepository: HearRepositoryInterface {
     
     let collectionRef = Firestore.firestore().collection("Hear")

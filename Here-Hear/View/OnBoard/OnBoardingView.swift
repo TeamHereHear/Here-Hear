@@ -19,13 +19,14 @@ struct OnBoardingView: View {
     var body: some View {
         VStack {
             HHProgressBar(value: progress)
+                .padding(.horizontal, 12)
             
             TabView(selection: $tabSelection) {
-                Text("Tab Content 0")
+                OnBoardingPageOne($tabSelection)
                     .tag(0)
-                Text("Tab Content 1")
+                OnBoardingPageTwo($tabSelection)
                     .tag(1)
-                Text("Tab Content 2")
+                OnBoardingPageThree()
                     .tag(2)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))

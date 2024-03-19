@@ -68,8 +68,85 @@
         }
       }
     },
-    "Tab Content 0" : {
-
+    "onBoadingPageOne.Next" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "다음"
+          }
+        }
+      }
+    },
+    "onBoadingPageTwo.Next" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "다음"
+          }
+        }
+      }
+    },
+    "onBoardingPageOne.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you curious\nabout what other people around you\nlisten to?\nLook it up."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "주변에서\n무슨 음악을 듣는지\n찾아보세요"
+          }
+        }
+      }
+    },
+    "onBoardingPageThree.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check the list of \"Hear\"\naround you"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "간편하게\n당신의 주변 ‘Hear’를 \n목록으로 확인하세요"
+          }
+        }
+      }
+    },
+    "onBoardingPageTwo.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share\nwhat music you listen to here\nand how you feel right now\nwith \"Hear\"."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "여기서 \n무슨 음악을 듣고\n어떤 생각이 드는지\n‘Hear’ 로 공유하세요."
+          }
+        }
+      }
     },
     "Tab Content 1" : {
 

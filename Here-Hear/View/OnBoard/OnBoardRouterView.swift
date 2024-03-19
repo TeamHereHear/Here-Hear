@@ -23,7 +23,8 @@ struct OnBoardRouterView: View {
                 ProgressView()
             case .existingUser:
                 /// 이미 등록되어 있다면
-                MainView()
+//                MainView()
+                OnBoardingView()
             case .newUser:
                 /// 등록되어 있는 UserModel 이 없다면
                 RegisterNicknameView(viewModel: .init(container: container))

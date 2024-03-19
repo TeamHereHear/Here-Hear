@@ -22,6 +22,7 @@ protocol MusicRepositoryInterface {
     func deleteMusic(ofId id: String) -> AnyPublisher<Void, MusicRepositoryError>
 }
 
+#warning("TODO: Firestore Cache Setting")
 class MusicRepository: MusicRepositoryInterface {
     private let collectionRef = Firestore.firestore().collection("Music")
     
