@@ -7,18 +7,19 @@
 
 import SwiftUI
 
-#if canImport(UIKit)
+#if canImport(UIKit) // 빈 화면 클릭하면 키보드 접기
 extension View {
     func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 #endif
+
 struct AddMusicToHear: View {
     @StateObject private var musicViewModel = MusicViewModel()
-    @State private var showingVideoCapture = false
     @State private var videoURL: URL?
     @State private var searchText = ""
+    @State private var selectedSong: MusicModel?
     
     var body: some View {
         NavigationView { // NavigationView 시작
@@ -61,7 +62,8 @@ struct AddMusicToHear: View {
                             musicViewModel.searchMusic(searchText: searchText)
                         }
                 } // HStack TextField요소
-                Spacer().frame(maxWidth: .infinity, maxHeight: .infinity).overlay {
+                .padding(.bottom, 20)
+                Spacer().frame(maxWidth: .infinity).overlay {
                     if musicViewModel.isLoading {
                         // ProgressView()
                     } else {
@@ -70,9 +72,13 @@ struct AddMusicToHear: View {
                 }
             }
             .navigationTitle("우선, 다른 사람들과 공유할 음악을 찾아 볼까요?")
-            .sheet(isPresented: $showingVideoCapture) {
-                CustomCameraView(isPresented: $showingVideoCapture, videoURL: $videoURL)
+            .fullScreenCover(item: $selectedSong) { _ in
+                CameraHomeView(selectedSong: $selectedSong)
+                    .onDisappear {
+                        musicViewModel.pauseMusicIfNeeded()
+                    }
             }
+
             .onTapGesture {
                 self.hideKeyboard()
             }
@@ -83,14 +89,19 @@ struct AddMusicToHear: View {
     private var musicList: some View {
         List(musicViewModel.songs) { song in
             musicRow(for: song)
+                .onTapGesture {
+
+                    self.selectedSong = song
+                
+                }
         }
     }
     
     @ViewBuilder
     private func musicRow(for song: MusicModel) -> some View {
         Button(action: {
-            // 노래 선택 시 카메라 인터페이스 표시
-            showingVideoCapture = true
+            // 노래 선택시 CameraHomeView로 넘어가게 하기
+            self.selectedSong = song
         }) {
             VStack {
                 HStack { // HStack 시작
@@ -136,10 +147,15 @@ struct AddMusicToHear: View {
                         .progressViewStyle(LinearProgressViewStyle(tint: Color("HHAccent2")))
                 }
             }
-            .animation(.easeInOut(duration: 0.8), value: musicViewModel.isPlaying)
+            .animation(.easeInOut(duration: 0.5), value: musicViewModel.isPlaying)
         }
     } // AddMusicToHear View 종료
 }
-#Preview {
-    AddMusicToHear()
+
+extension MusicViewModel {
+    func pauseMusicIfNeeded() {
+        if isPlaying, let url = currentlyPlayingURL {
+            pauseMusic(url: url)
+        }
+    }
 }

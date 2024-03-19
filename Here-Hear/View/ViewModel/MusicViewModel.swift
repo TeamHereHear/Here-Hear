@@ -20,35 +20,36 @@ class MusicViewModel: ObservableObject {
     private var timeObserverToken: Any?
     private var musicManager: MusicMangerProtocol
     private var cancellables: Set<AnyCancellable> = []
-    private var searchCancellable: AnyCancellable? = nil
+    private var searchCancellable: AnyCancellable?
     
     init(musicManager: MusicMangerProtocol = MusicManger()) {
         self.musicManager = musicManager
-
     }
     
     func searchMusic(searchText: String) {
-        $searchText
-            .removeDuplicates()
         guard !searchText.isEmpty else {
             self.songs = []
             return
         }
+    
         isLoading = true
-        musicManager.fetchMusic(with: searchText)
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { [weak self] completion in
-                    self?.isLoading = false
-                    if case .failure(let error) = completion {
-                        print(error.localizedDescription)
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.musicManager.fetchMusic(with: searchText)
+                .receive(on: DispatchQueue.main)
+                .sink(
+                    receiveCompletion: { [weak self] completion in
+                        self?.isLoading = false
+                        if case .failure(let error) = completion {
+                            print(error.localizedDescription)
+                        }
+                    },
+                    receiveValue: { [weak self] songs in
+                        self?.songs = songs
                     }
-                },
-                receiveValue: { [weak self] songs in
-                    self?.songs = songs
-                }
-            )
-            .store(in: &cancellables)
+                )
+                .store(in: &self.cancellables)
+        }
+
     }
     
     // 미리듣기 재생 및 일시정지
@@ -73,7 +74,6 @@ class MusicViewModel: ObservableObject {
             currentlyPlayingURL = url
             isPlaying = false // 재생 중이 아님
 
-            
         } else if currentlyPlayingURL == url, player?.timeControlStatus != .playing {
             player?.play()
             isPlaying = true // 재생 중
