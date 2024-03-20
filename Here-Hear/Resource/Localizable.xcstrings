@@ -14,6 +14,9 @@
     "Google로 로그인" : {
 
     },
+    "hearModel.onBoardingPageOneStub.feeling.expressionText" : {
+
+    },
     "Here, Hear" : {
 
     },
@@ -148,28 +151,13 @@
         }
       }
     },
-    "Tab Content 1" : {
-
-    },
-    "Tab Content 2" : {
-
-    },
-    "this is MainView" : {
-
-    },
     "개인정보 처리방침" : {
 
     },
     "건너뛰기" : {
 
     },
-    "구글 계정으로 로그인" : {
-
-    },
     "닉네임을 만들어주세요 :)" : {
-
-    },
-    "로그아웃" : {
 
     },
     "로그인 없이 바로 실행하기" : {

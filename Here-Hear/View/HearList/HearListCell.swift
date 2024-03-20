@@ -151,6 +151,11 @@ struct HearListCell: View {
         userNickname: "Wonhyeong",
         music: MusicEntity.mock.toModel()
     )
-        .environmentObject(DIContainer(services: StubServices()))
-        .padding(.horizontal, 9)
+    .environmentObject(
+        DIContainer(
+            services: StubServices(),
+            managers: StubManagers()
+        )
+    )
+    .padding(.horizontal, 9)
 }
