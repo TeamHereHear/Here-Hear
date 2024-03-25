@@ -37,7 +37,7 @@ class HearService: HearServiceInterface {
             latitude: latitude,
             longitude: longitude,
             radiusInMeter: radius,
-            searchingIn: geohashArray
+            inGeohashes: geohashArray
         )
         .map { $0.map { $0.toModel() } }
         .mapError { ServiceError.error($0)}

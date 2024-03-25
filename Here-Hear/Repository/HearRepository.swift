@@ -23,7 +23,7 @@ protocol HearRepositoryInterface {
         latitude: Double,
         longitude: Double,
         radiusInMeter radius: Double,
-        searchingIn geohashArray: [String]
+        inGeohashes geohashArray: [String]
     ) -> AnyPublisher<[HearEntity], HearRepositoryError>
     
     func add(_ hear: HearEntity) -> AnyPublisher<HearEntity, HearRepositoryError>
@@ -40,7 +40,7 @@ class HearRepository: HearRepositoryInterface {
         latitude: Double,
         longitude: Double,
         radiusInMeter radius: Double,
-        searchingIn geohashArray: [String]
+        inGeohashes geohashArray: [String]
     ) -> AnyPublisher<[HearEntity], HearRepositoryError> {
         Future { [weak self] promise in
             guard let self else {
@@ -176,7 +176,7 @@ class StubHearRepository: HearRepositoryInterface {
         latitude: Double,
         longitude: Double,
         radiusInMeter radius: Double,
-        searchingIn geohashArray: [String]
+        inGeohashes geohashArray: [String]
     ) -> AnyPublisher<[HearEntity], HearRepositoryError> {
         Empty().eraseToAnyPublisher()
     }

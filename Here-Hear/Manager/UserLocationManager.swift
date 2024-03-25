@@ -24,7 +24,6 @@ class UserLocationManager: NSObject, CLLocationManagerDelegate, ObservableObject
         $location
     }
     
-    
     private let manager: CLLocationManager = .init()
     
     override init() {

@@ -72,6 +72,9 @@
 		5BA429CD2B9C598C00998112 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA429CC2B9C598C00998112 /* ImageService.swift */; };
 		5BA429CF2B9C59F700998112 /* ImageMemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA429CE2B9C59F700998112 /* ImageMemoryStorage.swift */; };
 		5BA429D12B9C5A0200998112 /* ImageDiskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA429D02B9C5A0200998112 /* ImageDiskStorage.swift */; };
+		5BA842712BAC645F00E4FE7B /* UserTrackingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA842702BAC645F00E4FE7B /* UserTrackingButton.swift */; };
+		5BA842762BB1AC8D00E4FE7B /* HearListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA842752BB1AC8D00E4FE7B /* HearListView.swift */; };
+		5BA842782BB1B49C00E4FE7B /* HearListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA842772BB1B49C00E4FE7B /* HearListViewModel.swift */; };
 		5BD2A51E2BA322A700EC4049 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5BD2A51D2BA322A700EC4049 /* FirebaseAuth */; };
 		5BD2A5202BA322A700EC4049 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5BD2A51F2BA322A700EC4049 /* FirebaseFirestore */; };
 		5BD2A5222BA322A700EC4049 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5BD2A5212BA322A700EC4049 /* FirebaseStorage */; };
@@ -186,6 +189,9 @@
 		5BA429CC2B9C598C00998112 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		5BA429CE2B9C59F700998112 /* ImageMemoryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMemoryStorage.swift; sourceTree = "<group>"; };
 		5BA429D02B9C5A0200998112 /* ImageDiskStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDiskStorage.swift; sourceTree = "<group>"; };
+		5BA842702BAC645F00E4FE7B /* UserTrackingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTrackingButton.swift; sourceTree = "<group>"; };
+		5BA842752BB1AC8D00E4FE7B /* HearListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearListView.swift; sourceTree = "<group>"; };
+		5BA842772BB1B49C00E4FE7B /* HearListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearListViewModel.swift; sourceTree = "<group>"; };
 		5BD2A5232BA32C0900EC4049 /* OnBoardingPageTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPageTwo.swift; sourceTree = "<group>"; };
 		5BD2A5252BA32C1700EC4049 /* OnBoardingPageThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPageThree.swift; sourceTree = "<group>"; };
 		5BD2A5272BA32C5300EC4049 /* OnBoardingTitleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingTitleStyle.swift; sourceTree = "<group>"; };
@@ -479,6 +485,7 @@
 			isa = PBXGroup;
 			children = (
 				04A747062B8467E100182C5F /* MainView.swift */,
+				5BA842702BAC645F00E4FE7B /* UserTrackingButton.swift */,
 				5B7F8FA62BAB0E00008171C9 /* MainViewModel.swift */,
 				5B2F1BF52BA1CEC40058A64F /* HearBalloon */,
 			);
@@ -489,6 +496,8 @@
 			isa = PBXGroup;
 			children = (
 				5BD2A52C2BA337FB00EC4049 /* HearListCell.swift */,
+				5BA842752BB1AC8D00E4FE7B /* HearListView.swift */,
+				5BA842772BB1B49C00E4FE7B /* HearListViewModel.swift */,
 			);
 			path = HearList;
 			sourceTree = "<group>";
@@ -777,6 +786,7 @@
 				5B7F8FA92BAB0FA9008171C9 /* UserLocationManager.swift in Sources */,
 				5B2F1BF92BA1CF7B0058A64F /* HearBalloonViewModel.swift in Sources */,
 				5BDBBD192B846F9400DEB7DC /* Color+HexConverter.swift in Sources */,
+				5BA842762BB1AC8D00E4FE7B /* HearListView.swift in Sources */,
 				04A7472F2B88600100182C5F /* LoginView.swift in Sources */,
 				5BEA6B052B9F3D0A006C48AC /* RemoteImageLoadingState.swift in Sources */,
 				5B97692B2BA07F710054068F /* HearBalloon.swift in Sources */,
@@ -792,12 +802,14 @@
 				04A747372B8872D100182C5F /* ServiceError.swift in Sources */,
 				5B7F8FA72BAB0E00008171C9 /* MainViewModel.swift in Sources */,
 				04A747072B8467E100182C5F /* MainView.swift in Sources */,
+				5BA842712BAC645F00E4FE7B /* UserTrackingButton.swift in Sources */,
 				04A7479C2B9363DE00182C5F /* ManagerError.swift in Sources */,
 				04A746F32B84673200182C5F /* MusicEntity.swift in Sources */,
 				04A746FD2B84678F00182C5F /* UserModel.swift in Sources */,
 				04A747392B89AD6F00182C5F /* LoginButtonStyle.swift in Sources */,
 				5BD2A5282BA32C5300EC4049 /* OnBoardingTitleStyle.swift in Sources */,
 				5B7690742B98A35E0023A26F /* NavigationAdaptor.swift in Sources */,
+				5BA842782BB1B49C00E4FE7B /* HearListViewModel.swift in Sources */,
 				5B0142E82B973FDC0033FB9C /* RegisterProfileImageViewModel.swift in Sources */,
 				04A747012B84679E00182C5F /* MusicModel.swift in Sources */,
 				5B3ABD422BA9CD71002C8201 /* HearModel+Mock.swift in Sources */,

@@ -10,7 +10,7 @@ import Geohash
 
 protocol GeohashServiceInterface {
     func geohashExact(latitude: Double, longitude: Double) -> String
-    func overlappingGeohash(latitude: Double, longitude: Double, precision: Int) -> [String]
+    func overlappingGeohash(latitude: Double, longitude: Double, precision: GeohashPrecision) -> [String]
     
 }
 
@@ -30,8 +30,8 @@ class GeohashService: GeohashServiceInterface {
     ///   - longitude: 기준점의 경도
     ///   - precision: Geohash 정확도(길이)
     /// - Returns: 기준점 반경에 걸쳐있는 Geohash
-    func overlappingGeohash(latitude: Double, longitude: Double, precision: Int) -> [String] {
-        let geohash = Geohash.encode(latitude: latitude, longitude: longitude, length: precision)
+    func overlappingGeohash(latitude: Double, longitude: Double, precision: GeohashPrecision) -> [String] {
+        let geohash = Geohash.encode(latitude: latitude, longitude: longitude, length: precision.rawValue)
         let neighbors = Geohash.neighbors(geohash: geohash)
         
         let neighborsParents: [String] = neighbors.map { String($0.dropLast()) }
@@ -45,7 +45,7 @@ class StubGeohashService: GeohashServiceInterface {
         // 37.566406, 126.977822
         "wydm9qy2jtws"
     }
-    func overlappingGeohash(latitude: Double, longitude: Double, precision: Int) -> [String] {
+    func overlappingGeohash(latitude: Double, longitude: Double, precision: GeohashPrecision) -> [String] {
         []
     }
 }
