@@ -26,6 +26,15 @@ protocol HearRepositoryInterface {
         inGeohashes geohashArray: [String]
     ) -> AnyPublisher<[HearEntity], HearRepositoryError>
     
+    func fetchAroundHears(
+        latitude: Double,
+        longitude: Double,
+        radiusInMeter radius: Double,
+        inGeohashes geohashArray: [String],
+        startAt previousLastDocumentId: String?,
+        limit: Int
+    ) async throws -> (documents: [HearEntity], lastDocumentId: String?)
+    
     func add(_ hear: HearEntity) -> AnyPublisher<HearEntity, HearRepositoryError>
     func update(_ hear: HearEntity) -> AnyPublisher<HearEntity, HearRepositoryError>
     func deleteHear(_ hear: HearEntity) -> AnyPublisher<Void, HearRepositoryError>
@@ -73,7 +82,11 @@ class HearRepository: HearRepositoryInterface {
     ) {
         self.collectionRef
             .whereField(.init(["location", "geohash\(precision)"]), in: geohashArray)
-            .getDocuments { snapshot, error in
+            .getDocuments { [weak self] snapshot, error in
+                guard let self else {
+                    promise(.failure(.nilSelf))
+                    return
+                }
                 guard let snapshot else {
                     promise(.success([HearEntity]()))
                     return
@@ -86,15 +99,67 @@ class HearRepository: HearRepositoryInterface {
                 let entities = snapshot.documents
                     .compactMap { try? $0.data(as: HearEntity.self) }
                     .filter {
-                        let locationOfEntity = CLLocation(latitude: $0.location.latitude, longitude: $0.location.longitude)
-                        
-                        let distance: Double = locationOfEntity.distance(from: locationOfCenter)
-                        
-                        return distance <= radius
+                        self.isHearEntityInRadius(radiusInMeter: radius, from: locationOfCenter, $0)
                     }
                 
                 promise(.success(entities))
             }
+    }
+    
+    func fetchAroundHears(
+        latitude: Double,
+        longitude: Double,
+        radiusInMeter radius: Double,
+        inGeohashes geohashArray: [String],
+        startAt previousLastDocumentId: String?,
+        limit: Int
+    ) async throws -> (documents: [HearEntity], lastDocumentId: String?) {
+        guard let precision = geohashArray.first?.count else {
+            throw HearRepositoryError.emptySearchingGeohash
+        }
+        let startDocument: DocumentSnapshot? = try? await self.collectionRef
+            .document(previousLastDocumentId ?? "")
+            .getDocument()
+        
+        let query = self.collectionRef
+            .whereField(.init(["location", "geohash\(precision)"]), in: geohashArray)
+            .order(by: "createdAt", descending: true)
+            .limit(to: limit)
+        
+        var result: ([HearEntity], String?)
+        
+        if let startDocument {
+            result = try await query
+                .start(afterDocument: startDocument)
+                .getDocumentsWithSnapshot(as: HearEntity.self)
+        } else {
+            result = try await query.getDocumentsWithSnapshot(as: HearEntity.self)
+        }
+        
+        result.0 = result.0.filter {
+            isHearEntityInRadius(
+                radiusInMeter: radius,
+                from: .init(latitude: latitude, longitude: longitude),
+                $0
+            )
+        }
+        
+        return result
+    }
+    
+    private func isHearEntityInRadius(
+        radiusInMeter radius: Double,
+        from center: CLLocation,
+        _ entity: HearEntity
+    ) -> Bool {
+        let locationOfEntity = CLLocation(
+            latitude: entity.location.latitude,
+            longitude: entity.location.longitude
+        )
+        
+        let distance: Double = locationOfEntity.distance(from: center)
+        
+        return distance <= radius
     }
     
     // MARK: - 새로운 HearEntity 추가
@@ -171,6 +236,16 @@ class HearRepository: HearRepositoryInterface {
 }
 
 class StubHearRepository: HearRepositoryInterface {
+    func fetchAroundHears(
+        latitude: Double,
+        longitude: Double,
+        radiusInMeter radius: Double,
+        inGeohashes geohashArray: [String],
+        startAt previousLastDocumentId: String?,
+        limit: Int
+    ) async throws -> (documents: [HearEntity], lastDocumentId: String?) {
+        ([],nil)
+    }
     
     func fetchAroundHears(
         latitude: Double,
@@ -197,5 +272,15 @@ class StubHearRepository: HearRepositoryInterface {
         Just(())
             .setFailureType(to: HearRepositoryError.self)
             .eraseToAnyPublisher()
+    }
+}
+
+extension Query {
+    func getDocumentsWithSnapshot<T>(
+        as: T.Type
+    ) async throws -> (documents: [T], lastDocumentId: String?) where T: Decodable {
+        let snapshot = try await self.getDocuments()
+        
+        return (snapshot.documents.compactMap { try? $0.data(as: T.self) }, snapshot.documents.last?.documentID)
     }
 }

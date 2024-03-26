@@ -14,6 +14,7 @@ final class HearListViewModel: ObservableObject {
     
     private let container: DIContainer
     private var cancellables = Set<AnyCancellable>()
+    private var lastDocumentID: String?
     
     init(
         container: DIContainer,
@@ -24,7 +25,5 @@ final class HearListViewModel: ObservableObject {
         self.hears = hears
         self.musicOfHear = musicOfHear
     }
-    
-    
 
 }

@@ -14,6 +14,17 @@
     "Google로 로그인" : {
 
     },
+    "hearListView_title" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hear List"
+          }
+        }
+      }
+    },
     "hearModel.onBoardingPageOneStub.feeling.expressionText" : {
 
     },
@@ -152,6 +163,9 @@
       }
     },
     "개인정보 처리방침" : {
+
+    },
+    "거리순" : {
 
     },
     "건너뛰기" : {

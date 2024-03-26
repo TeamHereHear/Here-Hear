@@ -20,7 +20,7 @@ struct HearListView: View {
                 Menu {
                     
                 } label: {
-                    Label{
+                    Label {
                         Text("거리순")
                     } icon: {
                         Image(systemName: "arrow.up.arrow.down.circle.fill")
@@ -42,6 +42,7 @@ struct HearListView: View {
                         userNickname: "Seokjun",
                         music: .onBoardingPageMockOne
                     )
+                    .listRowInsets(.init(top: 0, leading: 8, bottom: 0, trailing: 8))
                     .listRowSeparator(.visible)
                 }
                 .listStyle(.plain)

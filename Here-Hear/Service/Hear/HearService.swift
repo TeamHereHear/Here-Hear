@@ -15,6 +15,16 @@ protocol HearServiceInterface {
         radiusInMeter radius: Double,
         searchingIn geohashArray: [String]
     ) -> AnyPublisher<[HearModel], ServiceError>
+    
+    func fetchAroundHears(
+        latitude: Double,
+        longitude: Double,
+        radiusInMeter radius: Double,
+        inGeohashes geohashArray: [String],
+        startAt previousLastDocumentId: String?,
+        limit: Int
+    ) async throws -> (documents: [HearModel], lastDocumentId: String?)
+    
     func addHear(_ hear: HearModel) -> AnyPublisher<HearModel, ServiceError>
     func updateHear(_ hear: HearModel) -> AnyPublisher<HearModel, ServiceError>
     func deleteHear(_ hear: HearModel) -> AnyPublisher<Void, ServiceError>
@@ -42,6 +52,26 @@ class HearService: HearServiceInterface {
         .map { $0.map { $0.toModel() } }
         .mapError { ServiceError.error($0)}
         .eraseToAnyPublisher()
+    }
+    
+    func fetchAroundHears(
+        latitude: Double,
+        longitude: Double,
+        radiusInMeter radius: Double,
+        inGeohashes geohashArray: [String],
+        startAt previousLastDocumentId: String?,
+        limit: Int
+    ) async throws -> (documents: [HearModel], lastDocumentId: String?) {
+        let result = try await repository.fetchAroundHears(
+            latitude: latitude,
+            longitude: longitude,
+            radiusInMeter: radius,
+            inGeohashes: geohashArray,
+            startAt: previousLastDocumentId,
+            limit: limit
+        )
+        
+        return (result.0.map { $0.toModel() }, result.1)
     }
     
     func addHear(_ hear: HearModel) -> AnyPublisher<HearModel, ServiceError> {
@@ -85,6 +115,17 @@ class StubHearService: HearServiceInterface {
         searchingIn geohashArray: [String]
     ) -> AnyPublisher<[HearModel], ServiceError> {
         Empty().eraseToAnyPublisher()
+    }
+    
+    func fetchAroundHears(
+        latitude: Double,
+        longitude: Double,
+        radiusInMeter radius: Double,
+        inGeohashes geohashArray: [String],
+        startAt previousLastDocumentId: String?,
+        limit: Int
+    ) async throws -> (documents: [HearModel], lastDocumentId: String?) {
+        return ([], nil)
     }
     
     func addHear(_ hear: HearModel) -> AnyPublisher<HearModel, ServiceError> {
