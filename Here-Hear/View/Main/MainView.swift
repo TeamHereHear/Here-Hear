@@ -39,7 +39,10 @@ struct MainView: View {
            UserTrackingButton($userTrackingMode)
         }
         .fullScreenCover(isPresented: $shouldPresentHearList) {
-            HearListView(present: $shouldPresentHearList)
+            HearListView(
+                viewModel: .init(container: container),
+                present: $shouldPresentHearList
+            )
         }
         .overlay(alignment: .bottomLeading) {
             Button {

@@ -18,6 +18,7 @@ enum UserRepositoryError: Error {
 
 protocol UserRepositoryInterface {
     func fetchUser(ofId userId: String) -> AnyPublisher<UserEntity?, UserRepositoryError>
+    func fetchUser(ofId userId: String) async throws -> UserEntity?
     func addUser(_ user: UserEntity) -> AnyPublisher<UserEntity, UserRepositoryError>
     func updateUser(_ user: UserEntity) -> AnyPublisher<UserEntity, UserRepositoryError>
     func deleteUser(_ user: UserEntity) -> AnyPublisher<UserEntity, UserRepositoryError>
@@ -52,6 +53,10 @@ class UserRepository: UserRepositoryInterface {
         }
         
         return subject.eraseToAnyPublisher()
+    }
+    
+    func fetchUser(ofId userId: String) async throws -> UserEntity? {
+        return try await database.collection("User").document(userId).getDocument(as: UserEntity?.self)
     }
     
     // MARK: 새로운 유저 추가하기
@@ -120,6 +125,9 @@ class StubUserRepository: UserRepositoryInterface {
             // 사용자 정보 존재하지 않을 경우, .notFound 에러 반환
             return Fail(error: UserRepositoryError.notFound).eraseToAnyPublisher()
         }
+    }
+    func fetchUser(ofId userId: String) async throws -> UserEntity? {
+        nil
     }
     
     func addUser(_ user: UserEntity) -> AnyPublisher<UserEntity, UserRepositoryError> {

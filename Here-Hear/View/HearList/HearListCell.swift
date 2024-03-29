@@ -9,22 +9,22 @@ import SwiftUI
 
 struct HearListCell: View {
     private let hear: HearModel
-    private let userNickname: String
-    private let music: MusicModel
+    private let userNickname: String?
+    private let musics: [MusicModel]?
     
     init(
         hear: HearModel,
-        userNickname: String,
-        music: MusicModel
+        userNickname: String?,
+        musics: [MusicModel]?
     ) {
         self.hear = hear
         self.userNickname = userNickname
-        self.music = music
+        self.musics = musics
     }
     
     var body: some View {
         HStack {
-           informations
+            informations
             buttons
         }
         .frame(height: 109)
@@ -36,8 +36,9 @@ struct HearListCell: View {
             albumArt
             
             VStack(alignment: .leading, spacing: 0) {
-                songInfo
-                publishInfo
+                songInformation
+                    .redacted(reason: musics == nil ? .placeholder : [])
+                detailedInformation
             }
         }
         
@@ -46,7 +47,7 @@ struct HearListCell: View {
     
     private var albumArt: some View {
         RemoteImage(
-            path: music.artwork?.absoluteString,
+            path: musics?.first?.artwork?.absoluteString,
             isStorageImage: false,
             transitionDuration: 0.5
         ) {
@@ -60,13 +61,13 @@ struct HearListCell: View {
     }
     
     @ViewBuilder
-    private var songInfo: some View {
-        Text(music.title)
+    private var songInformation: some View {
+        Text(musics?.first?.title ?? "Music Title")
             .font(.system(size: 15, weight: .semibold))
-        Text(music.artist)
+        Text(musics?.first?.artist ?? "Music Artist")
             .font(.system(size: 12))
             .foregroundStyle(.secondary)
-        Text(music.album ?? "")
+        Text(musics?.first?.album ?? "Music Album")
             .font(.system(size: 12))
             .foregroundStyle(.secondary)
             .padding(.bottom, 15)
@@ -78,7 +79,7 @@ struct HearListCell: View {
         formatter.dateFormat = "YY.MM.dd"
         return formatter
     }
-    private var publishInfo: some View {
+    private var detailedInformation: some View {
         HStack(spacing: 5) {
             #warning("TODO: Storage 이미지 경로 Constant로 구성")
             RemoteImage(
@@ -94,7 +95,8 @@ struct HearListCell: View {
             .clipShape(.circle)
             
             Group {
-                Text(userNickname)
+                Text(userNickname ?? "userNickname")
+                    .redacted(reason: userNickname == nil ? .placeholder : [])
                 Text(
                     Measurement(value: 5, unit: UnitLength.meters),
                     format: .measurement(width: .abbreviated)
@@ -145,17 +147,17 @@ struct HearListCell: View {
     }
 }
 
-#Preview {
-    HearListCell(
-        hear: .onBoardingPageOneStub,
-        userNickname: "Wonhyeong",
-        music: MusicEntity.mock.toModel()
-    )
-    .environmentObject(
-        DIContainer(
-            services: StubServices(),
-            managers: StubManagers()
-        )
-    )
-    .padding(.horizontal, 9)
-}
+//#Preview {
+//    HearListCell(
+//        hear: .onBoardingPageOneStub,
+//        userNickname: "Wonhyeong",
+//        musics: [MusicEntity.mock.toModel()]
+//    )
+//    .environmentObject(
+//        DIContainer(
+//            services: StubServices(),
+//            managers: StubManagers()
+//        )
+//    )
+//    .padding(.horizontal, 9)
+//}

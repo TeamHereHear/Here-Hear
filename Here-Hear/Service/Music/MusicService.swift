@@ -11,6 +11,7 @@ import Combine
 protocol MusicServiceInterface {
     func addMusic(_ music: MusicModel) -> AnyPublisher<MusicModel, ServiceError>
     func fetchMusic(ofIds ids: [String]) -> AnyPublisher<[MusicModel], ServiceError>
+    func fetchMusic(ofIds ids: [String]) async throws -> [MusicModel]
     func deleteMusic(ofId id: String) -> AnyPublisher<Void, ServiceError>
 }
 
@@ -34,6 +35,10 @@ class MusicService: MusicServiceInterface {
             .map { $0.map { $0.toModel() } }
             .mapError { ServiceError.error( $0 ) }
             .eraseToAnyPublisher()
+    }
+    
+    func fetchMusic(ofIds ids: [String]) async throws -> [MusicModel] {
+        return try await repository.fetchMusic(ofIds: ids).map { $0.toModel() }
     }
     
     func deleteMusic(ofId id: String) -> AnyPublisher<Void, ServiceError> {
@@ -67,6 +72,10 @@ class StubMusicService: MusicServiceInterface {
         return Just(testModel)
             .setFailureType(to: ServiceError.self)
             .eraseToAnyPublisher()
+    }
+    
+    func fetchMusic(ofIds ids: [String]) async throws -> [MusicModel] {
+        []
     }
     
     func deleteMusic(ofId id: String) -> AnyPublisher<Void, ServiceError> {

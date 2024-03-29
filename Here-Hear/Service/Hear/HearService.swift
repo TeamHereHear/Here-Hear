@@ -44,8 +44,7 @@ class HearService: HearServiceInterface {
         searchingIn geohashArray: [String]
     ) -> AnyPublisher<[HearModel], ServiceError> {
         repository.fetchAroundHears(
-            latitude: latitude,
-            longitude: longitude,
+            from: .init(latitude: latitude, longitude: longitude),
             radiusInMeter: radius,
             inGeohashes: geohashArray
         )
@@ -63,8 +62,7 @@ class HearService: HearServiceInterface {
         limit: Int
     ) async throws -> (documents: [HearModel], lastDocumentId: String?) {
         let result = try await repository.fetchAroundHears(
-            latitude: latitude,
-            longitude: longitude,
+            from: .init(latitude: latitude, longitude: longitude),
             radiusInMeter: radius,
             inGeohashes: geohashArray,
             startAt: previousLastDocumentId,
@@ -125,7 +123,7 @@ class StubHearService: HearServiceInterface {
         startAt previousLastDocumentId: String?,
         limit: Int
     ) async throws -> (documents: [HearModel], lastDocumentId: String?) {
-        return ([], nil)
+        return (HearModel.mocks, nil)
     }
     
     func addHear(_ hear: HearModel) -> AnyPublisher<HearModel, ServiceError> {

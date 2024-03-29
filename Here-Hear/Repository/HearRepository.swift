@@ -20,15 +20,13 @@ enum HearRepositoryError: Error {
 
 protocol HearRepositoryInterface {
     func fetchAroundHears(
-        latitude: Double,
-        longitude: Double,
+        from center: CLLocation,
         radiusInMeter radius: Double,
         inGeohashes geohashArray: [String]
     ) -> AnyPublisher<[HearEntity], HearRepositoryError>
     
     func fetchAroundHears(
-        latitude: Double,
-        longitude: Double,
+        from center: CLLocation,
         radiusInMeter radius: Double,
         inGeohashes geohashArray: [String],
         startAt previousLastDocumentId: String?,
@@ -46,8 +44,7 @@ class HearRepository: HearRepositoryInterface {
     let collectionRef = Firestore.firestore().collection("Hear")
 
     func fetchAroundHears(
-        latitude: Double,
-        longitude: Double,
+        from center: CLLocation,
         radiusInMeter radius: Double,
         inGeohashes geohashArray: [String]
     ) -> AnyPublisher<[HearEntity], HearRepositoryError> {
@@ -63,7 +60,7 @@ class HearRepository: HearRepositoryInterface {
             }
             
             self.completeFetchingAroundHears(
-                locationOfCenter: .init(latitude: latitude, longitude: longitude),
+                locationOfCenter: center,
                 radiusInMeter: radius,
                 precision: precision,
                 searchingIn: geohashArray,
@@ -107,8 +104,7 @@ class HearRepository: HearRepositoryInterface {
     }
     
     func fetchAroundHears(
-        latitude: Double,
-        longitude: Double,
+        from center: CLLocation,
         radiusInMeter radius: Double,
         inGeohashes geohashArray: [String],
         startAt previousLastDocumentId: String?,
@@ -117,9 +113,13 @@ class HearRepository: HearRepositoryInterface {
         guard let precision = geohashArray.first?.count else {
             throw HearRepositoryError.emptySearchingGeohash
         }
-        let startDocument: DocumentSnapshot? = try? await self.collectionRef
-            .document(previousLastDocumentId ?? "")
-            .getDocument()
+        var startDocument: DocumentSnapshot?
+        
+        if let previousLastDocumentId {
+            startDocument = try? await self.collectionRef
+                .document(previousLastDocumentId)
+                .getDocument()
+        }
         
         let query = self.collectionRef
             .whereField(.init(["location", "geohash\(precision)"]), in: geohashArray)
@@ -136,13 +136,7 @@ class HearRepository: HearRepositoryInterface {
             result = try await query.getDocumentsWithSnapshot(as: HearEntity.self)
         }
         
-        result.0 = result.0.filter {
-            isHearEntityInRadius(
-                radiusInMeter: radius,
-                from: .init(latitude: latitude, longitude: longitude),
-                $0
-            )
-        }
+        result.0 = result.0.filter { isHearEntityInRadius(radiusInMeter: radius, from: center, $0) }
         
         return result
     }
@@ -237,8 +231,7 @@ class HearRepository: HearRepositoryInterface {
 
 class StubHearRepository: HearRepositoryInterface {
     func fetchAroundHears(
-        latitude: Double,
-        longitude: Double,
+        from center: CLLocation,
         radiusInMeter radius: Double,
         inGeohashes geohashArray: [String],
         startAt previousLastDocumentId: String?,
@@ -248,8 +241,7 @@ class StubHearRepository: HearRepositoryInterface {
     }
     
     func fetchAroundHears(
-        latitude: Double,
-        longitude: Double,
+        from center: CLLocation,
         radiusInMeter radius: Double,
         inGeohashes geohashArray: [String]
     ) -> AnyPublisher<[HearEntity], HearRepositoryError> {

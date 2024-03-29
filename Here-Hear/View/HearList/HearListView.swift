@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct HearListView: View {
+    @StateObject private var viewModel: HearListViewModel
     @Binding private var shouldPresentHearList: Bool
     
-    init(present shouldPresentHearList: Binding<Bool>) {
+    init(
+        viewModel: HearListViewModel,
+        present shouldPresentHearList: Binding<Bool>
+    ) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
         self._shouldPresentHearList = shouldPresentHearList
     }
     
@@ -29,21 +34,24 @@ struct HearListView: View {
                 .padding(.horizontal)
                 
                 List {
-                    HearListCell(
-                        hear: .mocks.first ?? .init(
-                            id: "1",
-                            userId: "1",
-                            location: .init(latitude: 33, longitude: 120, geohashExact: "ggggg"),
-                            musicIds: [],
-                            feeling: .init(),
-                            like: 100,
-                            createdAt: .now
-                        ),
-                        userNickname: "Seokjun",
-                        music: .onBoardingPageMockOne
-                    )
-                    .listRowInsets(.init(top: 0, leading: 8, bottom: 0, trailing: 8))
-                    .listRowSeparator(.visible)
+                    ForEach(viewModel.hears, id: \.id) { hear in
+                            HearListCell(
+                                hear: hear,
+                                userNickname: viewModel.userNicknames[hear.userId],
+                                musics: viewModel.musicOfHear[hear.id]
+                            )
+                            .listRowInsets(
+                                .init(
+                                    top: 0,
+                                    leading: 21,
+                                    bottom: 0,
+                                    trailing: 7
+                                )
+                            )
+                            .listRowSeparator(.visible)
+                    }
+                    
+                    progressView
                 }
                 .listStyle(.plain)
             }
@@ -59,14 +67,35 @@ struct HearListView: View {
         }
         
     }
+    
+    @MainActor
+    @ViewBuilder
+    private var progressView : some View {
+        if viewModel.loadingState == .none {
+            ProgressView()
+                .id(UUID())
+                .frame(maxWidth: .infinity)
+                .task {
+                    await viewModel.fetchHears()
+                }
+                .listRowSeparator(.hidden)
+        }
+    }
 }
 
 #Preview {
-    HearListView(present: .constant(true))
-        .environmentObject(
-            DIContainer(
-                services: StubServices(),
-                managers: StubManagers()
-            )
-        )
+    let container = DIContainer(
+        services: StubServices(),
+        managers: StubManagers()
+    )
+    
+    return HearListView(
+        viewModel: .init(
+            container: container
+        ),
+        present: .constant(true)
+    )
+    .environmentObject(
+        container
+    )
 }

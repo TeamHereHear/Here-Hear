@@ -29,38 +29,7 @@ final class MainViewModel: ObservableObject {
     init(container: DIContainer) {
         self.container = container
         subscribeUserLocation()
-//        fetchHearsWhenMapRectChanges()
-        fetchMockHears()
-    }
-    
-    func fetchMockHears() {
-        let calendar = Calendar.current
-        self.hears = (1...10).map {
-            let latitude: Double = Double.random(in: 37.413294..<37.715133)
-            let longitude: Double = Double.random(in: 126.734086..<127.269311)
-            let location: LocationModel = .init(
-                latitude: latitude,
-                longitude: longitude,
-                geohashExact: container.services.geohashService.geohashExact(
-                    latitude: latitude,
-                    longitude: longitude
-                )
-            )
-            
-            let feelingModel: FeelingModel = .init(expressionText: "Mock \($0)")
-            let weather: Weather? = Weather.allCases.randomElement()
-            let hearModel: HearModel = .init(
-                id: UUID().uuidString,
-                userId: "\($0)",
-                location: location,
-                musicIds: [],
-                feeling: feelingModel,
-                like: $0,
-                createdAt: calendar.date(byAdding: .day, value: -$0, to: .now) ?? .now,
-                weather: weather
-            )
-            return hearModel
-        }
+        fetchHearsWhenMapRectChanges()
     }
     
     private func subscribeUserLocation() {
@@ -85,31 +54,34 @@ final class MainViewModel: ObservableObject {
                     return Just([HearModel]()).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
                 }
                 
-                let coordinate = rect.origin.coordinate
-                let mapWidthInMeter = rect.width / Double(10)
-                
-                let overlappedGeoHash = container.services.geohashService.overlappingGeohash(
-                    latitude: coordinate.latitude,
-                    longitude: coordinate.longitude,
-                    precision: .twentyFourHundredMeters
-                )
-                return container.services.hearService.fetchAroundHears(
-                    latitude: coordinate.latitude,
-                    longitude: coordinate.longitude,
-                    radiusInMeter: 2000, // TODO: 정책상 어떻게 할지 정해야함
-                    searchingIn: overlappedGeoHash
-                )
-                .eraseToAnyPublisher()
+                return self.fetchHears(whenMapRectIs: rect)
             }
+            .receive(on: DispatchQueue.main)
             .sink { _ in
                 
             } receiveValue: { [weak self] hears in
                 guard let self else { return }
-                DispatchQueue.main.async {
-                    self.hears = hears
-                }
+                self.hears = hears
             }
             .store(in: &cancellables)
+    }
+    
+    private func fetchHears(whenMapRectIs rect: MKMapRect) -> AnyPublisher<[HearModel], ServiceError> {
+        let coordinate = rect.origin.coordinate
+        let mapWidthInMeter = rect.width / Double(10)
+        
+        let overlappedGeoHash = container.services.geohashService.overlappingGeohash(
+            latitude: coordinate.latitude,
+            longitude: coordinate.longitude,
+            precision: .twentyFourHundredMeters
+        )
+        return container.services.hearService.fetchAroundHears(
+            latitude: coordinate.latitude,
+            longitude: coordinate.longitude,
+            radiusInMeter: 1000, // TODO: 정책상 어떻게 할지 정해야함
+            searchingIn: overlappedGeoHash
+        )
+        .eraseToAnyPublisher()
     }
 }
 
