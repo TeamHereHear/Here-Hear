@@ -17,50 +17,52 @@ extension View {
 
 struct AddMusicToHear: View {
     @StateObject private var musicViewModel = MusicViewModel()
-    @State private var videoURL: URL?
-    @State private var searchText = ""
-    @State private var selectedSong: MusicModel?
+    @State var videoURL: URL?
+    @State var selectedSong: MusicModel?
     
     var body: some View {
         NavigationView { // NavigationView 시작
+            
             VStack {
+                
+                Text("우선, 다른 사람들과 공유할\n음악을 찾아볼까요?")
+                    .padding()
+                    .font(.title)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
                 HStack {
-                    TextField(text: $searchText) {
+                    TextField(text: $musicViewModel.searchText) {
                         Text(
-                            "음악을 검색해주세요."
+                            "공유하고 싶은 음악을 검색해주세요 :)"
                         ).foregroundStyle(.gray)
                     }
-                        .padding(20)
-                        .padding(.leading, 20)
-                        .background(Color("HHTertiary"))
-                        .cornerRadius(10)
-                        .padding(.horizontal) // 화면 좌우 패딩
-                        .foregroundColor(.accent)
-                        .overlay(
-                            HStack {
-                                Image(systemName: "magnifyingglass")
-                                    .font(.title3)
-                                    .foregroundColor(Color("HHGray"))
-                                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                                    .padding(.leading, 25)
-                                Spacer()
-
-                                if !searchText.isEmpty {
-                                    Button(action: {
-                                        self.searchText = ""
-                                    }) {
-                                        Image(systemName: "multiply.circle")
-                                            .font(.title3)
-                                            .foregroundColor(Color("HHGray"))
-                                            .padding(.trailing, 25)
-                                    }
+                    .padding(20)
+                    .padding(.leading, 20)
+                    .background(Color("HHTertiary"))
+                    .cornerRadius(10)
+                    .padding(.horizontal) // 화면 좌우 패딩
+                    .foregroundColor(.accentColor)
+                    .overlay(
+                        HStack {
+                            Image(systemName: "magnifyingglass")
+                                .font(.title3)
+                                .foregroundColor(Color("HHGray"))
+                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 25)
+                            Spacer()
+                            
+                            if !musicViewModel.searchText.isEmpty {
+                                Button(action: {
+                                    musicViewModel.searchText = ""
+                                }) {
+                                    Image(systemName: "multiply.circle")
+                                        .font(.title3)
+                                        .foregroundColor(Color("HHGray"))
+                                        .padding(.trailing, 25)
                                 }
                             }
-                        )
-                        .onChange(of: searchText) { newValue in
-                            musicViewModel.searchText = newValue
-                            musicViewModel.searchMusic(searchText: searchText)
                         }
+                    )
                 } // HStack TextField요소
                 .padding(.bottom, 20)
                 Spacer().frame(maxWidth: .infinity).overlay {
@@ -70,15 +72,15 @@ struct AddMusicToHear: View {
                         musicList
                     }
                 }
-            }
-            .navigationTitle("우선, 다른 사람들과 공유할 음악을 찾아 볼까요?")
+            } // 첫 VStack
+            .animation(.easeInOut, value: musicViewModel.isLoading)
+            //.navigationTitle("우선, 다른 사람들과 공유할 음악을 찾아 볼까요?")
             .fullScreenCover(item: $selectedSong) { _ in
                 CameraHomeView(selectedSong: $selectedSong)
-                    .onDisappear {
+                    .onAppear {
                         musicViewModel.pauseMusicIfNeeded()
                     }
             }
-
             .onTapGesture {
                 self.hideKeyboard()
             }
@@ -90,9 +92,9 @@ struct AddMusicToHear: View {
         List(musicViewModel.songs) { song in
             musicRow(for: song)
                 .onTapGesture {
-
+                    
                     self.selectedSong = song
-                
+                    
                 }
         }
     }
@@ -150,12 +152,4 @@ struct AddMusicToHear: View {
             .animation(.easeInOut(duration: 0.5), value: musicViewModel.isPlaying)
         }
     } // AddMusicToHear View 종료
-}
-
-extension MusicViewModel {
-    func pauseMusicIfNeeded() {
-        if isPlaying, let url = currentlyPlayingURL {
-            pauseMusic(url: url)
-        }
-    }
 }

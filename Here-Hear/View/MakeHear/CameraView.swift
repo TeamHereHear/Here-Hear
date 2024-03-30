@@ -8,8 +8,6 @@
 import SwiftUI
 import AVFoundation
 
-// Adding Camera And Microphone Permission
-
 struct CameraView: View {
     @EnvironmentObject var cameraModel: CameraViewModel
     
@@ -53,22 +51,22 @@ struct CameraView: View {
 // setting view for preview
 
 struct CameraPreview: UIViewRepresentable {
-    @EnvironmentObject var cameraModel: CameraViewModel
+    @EnvironmentObject var cameraViewModel: CameraViewModel
     var size: CGSize
     
     func makeUIView(context: Context) -> some UIView {
         
         let view = UIView()
         
-        cameraModel.preview = AVCaptureVideoPreviewLayer(session: cameraModel.session)
-        cameraModel.preview.frame.size = size
+        cameraViewModel.preview = AVCaptureVideoPreviewLayer(session: cameraViewModel.session)
+        cameraViewModel.preview.frame.size = size
         
-        cameraModel.preview.videoGravity = .resizeAspectFill
-        view.layer.addSublayer(cameraModel.preview)
+        cameraViewModel.preview.videoGravity = .resizeAspectFill
+        view.layer.addSublayer(cameraViewModel.preview)
         
         // AVCaptureSession의 startRunning이 메인스레드에서 호출말고 UI응답성 유지하기 위해서 백그라운드 스레드에서 실행하기
         DispatchQueue.global(qos: .userInitiated).async {
-           cameraModel.session.startRunning()
+           cameraViewModel.session.startRunning()
         }
         
         return view

@@ -20,10 +20,20 @@ class MusicViewModel: ObservableObject {
     private var timeObserverToken: Any?
     private var musicManager: MusicMangerProtocol
     private var cancellables: Set<AnyCancellable> = []
-    private var searchCancellable: AnyCancellable?
     
     init(musicManager: MusicMangerProtocol = MusicManger()) {
         self.musicManager = musicManager
+        setupSearchTextPublisher()
+    }
+    
+    func setupSearchTextPublisher() {
+        $searchText
+            .removeDuplicates()
+            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
+            .sink { [weak self] searchText in
+                self?.searchMusic(searchText: searchText)
+            }
+            .store(in: &cancellables)
     }
     
     func searchMusic(searchText: String) {
@@ -119,6 +129,14 @@ class MusicViewModel: ObservableObject {
             self.currentlyPlayingURL = nil // 현재 재생중인 URL 초기화하기
             self.isPlaying = false // 재생 중이 아님
 
+        }
+    }
+}
+
+extension MusicViewModel {
+    func pauseMusicIfNeeded() {
+        if isPlaying, let url = currentlyPlayingURL {
+            pauseMusic(url: url)
         }
     }
 }

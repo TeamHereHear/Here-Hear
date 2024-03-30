@@ -10,13 +10,15 @@ import AVFoundation
 
 // MARK: Camera ViewModel
 class CameraViewModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingDelegate {
-    @Published var session = AVCaptureSession()
+    
+    let session = AVCaptureSession()
     @Published var output = AVCaptureMovieFileOutput()
     @Published var preview: AVCaptureVideoPreviewLayer!
     @Published var alert = false
+    
     // MARK: Video Recorder Properties
     @Published var isRecording: Bool = false
-    @Published var recoredURLs: [URL] = []
+    @Published var recordedPreviewURLs: [URL] = []
     @Published var previewURL: URL?
     @Published var showPreview: Bool = false
     
@@ -56,6 +58,7 @@ class CameraViewModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingD
         
         if let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
             let videoInput = try? AVCaptureDeviceInput(device: videoDevice),
+           
             let audioDevice = AVCaptureDevice.default(for: .audio),
             let audioInput = try? AVCaptureDeviceInput(device: audioDevice) {
                
@@ -75,9 +78,8 @@ class CameraViewModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingD
     }
 
     func startRecording() {
-        // MARK: Temporary URL for recoring Video
-        
         let tempURL = NSTemporaryDirectory() + "\(Date()).mov"
+        
         if URL(string: tempURL) != nil {
             output.startRecording(to: URL(fileURLWithPath: tempURL), recordingDelegate: self)
             DispatchQueue.main.async {
@@ -90,7 +92,15 @@ class CameraViewModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingD
         output.stopRecording()
         DispatchQueue.main.async {
             self.isRecording = false
+            self.showPreview = true
+
         }
+    }
+    // MARK: 촬영본 다 삭제하기
+    func deleteAllRecordings() {
+        recordedDuration = 0
+        previewURL = nil
+        recordedPreviewURLs.removeAll()
     }
 
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
@@ -99,22 +109,19 @@ class CameraViewModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingD
             return
         }
         
-        // CREATED SUCCESSFULLY
         print(outputFileURL)
         // self.previewURL = outputFileURL
-        self.recoredURLs.append(outputFileURL)
-        if self.recoredURLs.count == 1 {
+        self.recordedPreviewURLs.append(outputFileURL)
+        if self.recordedPreviewURLs.count == 1 {
             self.previewURL = outputFileURL
             return
         }
         
-        // CONVERTING URLs to ASSETS
-        let assets = recoredURLs.compactMap { url -> AVURLAsset in
+        let assets = recordedPreviewURLs.compactMap { url -> AVURLAsset in
             return AVURLAsset(url: url)
         }
         self.previewURL = nil
         
-        // MERGING VIDEOS
         mergeVideos(assets: assets) { exporter in
             exporter.exportAsynchronously {
                 if exporter.status == .failed {
@@ -122,7 +129,7 @@ class CameraViewModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingD
                     print(exporter.error as Any)
                 } else {
                     if let finalURL = exporter.outputURL {
-                        print(finalURL)
+//                        print(finalURL)
                         DispatchQueue.main.async {
                             self.previewURL = finalURL
                         }
@@ -145,19 +152,15 @@ class CameraViewModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingD
         else {return}
         
         for asset in assets {
-            // Linking Audio and Video
             do {
                 try videoTrack.insertTimeRange(CMTimeRange(start: .zero, duration: asset.duration), of: asset.tracks(withMediaType: .video)[0], at: lastTime)
-                // Safe Check if Video has audio
                 if !asset.tracks(withMediaType: .audio).isEmpty {
                     try audioTrack.insertTimeRange(CMTimeRange(start: .zero, duration: asset.duration), of: asset.tracks(withMediaType: .audio)[0], at: lastTime)
                 }
             } catch {
-                // HANDLE Error
                 print(error.localizedDescription)
             }
             
-            // Updatin Last time
             lastTime = CMTimeAdd(lastTime, asset.duration)
         }
         

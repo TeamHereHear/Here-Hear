@@ -26,7 +26,7 @@ struct AuthenticatedView: View {
     }
 }
 
-#Preview {
+#Preview {  
     let container: DIContainer = .init(services: StubServices())
     return AuthenticatedView(authViewModel: .init(container: container))
         .environmentObject(container)
