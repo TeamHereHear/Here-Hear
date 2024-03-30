@@ -11,14 +11,14 @@ import SwiftUI
 struct Here_HearApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
-    @StateObject private var container: DIContainer = DIContainer(services: Services())
+    @StateObject private var container: DIContainer = DIContainer(services: Services(), managers: Managers())
 
 
     var body: some Scene {
         WindowGroup {
-//            AuthenticatedView(authViewModel: .init(container: container))
-//                .environmentObject(container)
-            AddMusicToHear()
+            AuthenticatedView(authViewModel: .init(container: container))
+                .environmentObject(container)
+//            AddMusicToHear()
         }
     }
 }

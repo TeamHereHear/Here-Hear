@@ -93,11 +93,11 @@ struct FinalSummaryHearView: View {
                     }
                     .padding([.bottom, .trailing], 15)
                     .padding(.bottom, 5)
-                    
-                    NavigationLink(
-                        destination: MainView().navigationBarBackButtonHidden(true),
-                        isActive: $hearViewModel.isSaveCompleted
-                    ) { EmptyView() }
+//                    
+//                    NavigationLink(
+//                        destination: MainView(viewModel: <#MainViewModel#>).navigationBarBackButtonHidden(true),
+//                        isActive: $hearViewModel.isSaveCompleted
+//                    ) { EmptyView() }
                 }
             }
          }

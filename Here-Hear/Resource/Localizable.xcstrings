@@ -82,11 +82,6 @@
         }
       }
     },
-    "Please Enable cameraModel Access Or Microphone Acess !!!" : {
-
-    },
-    "this is MainView" : {
-},
     "onBoadingPageOne.Next" : {
       "localizations" : {
         "en" : {
@@ -167,18 +162,19 @@
         }
       }
     },
+    "Please Enable cameraModel Access Or Microphone Acess !!!" : {
+
+    },
     "개인정보 처리방침" : {
 
     },
     "거리순" : {
 
     },
-    "공유하고 싶은 음악을 검색해주세요 :)" : {
+    "건너뛰기" : {
 
     },
-    "구글 계정으로 로그인" : {
-},
-    "건너뛰기" : {
+    "공유하고 싶은 음악을 검색해주세요 :)" : {
 
     },
     "내 Hear 저장하기" : {
