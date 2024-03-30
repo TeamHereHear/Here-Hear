@@ -14,10 +14,21 @@
     "Google로 로그인" : {
 
     },
-    "Here, Hear" : {
+    "hearListView_title" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hear List"
+          }
+        }
+      }
+    },
+    "hearModel.onBoardingPageOneStub.feeling.expressionText" : {
 
     },
-    "logout" : {
+    "Here, Hear" : {
 
     },
     "nicknameTextField.nicknameLengthRules" : {
@@ -75,27 +86,105 @@
 
     },
     "this is MainView" : {
-
+},
+    "onBoadingPageOne.Next" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "다음"
+          }
+        }
+      }
+    },
+    "onBoadingPageTwo.Next" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "다음"
+          }
+        }
+      }
+    },
+    "onBoardingPageOne.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you curious\nabout what other people around you\nlisten to?\nLook it up."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "주변에서\n무슨 음악을 듣는지\n찾아보세요"
+          }
+        }
+      }
+    },
+    "onBoardingPageThree.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check the list of \"Hear\"\naround you"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "간편하게\n당신의 주변 ‘Hear’를 \n목록으로 확인하세요"
+          }
+        }
+      }
+    },
+    "onBoardingPageTwo.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share\nwhat music you listen to here\nand how you feel right now\nwith \"Hear\"."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "여기서 \n무슨 음악을 듣고\n어떤 생각이 드는지\n‘Hear’ 로 공유하세요."
+          }
+        }
+      }
     },
     "개인정보 처리방침" : {
 
     },
-    "건너뛰기" : {
+    "거리순" : {
 
     },
     "공유하고 싶은 음악을 검색해주세요 :)" : {
 
     },
     "구글 계정으로 로그인" : {
+},
+    "건너뛰기" : {
 
     },
     "내 Hear 저장하기" : {
 
     },
     "닉네임을 만들어주세요 :)" : {
-
-    },
-    "로그아웃" : {
 
     },
     "로그인 없이 바로 실행하기" : {

@@ -10,6 +10,7 @@ import Combine
 
 protocol UserServiceInterface {
     func fetchUser(ofId userId: String) -> AnyPublisher<UserModel?, ServiceError>
+    func fetchUser(ofId userId: String) async throws -> UserModel?
     func addUser(_ user: UserModel) -> AnyPublisher<UserModel, ServiceError>
     func updateUser(_ user: UserModel) -> AnyPublisher<UserModel, ServiceError>
     func deleteUser(_ user: UserModel) -> AnyPublisher<UserModel, ServiceError>
@@ -33,6 +34,10 @@ class UserService: UserServiceInterface {
             .map { $0?.toModel() }
             .mapError { ServiceError.error($0) }
             .eraseToAnyPublisher()
+    }
+    
+    func fetchUser(ofId userId: String) async throws -> UserModel? {
+        return try await repository.fetchUser(ofId: userId)?.toModel()
     }
     
     // MARK: - 유저정보 추가하기
@@ -75,6 +80,10 @@ class UserService: UserServiceInterface {
 class StubUserService: UserServiceInterface {
     func fetchUser(ofId userId: String) -> AnyPublisher<UserModel?, ServiceError> {
         Empty().eraseToAnyPublisher()
+    }
+    
+    func fetchUser(ofId userId: String) async throws -> UserModel? {
+        nil
     }
     
     func addUser(_ user: UserModel) -> AnyPublisher<UserModel, ServiceError> {

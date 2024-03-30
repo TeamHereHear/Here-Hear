@@ -19,9 +19,11 @@ enum MusicRepositoryError: Error {
 protocol MusicRepositoryInterface {
     func addMusic(_ music: MusicEntity) -> AnyPublisher<MusicEntity, MusicRepositoryError>
     func fetchMusic(ofIds ids: [String]) -> AnyPublisher<[MusicEntity], MusicRepositoryError>
+    func fetchMusic(ofIds ids: [String]) async throws -> [MusicEntity]
     func deleteMusic(ofId id: String) -> AnyPublisher<Void, MusicRepositoryError>
 }
 
+#warning("TODO: Firestore Cache Setting")
 class MusicRepository: MusicRepositoryInterface {
     private let collectionRef = Firestore.firestore().collection("Music")
     
@@ -82,6 +84,14 @@ class MusicRepository: MusicRepositoryInterface {
                 }
         }
         .eraseToAnyPublisher()
+    }
+    
+    func fetchMusic(ofIds ids: [String]) async throws -> [MusicEntity] {
+        let snapshot = try await self.collectionRef
+            .whereField("id", in: ids)
+            .getDocuments()
+        
+        return snapshot.documents.compactMap { try? $0.data(as: MusicEntity.self) }
     }
     
     // MARK: - MusicEntity 삭제

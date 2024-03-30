@@ -1,5 +1,5 @@
 {
-  "originHash" : "675a89aa547493ff2325fd6fb8508a032000a6d81a410602ac8e0dd61b6f487d",
+  "originHash" : "be9f83bc8865b07f7e0c1f237a5cf1ad0b784ac5e21464f210b1fd737c597b91",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/openid/AppAuth-iOS.git",
       "state" : {
-        "revision" : "71cde449f13d453227e687458144bde372d30fc7",
-        "version" : "1.6.2"
+        "revision" : "7e2c09cbeb3bb799f26c268dbedb26325ea722a9",
+        "version" : "1.7.3"
       }
     },
     {
@@ -40,7 +40,7 @@
     {
       "identity" : "geohash",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/nh7a/Geohash",
+      "location" : "https://github.com/nh7a/Geohash.git",
       "state" : {
         "branch" : "main",
         "revision" : "927b1f402650ab18ee0714cf099122606390646c"
