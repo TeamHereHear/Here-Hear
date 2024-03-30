@@ -7,3 +7,4 @@
 */
 
 "CFBundleDisplayName" = "Here, Hear";
+"NSLocationWhenInUseUsageDescription" = "This app uses your current location to display on the map or provide nearby services.";

@@ -11,7 +11,7 @@ import SwiftUI
 struct Here_HearApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
-    @StateObject private var container: DIContainer = DIContainer(services: Services())
+    @StateObject private var container: DIContainer = DIContainer(services: Services(), managers: Managers())
 //    init() {
 //        let appearance = UINavigationBarAppearance()
 //        appearance.backgroundColor = UIColor.systemPink // 네비게이션 바의 배경색 설정

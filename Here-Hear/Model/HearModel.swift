@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-struct HearModel {
+struct HearModel: Identifiable {
     var id: String
     var userId: String
     var location: LocationModel

@@ -86,7 +86,7 @@ struct RegisterNicknameView: View {
 }
 
 #Preview {
-    let container: DIContainer = .init(services: StubServices())
+    let container: DIContainer = .init(services: StubServices(), managers: StubManagers())
     
     return RegisterNicknameView(
         viewModel: .init(container: container)

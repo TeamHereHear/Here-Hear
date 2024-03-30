@@ -52,3 +52,9 @@ class MusicManger: MusicMangerProtocol {
         .eraseToAnyPublisher()
     }
 }
+
+final class StubMusicManager: MusicMangerProtocol {
+    func fetchMusic(with term: String) -> AnyPublisher<[MusicModel], any Error> {
+        Empty().eraseToAnyPublisher()
+    }
+}

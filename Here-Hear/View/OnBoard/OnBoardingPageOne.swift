@@ -30,7 +30,7 @@ struct OnBoardingPageOne: View {
                 HearBalloon(
                     viewModel: .init(
                         hear: HearModel.onBoardingPageOneStub,
-                        container: .init(services: StubServices())
+                        container: .init(services: StubServices(), managers: StubManagers())
                     )
                 )
                 .scaleEffect(CGSize(width: 1.2, height: 1.2))
