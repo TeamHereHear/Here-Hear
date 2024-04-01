@@ -24,9 +24,7 @@ final class HearListViewModel: ObservableObject {
         container: DIContainer
     ) {
         self.container = container
-        container.managers.userLocationManager.locationPublisher
-            .sink { self.userLocation = $0 }
-            .store(in: &cancellables)
+        self.userLocation = container.managers.userLocationManager.userLocation
     }
     
     enum LoadingState {

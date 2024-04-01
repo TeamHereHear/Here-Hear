@@ -28,45 +28,25 @@ final class MainViewModel: ObservableObject {
     
     init(container: DIContainer) {
         self.container = container
-        subscribeUserLocation()
-        fetchHearsWhenMapRectChanges()
+        Task {
+            let mapRect = await setInitialUserLocation()
+            fetchHears(whenMapRectIs: mapRect)
+        }
     }
     
-    private func subscribeUserLocation() {
-        container.managers.userLocationManager.locationPublisher
-            .map { location in
-                MKMapRect(origin: .init(location?.coordinate ?? .seoulCityHall), size: Self.basicMapSize)
-            }
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-                
-            } receiveValue: { mapRect in
-                    self.mapRect = mapRect
-            }
-            .store(in: &cancellables)
+    @MainActor
+    private func setInitialUserLocation() -> MKMapRect? {
+        guard let location = container.managers.userLocationManager.userLocation else {
+            self.mapRect = .init(origin: .init(.seoulCityHall), size: Self.basicMapSize)
+            return nil
+        }
+        let mapRect: MKMapRect = .init(origin: .init(location.coordinate), size: Self.basicMapSize)
+        self.mapRect = mapRect
+        return mapRect
     }
     
-    private func fetchHearsWhenMapRectChanges() {
-        $mapRect
-            .debounce(for: 1, scheduler: RunLoop.main)
-            .flatMap { [weak self] rect in
-                guard let self else {
-                    return Just([HearModel]()).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
-                }
-                
-                return self.fetchHears(whenMapRectIs: rect)
-            }
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-                
-            } receiveValue: { [weak self] hears in
-                guard let self else { return }
-                self.hears = hears
-            }
-            .store(in: &cancellables)
-    }
-    
-    private func fetchHears(whenMapRectIs rect: MKMapRect) -> AnyPublisher<[HearModel], ServiceError> {
+    func fetchHears(whenMapRectIs rect: MKMapRect?) {
+        guard let rect else { return }
         let coordinate = rect.origin.coordinate
         let mapWidthInMeter = rect.width / Double(10)
         
@@ -75,13 +55,19 @@ final class MainViewModel: ObservableObject {
             longitude: coordinate.longitude,
             precision: .twentyFourHundredMeters
         )
-        return container.services.hearService.fetchAroundHears(
+        container.services.hearService.fetchAroundHears(
             latitude: coordinate.latitude,
             longitude: coordinate.longitude,
             radiusInMeter: 1000, // TODO: 정책상 어떻게 할지 정해야함
             searchingIn: overlappedGeoHash
         )
-        .eraseToAnyPublisher()
+        .receive(on: DispatchQueue.main)
+        .sink { _ in
+            
+        } receiveValue: { hears in
+            self.hears = hears
+        }
+        .store(in: &cancellables)
     }
 }
 
