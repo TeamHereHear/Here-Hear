@@ -26,7 +26,7 @@ struct HearListView: View {
                     
                 } label: {
                     Label {
-                        Text("거리순")
+                        Text("hearListView.sorting.by.distance")
                     } icon: {
                         Image(systemName: "arrow.up.arrow.down.circle.fill")
                     }
@@ -37,7 +37,7 @@ struct HearListView: View {
                     ForEach(viewModel.hears, id: \.id) { hear in
                             HearListCell(
                                 hear: hear,
-                                userNickname: viewModel.userNicknames[hear.userId],
+                                userNickname: viewModel.userNicknames[hear.id],
                                 musics: viewModel.musicOfHear[hear.id]
                             )
                             .listRowInsets(
@@ -55,7 +55,7 @@ struct HearListView: View {
                 }
                 .listStyle(.plain)
             }
-            .navigationTitle(String(localized: "hearListView_title", defaultValue: "Hear List"))
+            .navigationTitle(String(localized: "hearListView.title", defaultValue: "Hear List"))
             .toolbar {
                 Button {
                     shouldPresentHearList = false
@@ -70,7 +70,7 @@ struct HearListView: View {
     
     @MainActor
     @ViewBuilder
-    private var progressView : some View {
+    private var progressView: some View {
         if viewModel.loadingState == .none {
             ProgressView()
                 .id(UUID())

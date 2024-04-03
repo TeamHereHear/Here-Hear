@@ -35,6 +35,22 @@ struct MainView: View {
         }
         .ignoresSafeArea()
         .tint(.hhSecondary)
+        .overlay(alignment: .bottom) {
+            Button {
+                viewModel.fetchAroundHears()
+            } label: {
+                Text("mainView.fetchAround.button.title")
+                    .font(.caption.bold())
+                    .foregroundStyle(.white)
+            }
+            .frame(maxHeight: 36)
+            .padding(.horizontal)
+            .background(.black, in: .capsule)
+            .shadow(color: .hhSecondary, radius: 10)
+            .padding(.bottom, 100)
+            .opacity(viewModel.showFetchAroundHearButton ? 1 : 0)
+            .animation(.easeInOut, value: viewModel.showFetchAroundHearButton)
+        }
         .overlay(alignment: .topTrailing) {
            UserTrackingButton($userTrackingMode)
         }
@@ -55,9 +71,6 @@ struct MainView: View {
             .padding(.bottom, 30)
             .tint(.hhAccent2)
         }
-        .onAppear {
-            authViewModel.send(action: .checkAnonymousUser)
-        }   
     }
 }
 

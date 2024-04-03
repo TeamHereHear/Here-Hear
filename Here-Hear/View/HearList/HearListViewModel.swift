@@ -58,9 +58,11 @@ final class HearListViewModel: ObservableObject {
                 limit: 20
             )
             
-            _ = await [fetchUserNicknames(hears), fetchMusicOfHears(hears)]
+            _ = await [fetchUserNicknames(models), fetchMusicOfHears(models)]
             
-            self.hears.append(contentsOf: models)
+            DispatchQueue.main.async {
+                self.hears.append(contentsOf: models)
+            }
             self.lastDocumentID = lastDocumentID
             
             loadingState = .completed
@@ -73,8 +75,11 @@ final class HearListViewModel: ObservableObject {
         let asyncHears = makeAsyncHears(hears)
         
         for await hear in asyncHears {
+            print("asyncHears")
             if let userNickname = try? await container.services.userService.fetchUser(ofId: hear.userId)?.nickname {
-                self.userNicknames[hear.id] = userNickname
+                DispatchQueue.main.async {
+                    self.userNicknames[hear.id] = userNickname
+                }
             }
         }
     }
@@ -84,7 +89,9 @@ final class HearListViewModel: ObservableObject {
         
         for await hear in asyncHears {
             if let musics = try? await container.services.musicService.fetchMusic(ofIds: hear.musicIds) {
-                self.musicOfHear[hear.id] = musics
+                DispatchQueue.main.async {
+                    self.musicOfHear[hear.id] = musics
+                }
             }
         }
     }
