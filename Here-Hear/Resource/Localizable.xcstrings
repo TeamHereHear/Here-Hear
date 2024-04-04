@@ -14,18 +14,66 @@
     "Google로 로그인" : {
 
     },
-    "hearListView.sorting.by.distance" : {
+    "hearListView.sorting.order.most.liked" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Distance"
+            "value" : "Most Liked"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "좋아요 순"
+          }
+        }
+      }
+    },
+    "hearListView.sorting.order.nearest" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nearest"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "가까운 순"
+          }
+        }
+      }
+    },
+    "hearListView.sorting.order.newest" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Newest"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "거리순"
+            "value" : "새로운 순"
+          }
+        }
+      }
+    },
+    "hearListView.sorting.order.oldest" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oldest"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "오래된 순"
           }
         }
       }

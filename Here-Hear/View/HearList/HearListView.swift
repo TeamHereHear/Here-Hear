@@ -22,35 +22,10 @@ struct HearListView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .trailing) {
-                Menu {
-                    
-                } label: {
-                    Label {
-                        Text("hearListView.sorting.by.distance")
-                    } icon: {
-                        Image(systemName: "arrow.up.arrow.down.circle.fill")
-                    }
-                }
-                .padding(.horizontal)
+               HearListSortingMenu(viewModel: viewModel)
                 
                 List {
-                    ForEach(viewModel.hears, id: \.id) { hear in
-                            HearListCell(
-                                hear: hear,
-                                userNickname: viewModel.userNicknames[hear.id],
-                                musics: viewModel.musicOfHear[hear.id]
-                            )
-                            .listRowInsets(
-                                .init(
-                                    top: 0,
-                                    leading: 21,
-                                    bottom: 0,
-                                    trailing: 7
-                                )
-                            )
-                            .listRowSeparator(.visible)
-                    }
-                    
+                    ForEach(viewModel.sortedHears, id: \.id) { hearListCell($0) }
                     progressView
                 }
                 .listStyle(.plain)
@@ -66,6 +41,24 @@ struct HearListView: View {
             }
         }
         
+    }
+    
+    private func hearListCell(_ hear: HearModel) -> some View {
+        HearListCell(
+            hear: hear,
+            distanceInMeter: viewModel.distanceOfHear(hear),
+            userNickname: viewModel.userNicknames[hear.id],
+            musics: viewModel.musicOfHear[hear.id]
+        )
+        .listRowInsets(
+            .init(
+                top: 0,
+                leading: 21,
+                bottom: 0,
+                trailing: 7
+            )
+        )
+        .listRowSeparator(.visible)
     }
     
     @MainActor

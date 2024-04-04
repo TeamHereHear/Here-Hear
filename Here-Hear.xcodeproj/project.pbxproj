@@ -57,6 +57,7 @@
 		5B0142E62B960BCB0033FB9C /* HHProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142E52B960BCB0033FB9C /* HHProgressBar.swift */; };
 		5B0142E82B973FDC0033FB9C /* RegisterProfileImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142E72B973FDC0033FB9C /* RegisterProfileImageViewModel.swift */; };
 		5B20DB3E2BA1E714007ADA9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B20DB3D2BA1E714007ADA9C /* GoogleService-Info.plist */; };
+		5B2F03AB2BBED1D40010266C /* HearListSortingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F03AA2BBED1D40010266C /* HearListSortingMenu.swift */; };
 		5B2F1BF72BA1CEE70058A64F /* HearBalloonBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F1BF62BA1CEE70058A64F /* HearBalloonBackground.swift */; };
 		5B2F1BF92BA1CF7B0058A64F /* HearBalloonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F1BF82BA1CF7B0058A64F /* HearBalloonViewModel.swift */; };
 		5B2F1BFB2BA1D9B60058A64F /* OnBoardingPageOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F1BFA2BA1D9B60058A64F /* OnBoardingPageOne.swift */; };
@@ -177,6 +178,7 @@
 		5B0142E52B960BCB0033FB9C /* HHProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HHProgressBar.swift; sourceTree = "<group>"; };
 		5B0142E72B973FDC0033FB9C /* RegisterProfileImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProfileImageViewModel.swift; sourceTree = "<group>"; };
 		5B20DB3D2BA1E714007ADA9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5B2F03AA2BBED1D40010266C /* HearListSortingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearListSortingMenu.swift; sourceTree = "<group>"; };
 		5B2F1BF62BA1CEE70058A64F /* HearBalloonBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearBalloonBackground.swift; sourceTree = "<group>"; };
 		5B2F1BF82BA1CF7B0058A64F /* HearBalloonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearBalloonViewModel.swift; sourceTree = "<group>"; };
 		5B2F1BFA2BA1D9B60058A64F /* OnBoardingPageOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPageOne.swift; sourceTree = "<group>"; };
@@ -499,6 +501,7 @@
 			children = (
 				5BD2A52C2BA337FB00EC4049 /* HearListCell.swift */,
 				5BA842752BB1AC8D00E4FE7B /* HearListView.swift */,
+				5B2F03AA2BBED1D40010266C /* HearListSortingMenu.swift */,
 				5BA842772BB1B49C00E4FE7B /* HearListViewModel.swift */,
 			);
 			path = HearList;
@@ -819,6 +822,7 @@
 				5B3ABD422BA9CD71002C8201 /* HearModel+Mock.swift in Sources */,
 				04A747532B8DBB3600182C5F /* FeelingEntity+Mock.swift in Sources */,
 				5BDBBD1B2B846F9F00DEB7DC /* DIContainer.swift in Sources */,
+				5B2F03AB2BBED1D40010266C /* HearListSortingMenu.swift in Sources */,
 				04A747242B85DCDB00182C5F /* Color+StringConverter.swift in Sources */,
 				5BDBBD2C2B8479E700DEB7DC /* MusicService.swift in Sources */,
 				04A747202B85C37E00182C5F /* Weather.swift in Sources */,
