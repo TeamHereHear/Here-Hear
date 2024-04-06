@@ -34,6 +34,7 @@ struct MainView: View {
             }
         }
         .ignoresSafeArea()
+        .navigationBarBackButtonHidden()
         .tint(.hhSecondary)
         .overlay(alignment: .bottom) {
             Button {

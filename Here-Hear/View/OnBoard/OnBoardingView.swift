@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct OnBoardingView: View {
-    @EnvironmentObject private var authViewModel: AuthViewModel
+    @EnvironmentObject private var container: DIContainer
     @State private var tabSelection: Int = 0
+    @State private var isMainViewPresented: Bool = false
     
     private let tabCount: Int = 3
     private var progress: CGFloat {
@@ -26,10 +27,13 @@ struct OnBoardingView: View {
                     .tag(0)
                 OnBoardingPageTwo($tabSelection)
                     .tag(1)
-                OnBoardingPageThree()
+                OnBoardingPageThree($isMainViewPresented)
                     .tag(2)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
+        }
+        .navigationAdaptor(isPresented: $isMainViewPresented) {
+            MainView(viewModel: .init(container: container))
         }
         
     }
@@ -37,4 +41,10 @@ struct OnBoardingView: View {
 
 #Preview {
     OnBoardingView()
+        .environmentObject(
+            DIContainer(
+                services: StubServices(),
+                managers: StubManagers()
+            )
+        )
 }

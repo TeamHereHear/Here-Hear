@@ -54,4 +54,3 @@ struct HearBalloonBackground: View {
         .foregroundStyle(.hhSecondary)
     }
 }
-
