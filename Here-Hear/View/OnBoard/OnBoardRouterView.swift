@@ -29,7 +29,7 @@ struct OnBoardRouterView: View {
                 RegisterNicknameView(viewModel: .init(container: container))
             case .anonymousUser:
                 /// 익명사용자라면
-                anonymousUserDestination
+                OnBoardingView()
             case .failed:
                 /// 실패했다면
                 ProgressView()
@@ -42,19 +42,4 @@ struct OnBoardRouterView: View {
             viewModel.setOnBoardRoute()
         }
     }
-    
-    @ViewBuilder
-    var anonymousUserDestination: some View {
-        if #available(iOS 16.0, *) {
-            NavigationStack {
-                OnBoardingView()
-            }
-        } else {
-            NavigationView {
-                OnBoardingView()
-            }
-        }
-    }
-    
-    
 }

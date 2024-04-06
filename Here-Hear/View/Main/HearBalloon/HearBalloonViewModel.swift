@@ -25,12 +25,7 @@ final class HearBalloonViewModel: ObservableObject {
         self.container = container
     }
     
-    func fetch() {
-        fetchMusic()
-        fetchHearUser()
-    }
-    
-    private func fetchMusic() {
+    func fetchMusic() {
         guard let musicId = hear.musicIds.first else { return }
         
         container.services.musicService.fetchMusic(ofIds: [musicId])
@@ -44,13 +39,12 @@ final class HearBalloonViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] models in
                 guard let self else { return }
-                guard let music = models.first else { return }
                 self.music = music
             }
             .store(in: &cancellables)
     }
     
-    private func fetchHearUser() {
+    func fetchHearUser() {
         container.services.userService.fetchUser(ofId: hear.userId)
             .receive(on: DispatchQueue.main)
             .sink { _ in

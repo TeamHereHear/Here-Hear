@@ -42,7 +42,8 @@ struct HearBalloon: View {
             )
         }
         .onAppear {
-            viewModel.fetch()
+            viewModel.fetchMusic()
+            viewModel.fetchHearUser()
         }
     }
     
