@@ -11,6 +11,8 @@ import AuthenticationServices
 import MapKit
 
 struct MainView: View {
+    @AppStorage(UserDefaultsKey.OnBoarding) var didAnonymousUserHasOnboarded: Bool = false
+
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject private var container: DIContainer
     @StateObject private var viewModel: MainViewModel
@@ -33,6 +35,7 @@ struct MainView: View {
                 HearBalloon(viewModel: .init(hear: hear, container: container))
             }
         }
+        .onAppear { didAnonymousUserHasOnboarded = true }
         .navigationBarBackButtonHidden()
         .ignoresSafeArea()
         .tint(.hhSecondary)

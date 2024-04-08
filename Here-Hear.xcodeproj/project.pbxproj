@@ -47,10 +47,6 @@
 		04A7479A2B93563B00182C5F /* AddMusicToHear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A747992B93563B00182C5F /* AddMusicToHear.swift */; };
 		04A7479C2B9363DE00182C5F /* ManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A7479B2B9363DE00182C5F /* ManagerError.swift */; };
 		04A747A02B95E73500182C5F /* CameraHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A7479F2B95E73500182C5F /* CameraHomeView.swift */; };
-		04C014572BA32441005F1A77 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04C014562BA32441005F1A77 /* GoogleService-Info.plist */; };
-		04C0145A2BA32541005F1A77 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 04C014592BA32541005F1A77 /* FirebaseAuth */; };
-		04C0145C2BA32541005F1A77 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 04C0145B2BA32541005F1A77 /* FirebaseFirestore */; };
-		04C0145E2BA32541005F1A77 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 04C0145D2BA32541005F1A77 /* FirebaseStorage */; };
 		04C014602BA483D9005F1A77 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0145F2BA483D9005F1A77 /* CameraViewModel.swift */; };
 		04C014622BA484DD005F1A77 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C014612BA484DD005F1A77 /* CameraView.swift */; };
 		04C014682BB1A43C005F1A77 /* WeatherChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C014672BB1A43C005F1A77 /* WeatherChoiceView.swift */; };
@@ -88,6 +84,7 @@
 		5BA842712BAC645F00E4FE7B /* UserTrackingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA842702BAC645F00E4FE7B /* UserTrackingButton.swift */; };
 		5BA842762BB1AC8D00E4FE7B /* HearListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA842752BB1AC8D00E4FE7B /* HearListView.swift */; };
 		5BA842782BB1B49C00E4FE7B /* HearListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA842772BB1B49C00E4FE7B /* HearListViewModel.swift */; };
+		5BC7CB622BC4254500B409A7 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC7CB612BC4254500B409A7 /* Constant.swift */; };
 		5BD2A51E2BA322A700EC4049 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5BD2A51D2BA322A700EC4049 /* FirebaseAuth */; };
 		5BD2A5202BA322A700EC4049 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5BD2A51F2BA322A700EC4049 /* FirebaseFirestore */; };
 		5BD2A5222BA322A700EC4049 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5BD2A5212BA322A700EC4049 /* FirebaseStorage */; };
@@ -180,7 +177,6 @@
 		04A747992B93563B00182C5F /* AddMusicToHear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMusicToHear.swift; sourceTree = "<group>"; };
 		04A7479B2B9363DE00182C5F /* ManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerError.swift; sourceTree = "<group>"; };
 		04A7479F2B95E73500182C5F /* CameraHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraHomeView.swift; sourceTree = "<group>"; };
-		04C014562BA32441005F1A77 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04C0145F2BA483D9005F1A77 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		04C014612BA484DD005F1A77 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		04C014672BB1A43C005F1A77 /* WeatherChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherChoiceView.swift; sourceTree = "<group>"; };
@@ -217,6 +213,7 @@
 		5BA842702BAC645F00E4FE7B /* UserTrackingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTrackingButton.swift; sourceTree = "<group>"; };
 		5BA842752BB1AC8D00E4FE7B /* HearListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearListView.swift; sourceTree = "<group>"; };
 		5BA842772BB1B49C00E4FE7B /* HearListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearListViewModel.swift; sourceTree = "<group>"; };
+		5BC7CB612BC4254500B409A7 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		5BD2A5232BA32C0900EC4049 /* OnBoardingPageTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPageTwo.swift; sourceTree = "<group>"; };
 		5BD2A5252BA32C1700EC4049 /* OnBoardingPageThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPageThree.swift; sourceTree = "<group>"; };
 		5BD2A5272BA32C5300EC4049 /* OnBoardingTitleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingTitleStyle.swift; sourceTree = "<group>"; };
@@ -250,7 +247,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-
 				5B3ABD3E2BA9BCE0002C8201 /* GoogleSignIn in Frameworks */,
 				5BD2A5202BA322A700EC4049 /* FirebaseFirestore in Frameworks */,
 				5BD2A51E2BA322A700EC4049 /* FirebaseAuth in Frameworks */,
@@ -593,6 +589,7 @@
 				04A7473F2B8C31E900182C5F /* RandomNonceString.swift */,
 				04A747412B8C320C00182C5F /* SHA256.swift */,
 				5BE065912BBD7DA90018479B /* CLLocationCoordinate2D+Extension.swift */,
+				5BC7CB612BC4254500B409A7 /* Constant.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -869,6 +866,7 @@
 				04A747202B85C37E00182C5F /* Weather.swift in Sources */,
 				04A746F12B84672300182C5F /* HearEntity.swift in Sources */,
 				5BD2A5242BA32C0900EC4049 /* OnBoardingPageTwo.swift in Sources */,
+				5BC7CB622BC4254500B409A7 /* Constant.swift in Sources */,
 				5B2F1BFB2BA1D9B60058A64F /* OnBoardingPageOne.swift in Sources */,
 				5BA429D12B9C5A0200998112 /* ImageDiskStorage.swift in Sources */,
 				04A7471C2B849C2E00182C5F /* AppDelegate.swift in Sources */,
@@ -1098,9 +1096,9 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Here, Hear please allow acess to continue.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Here, Hear requires access to your phone’s camera.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses your current location to display on the map or provide nearby services.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Here, Hear requires access to your phone's micro ";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Here, Hear please allow acess to continue.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses your current location to display on the map or provide nearby services.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1142,9 +1140,9 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Here, Hear please allow acess to continue.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Here, Hear requires access to your phone’s camera.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses your current location to display on the map or provide nearby services.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Here, Hear requires access to your phone's micro ";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Here, Hear please allow acess to continue.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses your current location to display on the map or provide nearby services.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1302,7 +1300,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-
 		5B3ABD392BA9BCCA002C8201 /* XCRemoteSwiftPackageReference "Geohash" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nh7a/Geohash.git";
@@ -1320,14 +1317,6 @@
 			};
 		};
 		5BD2A51C2BA322A700EC4049 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.22.1;
-			};
-		};
-		04C014582BA32541005F1A77 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
@@ -1361,21 +1350,6 @@
 		5BD2A5212BA322A700EC4049 /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5BD2A51C2BA322A700EC4049 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
-		};
-		04C014592BA32541005F1A77 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 04C014582BA32541005F1A77 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		04C0145B2BA32541005F1A77 /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 04C014582BA32541005F1A77 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
-		04C0145D2BA32541005F1A77 /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 04C014582BA32541005F1A77 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
