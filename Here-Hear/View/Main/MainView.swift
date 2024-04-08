@@ -33,6 +33,7 @@ struct MainView: View {
                 HearBalloon(viewModel: .init(hear: hear, container: container))
             }
         }
+        .navigationBarBackButtonHidden()
         .ignoresSafeArea()
         .tint(.hhSecondary)
         .overlay(alignment: .bottom) {
