@@ -37,44 +37,54 @@ struct MainView: View {
         }
         .onAppear { didAnonymousUserHasOnboarded = true }
         .navigationBarBackButtonHidden()
+        .overlay(alignment: .topTrailing) { UserTrackingButton($userTrackingMode) }
+        .overlay(alignment: .bottom) { fetchAroundButton }
+        .overlay(alignment: .bottomLeading) { presentHearListButton }
         .ignoresSafeArea()
         .tint(.hhSecondary)
-        .overlay(alignment: .bottom) {
-            Button {
-                viewModel.fetchAroundHears()
-            } label: {
-                Text("mainView.fetchAround.button.title")
-                    .font(.caption.bold())
-                    .foregroundStyle(.white)
-            }
-            .frame(maxHeight: 36)
-            .padding(.horizontal)
-            .background(.black, in: .capsule)
-            .shadow(color: .hhSecondary, radius: 10)
-            .padding(.bottom, 100)
-            .opacity(viewModel.showFetchAroundHearButton ? 1 : 0)
-            .animation(.easeInOut, value: viewModel.showFetchAroundHearButton)
+    }
+    
+    private var fetchAroundButton: some View {
+        let buttonHeight: CGFloat = 36
+        let shadowRadius: CGFloat = 10
+        let bottomPadding: CGFloat = 100
+        
+        return Button {
+            viewModel.fetchAroundHears()
+        } label: {
+            Text("mainView.fetchAround.button.title")
+                .font(.caption.bold())
+                .foregroundStyle(.white)
         }
-        .overlay(alignment: .topTrailing) {
-           UserTrackingButton($userTrackingMode)
+        .frame(maxHeight: buttonHeight)
+        .padding(.horizontal)
+        .background(.black, in: .capsule)
+        .shadow(color: .hhSecondary, radius: shadowRadius)
+        .padding(.bottom, bottomPadding)
+        .opacity(viewModel.showFetchAroundHearButton ? 1 : 0)
+        .animation(.easeInOut, value: viewModel.showFetchAroundHearButton)
+    }
+    
+    @MainActor
+    private var presentHearListButton: some View {
+        let buttonSize: CGFloat = 45
+        let leadingPadding: CGFloat = 16
+        let bottomPadding: CGFloat = 30
+        
+        return Button {
+            shouldPresentHearList = true
+        } label: {
+            Image(systemName: "music.note.list")
+                .font(.system(size: buttonSize))
         }
+        .padding(.leading, leadingPadding)
+        .padding(.bottom, bottomPadding)
+        .tint(.hhAccent2)
         .fullScreenCover(isPresented: $shouldPresentHearList) {
             HearListView(
                 viewModel: .init(container: container),
                 present: $shouldPresentHearList
             )
-        }
-        .overlay(alignment: .bottomLeading) {
-            
-            Button {
-                shouldPresentHearList = true
-            } label: {
-                Image(systemName: "music.note.list")
-                    .font(.system(size: 45))
-            }
-            .padding(.leading, 16)
-            .padding(.bottom, 30)
-            .tint(.hhAccent2)
         }
     }
 }
