@@ -26,6 +26,7 @@ struct AuthenticatedView: View {
     }
 }
 
+
 #Preview {
     let container: DIContainer = .init(services: StubServices(), managers: StubManagers())
     return AuthenticatedView(authViewModel: .init(container: container))
