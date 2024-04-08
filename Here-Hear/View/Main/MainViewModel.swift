@@ -22,66 +22,95 @@ final class MainViewModel: ObservableObject {
     )
     
     @Published var hears: [HearModel] = []
+    @Published var showFetchAroundHearButton: Bool = false
     
     private let container: DIContainer
     private var cancellables = Set<AnyCancellable>()
+    private var lastFetchingCoordinate: CLLocationCoordinate2D = .seoulCityHall
     
     init(container: DIContainer) {
         self.container = container
-        subscribeUserLocation()
-        fetchHearsWhenMapRectChanges()
+        Task {
+            let mapRect = await setInitialUserLocation()
+            fetchHears(whenMapRectIs: mapRect)
+            handleMapRectChange()
+        }
     }
     
-    private func subscribeUserLocation() {
-        container.managers.userLocationManager.locationPublisher
-            .map { location in
-                MKMapRect(origin: .init(location?.coordinate ?? .seoulCityHall), size: Self.basicMapSize)
-            }
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-                
-            } receiveValue: { mapRect in
-                    self.mapRect = mapRect
-            }
-            .store(in: &cancellables)
+    @MainActor
+    private func setInitialUserLocation() -> MKMapRect? {
+        guard let location = container.managers.userLocationManager.userLocation else {
+            self.mapRect = .init(origin: .init(.seoulCityHall), size: Self.basicMapSize)
+            return nil
+        }
+        let mapRect: MKMapRect = .init(origin: .init(location.coordinate), size: Self.basicMapSize)
+        self.mapRect = mapRect
+        self.lastFetchingCoordinate = mapRect.origin.coordinate
+        
+        return mapRect
     }
     
-    private func fetchHearsWhenMapRectChanges() {
-        $mapRect
-            .debounce(for: 1, scheduler: RunLoop.main)
-            .flatMap { [weak self] rect in
-                guard let self else {
-                    return Just([HearModel]()).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
-                }
-                
-                return self.fetchHears(whenMapRectIs: rect)
-            }
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-                
-            } receiveValue: { [weak self] hears in
-                guard let self else { return }
-                self.hears = hears
-            }
-            .store(in: &cancellables)
-    }
-    
-    private func fetchHears(whenMapRectIs rect: MKMapRect) -> AnyPublisher<[HearModel], ServiceError> {
+    private func fetchHears(whenMapRectIs rect: MKMapRect?) {
+        guard let rect else { return }
         let coordinate = rect.origin.coordinate
-        let mapWidthInMeter = rect.width / Double(10)
         
         let overlappedGeoHash = container.services.geohashService.overlappingGeohash(
             latitude: coordinate.latitude,
             longitude: coordinate.longitude,
             precision: .twentyFourHundredMeters
         )
-        return container.services.hearService.fetchAroundHears(
+        container.services.hearService.fetchAroundHears(
             latitude: coordinate.latitude,
             longitude: coordinate.longitude,
             radiusInMeter: 1000, // TODO: 정책상 어떻게 할지 정해야함
             searchingIn: overlappedGeoHash
         )
-        .eraseToAnyPublisher()
+        .receive(on: DispatchQueue.main)
+        .sink { _ in
+            // TODO: 에러대응
+        } receiveValue: { [weak self] hears in
+            guard let self else { return }
+            self.hears = hears
+            self.lastFetchingCoordinate = coordinate
+        }
+        .store(in: &cancellables)
+    }
+    
+    private func handleMapRectChange() {
+        $mapRect
+            .debounce(for: 1, scheduler: DispatchQueue.main)
+            .map(\.origin.coordinate)
+            .map { [weak self] coordinate in
+                guard let self else { return false }
+                return self.lastFetchingCoordinate.distanceInMeters(with: coordinate) >= 500
+            }
+            .assign(to: &$showFetchAroundHearButton)
+    }
+    
+    func fetchAroundHears() {
+        let coordinate = mapRect.origin.coordinate
+        
+        let overlappedGeoHash = container.services.geohashService.overlappingGeohash(
+            latitude: coordinate.latitude,
+            longitude: coordinate.longitude,
+            precision: .twentyFourHundredMeters
+        )
+        container.services.hearService.fetchAroundHears(
+            latitude: coordinate.latitude,
+            longitude: coordinate.longitude,
+            radiusInMeter: 1000, // TODO: 정책상 어떻게 할지 정해야함
+            searchingIn: overlappedGeoHash
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { _ in
+            // TODO: 에러대응
+        } receiveValue: { [weak self] hears in
+            guard let self else { return }
+            self.hears = hears
+            self.lastFetchingCoordinate = coordinate
+            self.showFetchAroundHearButton = false
+        }
+        .store(in: &cancellables)
     }
 }
 

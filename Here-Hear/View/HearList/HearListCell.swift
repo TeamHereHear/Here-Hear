@@ -9,15 +9,18 @@ import SwiftUI
 
 struct HearListCell: View {
     private let hear: HearModel
+    private let distanceInMeter: Double?
     private let userNickname: String?
     private let musics: [MusicModel]?
     
     init(
         hear: HearModel,
+        distanceInMeter: Double?,
         userNickname: String?,
         musics: [MusicModel]?
     ) {
         self.hear = hear
+        self.distanceInMeter = distanceInMeter
         self.userNickname = userNickname
         self.musics = musics
     }
@@ -97,11 +100,13 @@ struct HearListCell: View {
             Group {
                 Text(userNickname ?? "userNickname")
                     .redacted(reason: userNickname == nil ? .placeholder : [])
-                Text(
-                    Measurement(value: 5, unit: UnitLength.meters),
-                    format: .measurement(width: .abbreviated)
-                )
-                .foregroundStyle(.secondary)
+                if let distanceInMeter {
+                    Text(
+                        Measurement(value: distanceInMeter, unit: UnitLength.meters),
+                        format: .measurement(width: .abbreviated)
+                    )
+                    .foregroundStyle(.secondary)
+                }
                 Text(hear.createdAt, formatter: hearDateFormatter)
                     .foregroundStyle(.secondary)
             }

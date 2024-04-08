@@ -10,7 +10,7 @@ import CoreLocation
 
 protocol UserLocationManagerProtocol {
     var authorizationStatusPublisher: Published<CLAuthorizationStatus?>.Publisher { get }
-    var locationPublisher: Published<CLLocation?>.Publisher { get }
+    var userLocation: CLLocation? { get }
 }
 
 class UserLocationManager: NSObject, CLLocationManagerDelegate, ObservableObject, UserLocationManagerProtocol {
@@ -18,11 +18,13 @@ class UserLocationManager: NSObject, CLLocationManagerDelegate, ObservableObject
     var authorizationStatusPublisher: Published<CLAuthorizationStatus?>.Publisher {
         $authorizationStatus
     }
-    
-    @Published private var location: CLLocation?
-    var locationPublisher: Published<CLLocation?>.Publisher {
-        $location
+        
+    private var currentLocation: CLLocation? {
+        didSet {
+            userLocation = currentLocation
+        }
     }
+    var userLocation: CLLocation?
     
     private let manager: CLLocationManager = .init()
     
@@ -33,7 +35,7 @@ class UserLocationManager: NSObject, CLLocationManagerDelegate, ObservableObject
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.first else { return }
-        self.location = currentLocation
+        self.currentLocation = currentLocation
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
@@ -59,8 +61,8 @@ final class StubUserLocationManager: UserLocationManagerProtocol {
         $authorizationStatus
     }
     
-    @Published private var location: CLLocation?
-    var locationPublisher: Published<CLLocation?>.Publisher {
-        $location
+    var userLocation: CLLocation? {
+        nil
     }
+  
 }

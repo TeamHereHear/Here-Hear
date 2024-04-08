@@ -68,13 +68,14 @@
 		5B0142E42B95ED5B0033FB9C /* OnBoardRouterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142E32B95ED5B0033FB9C /* OnBoardRouterViewModel.swift */; };
 		5B0142E62B960BCB0033FB9C /* HHProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142E52B960BCB0033FB9C /* HHProgressBar.swift */; };
 		5B0142E82B973FDC0033FB9C /* RegisterProfileImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142E72B973FDC0033FB9C /* RegisterProfileImageViewModel.swift */; };
-		5B20DB3E2BA1E714007ADA9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B20DB3D2BA1E714007ADA9C /* GoogleService-Info.plist */; };
+		5B2F03AB2BBED1D40010266C /* HearListSortingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F03AA2BBED1D40010266C /* HearListSortingMenu.swift */; };
 		5B2F1BF72BA1CEE70058A64F /* HearBalloonBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F1BF62BA1CEE70058A64F /* HearBalloonBackground.swift */; };
 		5B2F1BF92BA1CF7B0058A64F /* HearBalloonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F1BF82BA1CF7B0058A64F /* HearBalloonViewModel.swift */; };
 		5B2F1BFB2BA1D9B60058A64F /* OnBoardingPageOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F1BFA2BA1D9B60058A64F /* OnBoardingPageOne.swift */; };
 		5B3ABD3B2BA9BCCA002C8201 /* Geohash in Frameworks */ = {isa = PBXBuildFile; productRef = 5B3ABD3A2BA9BCCA002C8201 /* Geohash */; };
 		5B3ABD3E2BA9BCE0002C8201 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 5B3ABD3D2BA9BCE0002C8201 /* GoogleSignIn */; };
 		5B3ABD422BA9CD71002C8201 /* HearModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3ABD412BA9CD71002C8201 /* HearModel+Mock.swift */; };
+		5B3B35D22BC41763000F68F0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B3B35D02BC41763000F68F0 /* GoogleService-Info.plist */; };
 		5B7690712B9892430023A26F /* ProfileImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7690702B9892430023A26F /* ProfileImagePicker.swift */; };
 		5B7690742B98A35E0023A26F /* NavigationAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7690732B98A35E0023A26F /* NavigationAdaptor.swift */; };
 		5B7F8FA72BAB0E00008171C9 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7F8FA62BAB0E00008171C9 /* MainViewModel.swift */; };
@@ -110,6 +111,7 @@
 		5BDBBD382B84844200DEB7DC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BDBBD3A2B84844200DEB7DC /* InfoPlist.strings */; };
 		5BDBBD3F2B84888500DEB7DC /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5BDBBD3E2B84888500DEB7DC /* .swiftlint.yml */; };
 		5BDEDCED2B99D9800055D40A /* ImageUploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDEDCEC2B99D9800055D40A /* ImageUploadService.swift */; };
+		5BE065922BBD7DA90018479B /* CLLocationCoordinate2D+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE065912BBD7DA90018479B /* CLLocationCoordinate2D+Extension.swift */; };
 		5BEA6AFE2B9F32D4006C48AC /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA6AFD2B9F32D4006C48AC /* RemoteImage.swift */; };
 		5BEA6B012B9F33E6006C48AC /* RemoteImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA6B002B9F33E6006C48AC /* RemoteImageViewModel.swift */; };
 		5BEA6B032B9F3522006C48AC /* StorageImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA6B022B9F3522006C48AC /* StorageImageService.swift */; };
@@ -196,11 +198,13 @@
 		5B0142E32B95ED5B0033FB9C /* OnBoardRouterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardRouterViewModel.swift; sourceTree = "<group>"; };
 		5B0142E52B960BCB0033FB9C /* HHProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HHProgressBar.swift; sourceTree = "<group>"; };
 		5B0142E72B973FDC0033FB9C /* RegisterProfileImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProfileImageViewModel.swift; sourceTree = "<group>"; };
-		5B20DB3D2BA1E714007ADA9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5B2F03AA2BBED1D40010266C /* HearListSortingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearListSortingMenu.swift; sourceTree = "<group>"; };
 		5B2F1BF62BA1CEE70058A64F /* HearBalloonBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearBalloonBackground.swift; sourceTree = "<group>"; };
 		5B2F1BF82BA1CF7B0058A64F /* HearBalloonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearBalloonViewModel.swift; sourceTree = "<group>"; };
 		5B2F1BFA2BA1D9B60058A64F /* OnBoardingPageOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPageOne.swift; sourceTree = "<group>"; };
 		5B3ABD412BA9CD71002C8201 /* HearModel+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HearModel+Mock.swift"; sourceTree = "<group>"; };
+		5B3B35D02BC41763000F68F0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5B3B35D12BC41763000F68F0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B7690702B9892430023A26F /* ProfileImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePicker.swift; sourceTree = "<group>"; };
 		5B7690732B98A35E0023A26F /* NavigationAdaptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAdaptor.swift; sourceTree = "<group>"; };
 		5B7F8FA62BAB0E00008171C9 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -232,9 +236,9 @@
 		5BDBBD342B8483D500DEB7DC /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		5BDBBD392B84844200DEB7DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5BDBBD3B2B84844700DEB7DC /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		5BDBBD3C2B8484F000DEB7DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5BDBBD3E2B84888500DEB7DC /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		5BDEDCEC2B99D9800055D40A /* ImageUploadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadService.swift; sourceTree = "<group>"; };
+		5BE065912BBD7DA90018479B /* CLLocationCoordinate2D+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Extension.swift"; sourceTree = "<group>"; };
 		5BEA6AFD2B9F32D4006C48AC /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
 		5BEA6B002B9F33E6006C48AC /* RemoteImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageViewModel.swift; sourceTree = "<group>"; };
 		5BEA6B022B9F3522006C48AC /* StorageImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageImageService.swift; sourceTree = "<group>"; };
@@ -297,8 +301,8 @@
 			isa = PBXGroup;
 			children = (
 				04A7473E2B89D47A00182C5F /* Here-Hear.entitlements */,
-				04C014562BA32441005F1A77 /* GoogleService-Info.plist */,
-				5BDBBD3C2B8484F000DEB7DC /* Info.plist */,
+				5B3B35D02BC41763000F68F0 /* GoogleService-Info.plist */,
+				5B3B35D12BC41763000F68F0 /* Info.plist */,
 				5BDBBD132B846F4C00DEB7DC /* General */,
 				04A746BF2B8464A800182C5F /* Preview Content */,
 				04A746EB2B84668E00182C5F /* App */,
@@ -535,6 +539,7 @@
 			children = (
 				5BD2A52C2BA337FB00EC4049 /* HearListCell.swift */,
 				5BA842752BB1AC8D00E4FE7B /* HearListView.swift */,
+				5B2F03AA2BBED1D40010266C /* HearListSortingMenu.swift */,
 				5BA842772BB1B49C00E4FE7B /* HearListViewModel.swift */,
 			);
 			path = HearList;
@@ -587,6 +592,7 @@
 				04A747232B85DCDB00182C5F /* Color+StringConverter.swift */,
 				04A7473F2B8C31E900182C5F /* RandomNonceString.swift */,
 				04A747412B8C320C00182C5F /* SHA256.swift */,
+				5BE065912BBD7DA90018479B /* CLLocationCoordinate2D+Extension.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -764,14 +770,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BDBBD3F2B84888500DEB7DC /* .swiftlint.yml in Resources */,
+				5B3B35D22BC41763000F68F0 /* GoogleService-Info.plist in Resources */,
 				5BD2A52A2BA3314900EC4049 /* OnBoardingPageTwoVideo.MOV in Resources */,
 				5BDBBD332B84800300DEB7DC /* Colors.xcassets in Resources */,
 				04A746C12B8464A800182C5F /* Preview Assets.xcassets in Resources */,
 				5BDBBD352B8483D500DEB7DC /* Localizable.xcstrings in Resources */,
 				04A746BE2B8464A800182C5F /* Assets.xcassets in Resources */,
 				5BDBBD382B84844200DEB7DC /* InfoPlist.strings in Resources */,
-				04C014572BA32441005F1A77 /* GoogleService-Info.plist in Resources */,
-
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -850,6 +855,7 @@
 				04A747392B89AD6F00182C5F /* LoginButtonStyle.swift in Sources */,
 				5BD2A5282BA32C5300EC4049 /* OnBoardingTitleStyle.swift in Sources */,
 				5B7690742B98A35E0023A26F /* NavigationAdaptor.swift in Sources */,
+				5BE065922BBD7DA90018479B /* CLLocationCoordinate2D+Extension.swift in Sources */,
 				5BA842782BB1B49C00E4FE7B /* HearListViewModel.swift in Sources */,
 				5B0142E82B973FDC0033FB9C /* RegisterProfileImageViewModel.swift in Sources */,
 				04C0146E2BB305D9005F1A77 /* FinalSummaryHearView.swift in Sources */,
@@ -857,6 +863,7 @@
 				5B3ABD422BA9CD71002C8201 /* HearModel+Mock.swift in Sources */,
 				04A747532B8DBB3600182C5F /* FeelingEntity+Mock.swift in Sources */,
 				5BDBBD1B2B846F9F00DEB7DC /* DIContainer.swift in Sources */,
+				5B2F03AB2BBED1D40010266C /* HearListSortingMenu.swift in Sources */,
 				04A747242B85DCDB00182C5F /* Color+StringConverter.swift in Sources */,
 				5BDBBD2C2B8479E700DEB7DC /* MusicService.swift in Sources */,
 				04A747202B85C37E00182C5F /* Weather.swift in Sources */,

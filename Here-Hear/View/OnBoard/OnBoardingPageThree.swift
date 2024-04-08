@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct OnBoardingPageThree: View {
+    @Binding private var isMainViewPresented: Bool
+    
+    init(_ isMainViewPresented: Binding<Bool>) {
+        self._isMainViewPresented = isMainViewPresented
+    }
+    
     var body: some View {
         VStack {
             Spacer()
@@ -22,7 +28,7 @@ struct OnBoardingPageThree: View {
             HStack {
                 Spacer()
                 Button {
-                    
+                    isMainViewPresented = true
                 } label: {
                     Text("onBoadingPageOne.Next")
                         .font(.system(size: 19, weight: .semibold))
@@ -34,5 +40,5 @@ struct OnBoardingPageThree: View {
 }
 
 #Preview {
-    OnBoardingPageThree()
+    OnBoardingPageThree(.constant(false))
 }
