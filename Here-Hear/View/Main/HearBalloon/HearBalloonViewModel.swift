@@ -39,7 +39,7 @@ final class HearBalloonViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] models in
                 guard let self else { return }
-                self.music = music
+                self.music = models.first
             }
             .store(in: &cancellables)
     }

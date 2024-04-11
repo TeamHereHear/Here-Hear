@@ -84,7 +84,7 @@ class MusicManger: MusicMangerProtocol {
 //                                print("\(artworkURL)")
 //                            }
                                 // return
-                            MusicModel(
+                            return MusicModel(
                                 id: song.id.rawValue,
                                 album: song.albumTitle,
                                 title: song.title,

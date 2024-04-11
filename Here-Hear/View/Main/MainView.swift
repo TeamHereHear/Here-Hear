@@ -82,7 +82,7 @@ struct MainView: View {
         .tint(.hhAccent2)
         .fullScreenCover(isPresented: $shouldPresentHearList) {
             HearListView(
-                viewModel: .init(container: container),
+                viewModel: .init(container: container, location: viewModel.mapRect.origin.coordinate),
                 present: $shouldPresentHearList
             )
         }

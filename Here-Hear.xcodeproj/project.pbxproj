@@ -64,6 +64,7 @@
 		5B0142E42B95ED5B0033FB9C /* OnBoardRouterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142E32B95ED5B0033FB9C /* OnBoardRouterViewModel.swift */; };
 		5B0142E62B960BCB0033FB9C /* HHProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142E52B960BCB0033FB9C /* HHProgressBar.swift */; };
 		5B0142E82B973FDC0033FB9C /* RegisterProfileImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142E72B973FDC0033FB9C /* RegisterProfileImageViewModel.swift */; };
+		5B0A94162BC576C200AE55AC /* OpenInAnotherMusicServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0A94152BC576C200AE55AC /* OpenInAnotherMusicServiceView.swift */; };
 		5B2F03AB2BBED1D40010266C /* HearListSortingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F03AA2BBED1D40010266C /* HearListSortingMenu.swift */; };
 		5B2F1BF72BA1CEE70058A64F /* HearBalloonBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F1BF62BA1CEE70058A64F /* HearBalloonBackground.swift */; };
 		5B2F1BF92BA1CF7B0058A64F /* HearBalloonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F1BF82BA1CF7B0058A64F /* HearBalloonViewModel.swift */; };
@@ -194,6 +195,7 @@
 		5B0142E32B95ED5B0033FB9C /* OnBoardRouterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardRouterViewModel.swift; sourceTree = "<group>"; };
 		5B0142E52B960BCB0033FB9C /* HHProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HHProgressBar.swift; sourceTree = "<group>"; };
 		5B0142E72B973FDC0033FB9C /* RegisterProfileImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProfileImageViewModel.swift; sourceTree = "<group>"; };
+		5B0A94152BC576C200AE55AC /* OpenInAnotherMusicServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenInAnotherMusicServiceView.swift; sourceTree = "<group>"; };
 		5B2F03AA2BBED1D40010266C /* HearListSortingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearListSortingMenu.swift; sourceTree = "<group>"; };
 		5B2F1BF62BA1CEE70058A64F /* HearBalloonBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearBalloonBackground.swift; sourceTree = "<group>"; };
 		5B2F1BF82BA1CF7B0058A64F /* HearBalloonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearBalloonViewModel.swift; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 				04A7472E2B88600100182C5F /* LoginView.swift */,
 				5B0142D72B9347080033FB9C /* RegisterProfile */,
 				5B0142DC2B9368A80033FB9C /* OnBoard */,
+				5B0A94152BC576C200AE55AC /* OpenInAnotherMusicServiceView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -891,6 +894,7 @@
 				04C014732BB7D530005F1A77 /* HearViewModel.swift in Sources */,
 				5BDBBD1D2B846FA900DEB7DC /* ViewComponent.swift in Sources */,
 				04A746FF2B84679700182C5F /* HearModel.swift in Sources */,
+				5B0A94162BC576C200AE55AC /* OpenInAnotherMusicServiceView.swift in Sources */,
 				04A746EF2B84671900182C5F /* UserEntity.swift in Sources */,
 				04C014682BB1A43C005F1A77 /* WeatherChoiceView.swift in Sources */,
 				04C014622BA484DD005F1A77 /* CameraView.swift in Sources */,
@@ -1087,7 +1091,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Here-Hear/Preview Content\"";
-				DEVELOPMENT_TEAM = QUMNMR4BSR;
+				DEVELOPMENT_TEAM = SUDPP9C593;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1110,7 +1114,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.HereHear.Here-Hear";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.HereHear.Here-Hear.martin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1131,7 +1135,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Here-Hear/Preview Content\"";
-				DEVELOPMENT_TEAM = QUMNMR4BSR;
+				DEVELOPMENT_TEAM = SUDPP9C593;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1154,7 +1158,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.HereHear.Here-Hear";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.HereHear.Here-Hear.martin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

@@ -13,12 +13,15 @@ struct Here_HearApp: App {
     
     @StateObject private var container: DIContainer = DIContainer(services: Services(), managers: Managers())
 
-
     var body: some Scene {
         WindowGroup {
             AuthenticatedView(authViewModel: .init(container: container))
                 .environmentObject(container)
 //            AddMusicToHear()
+                .onOpenURL(perform: { url in
+                    print(url)
+                })
         }
+        
     }
 }

@@ -84,7 +84,8 @@ struct HearListView: View {
     
     return HearListView(
         viewModel: .init(
-            container: container
+            container: container,
+            location: .seoulCityHall
         ),
         present: .constant(true)
     )
