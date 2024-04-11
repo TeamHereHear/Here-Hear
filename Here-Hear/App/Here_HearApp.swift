@@ -17,5 +17,6 @@ struct Here_HearApp: App {
             AuthenticatedView(authViewModel: .init(container: container))
                 .environmentObject(container)
         }
+        
     }
 }

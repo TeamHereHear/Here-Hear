@@ -11,6 +11,7 @@ struct OnBoardingView: View {
     @State private var tabSelection: Int = 0
     @State private var isMainViewPresented: Bool = false
     @EnvironmentObject private var container: DIContainer
+
     private let tabCount: Int = 3
     private var progress: CGFloat {
         CGFloat(tabSelection + 1) / CGFloat(tabCount)
@@ -34,7 +35,6 @@ struct OnBoardingView: View {
                 MainView(viewModel: .init(container: container))
             }
         }
-        
     }
 }
 

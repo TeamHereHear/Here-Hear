@@ -12,6 +12,8 @@ struct OnBoardRouterView: View {
     @EnvironmentObject private var authViewModel: AuthViewModel
     @EnvironmentObject private var container: DIContainer
     
+    @AppStorage(UserDefaultsKey.OnBoarding) var didAnonymousUserHasOnboarded: Bool = false
+
     init(viewModel: OnBoardRouterViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -29,7 +31,11 @@ struct OnBoardRouterView: View {
                 RegisterNicknameView(viewModel: .init(container: container))
             case .anonymousUser:
                 /// 익명사용자라면
-                anonymousUserDestination
+                if didAnonymousUserHasOnboarded {
+                    MainView(viewModel: .init(container: container))
+                } else {
+                    anonymousUserDestination
+                }
             case .failed:
                 /// 실패했다면
                 ProgressView()

@@ -13,6 +13,8 @@ struct HearListCell: View {
     private let userNickname: String?
     private let musics: [MusicModel]?
     
+    @State private var openMusic: MusicModel?
+    
     init(
         hear: HearModel,
         distanceInMeter: Double?,
@@ -26,21 +28,30 @@ struct HearListCell: View {
     }
     
     var body: some View {
-        HStack {
-            informations
-            buttons
+        VStack(alignment: .trailing, spacing: 0) {
+            HStack {
+                informations
+                previewButton
+            }
+            HStack {
+                Spacer()
+                
+            }
         }
-        .frame(height: 109)
+        .frame(height: 130)
     }
     
     @ViewBuilder
     private var informations: some View {
         HStack(alignment: .bottom) {
             albumArt
-            
             VStack(alignment: .leading, spacing: 0) {
-                songInformation
-                    .redacted(reason: musics == nil ? .placeholder : [])
+                HStack {
+                    songInformation
+                        .redacted(reason: musics == nil ? .placeholder : [])
+                    Spacer()
+                    likeAndLinkButtons
+                }
                 detailedInformation
             }
         }
@@ -63,17 +74,18 @@ struct HearListCell: View {
         .clipShape(.rect(cornerRadius: 11, style: .continuous))
     }
     
-    @ViewBuilder
     private var songInformation: some View {
-        Text(musics?.first?.title ?? "Music Title")
-            .font(.system(size: 15, weight: .semibold))
-        Text(musics?.first?.artist ?? "Music Artist")
-            .font(.system(size: 12))
-            .foregroundStyle(.secondary)
-        Text(musics?.first?.album ?? "Music Album")
-            .font(.system(size: 12))
-            .foregroundStyle(.secondary)
-            .padding(.bottom, 15)
+        VStack(alignment: .leading) {
+            Text(musics?.first?.title ?? "Music Title")
+                .font(.system(size: 15, weight: .semibold))
+            Text(musics?.first?.artist ?? "Music Artist")
+                .font(.system(size: 12))
+                .foregroundStyle(.secondary)
+            Text(musics?.first?.album ?? "Music Album")
+                .font(.system(size: 12))
+                .foregroundStyle(.secondary)
+                .padding(.bottom, 15)
+        }
     }
     
     private var hearDateFormatter: DateFormatter {
@@ -85,9 +97,8 @@ struct HearListCell: View {
     
     private var detailedInformation: some View {
         HStack(spacing: 5) {
-            #warning("TODO: Storage 이미지 경로 Constant로 구성")
             RemoteImage(
-                path: "UserInfo/\(hear.userId)/profile.jpg",
+                path: "\(StoragePath.UserInfo)/\(hear.userId)/profile.jpg",
                 isStorageImage: true,
                 transitionDuration: 0.5
             ) {
@@ -100,6 +111,7 @@ struct HearListCell: View {
             
             Group {
                 Text(userNickname ?? "userNickname")
+                    .lineLimit(1)
                     .redacted(reason: userNickname == nil ? .placeholder : [])
                 if let distanceInMeter {
                     Text(
@@ -115,8 +127,37 @@ struct HearListCell: View {
         }
     }
     
-    private var buttons: some View {
-        HStack {
+    private var previewButton: some View {
+        let buttonWidth: CGFloat = 56
+        let buttonHeight: CGFloat = 88
+        let cornerRadius: CGFloat = 11
+        return Button {
+            
+        } label: {
+            RoundedRectangle(cornerRadius: cornerRadius, style: .circular)
+                .frame(width: buttonWidth, height: buttonHeight)
+                .overlay {
+                    Image(systemName: "play.fill")
+                        .foregroundStyle(.white)
+                }
+        }
+    }
+    
+    private var likeAndLinkButtons: some View {
+        HStack(spacing: 16) {
+            Button {
+                if let music = musics?.first {
+                    openMusic = music
+                }
+            } label: {
+                Image(systemName: "music.note")
+                    .font(.system(size: 20, weight: .bold))
+                    .foregroundStyle(.hhSecondary)
+            }
+            .sheet(item: $openMusic) { music in
+                OpenInAnotherMusicServiceView(music: music)
+            }
+            
             Button {
                 
             } label: {
@@ -129,41 +170,23 @@ struct HearListCell: View {
                             .foregroundStyle(Color(.label))
                     }
             }
-            
-            Button {
-                
-            } label: {
-                Image(systemName: "music.note")
-                    .font(.system(size: 20))
-                    .foregroundStyle(.hhSecondary)
-            }
-            
-            //TODO: 동영상 프리뷰를 어떻게 나타낼 것인가?
-            Button {
-                
-            } label: {
-                RoundedRectangle(cornerRadius: 11, style: .circular)
-                    .frame(width: 56, height: 88)
-                    .overlay {
-                        Image(systemName: "play.fill")
-                            .foregroundStyle(.white)
-                    }
-            }
         }
     }
+    
 }
 
-//#Preview {
-//    HearListCell(
-//        hear: .onBoardingPageOneStub,
-//        userNickname: "Wonhyeong",
-//        musics: [MusicEntity.mock.toModel()]
-//    )
-//    .environmentObject(
-//        DIContainer(
-//            services: StubServices(),
-//            managers: StubManagers()
-//        )
-//    )
-//    .padding(.horizontal, 9)
-//}
+#Preview {
+    HearListCell(
+        hear: HearModel.onBoardingPageOneStub,
+        distanceInMeter: 1000000,
+        userNickname: "Wonhyeong",
+        musics: [MusicModel.onBoardingPageStubOne]
+    )
+    .environmentObject(
+        DIContainer(
+            services: StubServices(),
+            managers: StubManagers()
+        )
+    )
+    .padding(.horizontal, 9)
+}

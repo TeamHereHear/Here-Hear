@@ -27,24 +27,27 @@ final class HearListViewModel: ObservableObject {
     @Published var loadingState: LoadingState = .none
     
     private var userLocation: CLLocation?
+    private let location: CLLocationCoordinate2D
     
     private let container: DIContainer
     private var cancellables = Set<AnyCancellable>()
     private var lastDocumentID: String?
     
     init(
-        container: DIContainer
+        container: DIContainer,
+        location: CLLocationCoordinate2D
     ) {
         self.container = container
+        self.location = location
         self.userLocation = container.managers.userLocationManager.userLocation
     }
     
     @MainActor
     public func fetchHears() async {
-        guard let userLocation else { return }
+        
         let fetchingLimit: Int = 20
-        let latitude = userLocation.coordinate.latitude
-        let longitude = userLocation.coordinate.longitude
+        let latitude = location.latitude
+        let longitude = location.longitude
         
         loadingState = .fetching
         
