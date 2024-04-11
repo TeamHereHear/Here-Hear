@@ -37,7 +37,7 @@ struct HearListView: View {
                     ForEach(viewModel.hears, id: \.id) { hear in
                             HearListCell(
                                 hear: hear,
-                                userNickname: viewModel.userNicknames[hear.userId],
+                                userNickname: viewModel.userNicknames[hear.id],
                                 musics: viewModel.musicOfHear[hear.id]
                             )
                             .listRowInsets(
@@ -70,7 +70,7 @@ struct HearListView: View {
     
     @MainActor
     @ViewBuilder
-    private var progressView : some View {
+    private var progressView: some View {
         if viewModel.loadingState == .none {
             ProgressView()
                 .id(UUID())

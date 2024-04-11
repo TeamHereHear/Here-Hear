@@ -60,7 +60,7 @@ final class HearListViewModel: ObservableObject {
                 limit: 20
             )
             
-            _ = await [fetchUserNicknames(hears), fetchMusicOfHears(hears)]
+            _ = await [fetchUserNicknames(models), fetchMusicOfHears(models)]
             
             self.hears.append(contentsOf: models)
             self.lastDocumentID = lastDocumentID

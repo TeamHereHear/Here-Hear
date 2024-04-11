@@ -55,7 +55,7 @@ class MusicViewModel: ObservableObject {
                     },
                     receiveValue: { [weak self] songs in
                         self?.songs = songs
-                    }
+                   }
                 )
                 .store(in: &self.cancellables)
         }

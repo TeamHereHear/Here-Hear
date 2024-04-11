@@ -79,6 +79,7 @@ struct HearListCell: View {
         formatter.dateFormat = "YY.MM.dd"
         return formatter
     }
+    
     private var detailedInformation: some View {
         HStack(spacing: 5) {
             #warning("TODO: Storage 이미지 경로 Constant로 구성")

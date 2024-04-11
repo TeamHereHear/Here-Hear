@@ -23,6 +23,7 @@ struct HearBalloon: View {
     
     var body: some View {
         HStack(spacing: 0) {
+            
             albumArt
                 .padding(.trailing, 5)
             
@@ -49,7 +50,7 @@ struct HearBalloon: View {
     
     private var albumArt: some View {
         RemoteImage(
-            path: viewModel.music?.previewURL?.absoluteString,
+            path: viewModel.music?.artwork?.absoluteString,
             isStorageImage: false,
             transitionDuration: 1) { ProgressView() }
             .frame(

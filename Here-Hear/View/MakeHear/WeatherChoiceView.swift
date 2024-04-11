@@ -5,6 +5,8 @@ struct WeatherOption {
     let title: String
     let systemImage: String
     let color: Color
+    let weatherType: Weather
+    
 }
 
 struct WeatherChoiceView: View {
@@ -15,21 +17,19 @@ struct WeatherChoiceView: View {
     @EnvironmentObject var cameraViewModel: CameraViewModel
 
     private let weatherOptions = [
-        WeatherOption(title: "맑아요", systemImage: "sun.max.fill", color: .yellow),
-        WeatherOption(title: "흐려요", systemImage: "cloud", color: .gray),
-        WeatherOption(title: "비 내려요", systemImage: "cloud.rain", color: .blue),
-        WeatherOption(title: "눈 내려요", systemImage: "snowflake", color: .white),
-        WeatherOption(title: "바람 불어요", systemImage: "wind", color: .white),
-        WeatherOption(title: "안개가 많아요", systemImage: "cloud.fog", color: .gray),
-        WeatherOption(title: "미세먼지 많아요", systemImage: "sun.dust", color: .orange)
+        WeatherOption(title: "맑아요", systemImage: "sun.max.fill", color: .yellow, weatherType: .sunny),
+        WeatherOption(title: "흐려요", systemImage: "cloud", color: .gray, weatherType: .cloudy),
+        WeatherOption(title: "비 내려요", systemImage: "cloud.rain", color: .blue, weatherType: .rainy),
+        WeatherOption(title: "눈 내려요", systemImage: "snowflake", color: .white, weatherType: .snowy),
+        WeatherOption(title: "바람 불어요", systemImage: "wind", color: .white, weatherType: .windy),
+        WeatherOption(title: "안개가 많아요", systemImage: "cloud.fog", color: .gray, weatherType: .foggy),
+        WeatherOption(title: "미세먼지 많아요", systemImage: "sun.dust", color: .orange, weatherType: .dusty)
     ]
     
     var body: some View {
         ZStack {
-            
             if let videoURL = videoURL {
                 VideoPlayer(player: AVPlayer(url: videoURL))
-                    .edgesIgnoringSafeArea(.all)
             } else {
                 Color("HHTertiary")
                     .edgesIgnoringSafeArea(.all)
@@ -43,7 +43,7 @@ struct WeatherChoiceView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 VStack(spacing: 15) {
-                    ForEach(weatherOptions, id: \.title) { option in
+                    ForEach(weatherOptions, id: \.weatherType) { option in
                         Button(action: {
                             self.selectedWeather = option
                             DispatchQueue.main.async {
