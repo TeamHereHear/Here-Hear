@@ -25,6 +25,7 @@ struct HearListView: View {
                HearListSortingMenu(viewModel: viewModel)
                 
                 List {
+                    
                     ForEach(viewModel.sortedHears, id: \.id) { hearListCell($0) }
                     progressView
                 }

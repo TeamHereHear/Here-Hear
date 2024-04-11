@@ -16,23 +16,43 @@ struct MainView: View {
     @StateObject private var viewModel: MainViewModel
     @State private var userTrackingMode: MapUserTrackingMode = .none
     @State private var shouldPresentHearList: Bool = false
+    @State private var shouldPresentAddHear: Bool = false
     
     init(viewModel: MainViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
     
     var body: some View {
-        Map(
-            mapRect: $viewModel.mapRect,
-            interactionModes: [.pan, .zoom],
-            showsUserLocation: true,
-            userTrackingMode: $userTrackingMode,
-            annotationItems: viewModel.hears
-        ) { hear in
-            MapAnnotation(coordinate: .init(geohash: hear.location.geohashExact)) {
-                HearBalloon(viewModel: .init(hear: hear, container: container))
+        NavigationView {
+            Map(
+                mapRect: $viewModel.mapRect,
+                interactionModes: [.pan, .zoom],
+                showsUserLocation: true,
+                userTrackingMode: $userTrackingMode,
+                annotationItems: viewModel.hears
+            ) { hear in
+                MapAnnotation(coordinate: .init(geohash: hear.location.geohashExact)) {
+                    HearBalloon(viewModel: .init(hear: hear, container: container))
+                }
             }
-        }
+
+
+            .overlay(alignment: .bottom) {
+                Button {
+                    shouldPresentAddHear = true
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.system(size: 45))
+                }
+                .padding(.leading, 16)
+                .padding(.bottom, 30)
+                .tint(.hhAccent2)
+                
+                NavigationLink(destination: AddMusicToHear(), isActive: $shouldPresentAddHear) {
+                    EmptyView()
+                }
+                
+            }
         .navigationBarBackButtonHidden()
         .ignoresSafeArea()
         .tint(.hhSecondary)
@@ -69,11 +89,9 @@ struct MainView: View {
                 Image(systemName: "music.note.list")
                     .font(.system(size: 45))
             }
-            .padding(.leading, 16)
-            .padding(.bottom, 30)
-            .tint(.hhAccent2)
         }
-    }
+     }
+}
 }
 
 #Preview {

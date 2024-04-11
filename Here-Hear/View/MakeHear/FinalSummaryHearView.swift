@@ -14,6 +14,7 @@ struct FinalSummaryHearView: View {
     @Binding var selectedWeather: WeatherOption?
     @EnvironmentObject var cameraViewModel: CameraViewModel
     @StateObject var hearViewModel = HearViewModel()
+    @EnvironmentObject private var container: DIContainer
 
     var musicPlayer = AVPlayer()
     
@@ -21,7 +22,6 @@ struct FinalSummaryHearView: View {
         ZStack {
             if let videoURL = videoURL {
                 VideoPlayer(player: AVPlayer(url: videoURL))
-                    .edgesIgnoringSafeArea(.all)
             } else {
                 Color("HHTertiary")
                     .edgesIgnoringSafeArea(.all)
@@ -93,11 +93,12 @@ struct FinalSummaryHearView: View {
                     }
                     .padding([.bottom, .trailing], 15)
                     .padding(.bottom, 5)
-//                    
-//                    NavigationLink(
-//                        destination: MainView(viewModel: <#MainViewModel#>).navigationBarBackButtonHidden(true),
-//                        isActive: $hearViewModel.isSaveCompleted
-//                    ) { EmptyView() }
+                    
+                    NavigationLink(
+                        destination: MainView(viewModel: MainViewModel(container: container)).navigationBarBackButtonHidden(true),
+                        isActive: $hearViewModel.isSaveCompleted
+                    ) { EmptyView() }
+
                 }
             }
          }

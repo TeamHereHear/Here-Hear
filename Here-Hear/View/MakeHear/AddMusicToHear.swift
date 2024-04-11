@@ -74,7 +74,6 @@ struct AddMusicToHear: View {
                 }
             } // 첫 VStack
             .animation(.easeInOut, value: musicViewModel.isLoading)
-            //.navigationTitle("우선, 다른 사람들과 공유할 음악을 찾아 볼까요?")
             .fullScreenCover(item: $selectedSong) { _ in
                 CameraHomeView(selectedSong: $selectedSong)
                     .onAppear {
