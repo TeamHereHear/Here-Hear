@@ -55,6 +55,7 @@
 		04C014712BB458CC005F1A77 /* VideoPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C014702BB458CC005F1A77 /* VideoPreviewView.swift */; };
 		04C014732BB7D530005F1A77 /* HearViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C014722BB7D530005F1A77 /* HearViewModel.swift */; };
 		04C014752BB7D980005F1A77 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C014742BB7D980005F1A77 /* LocationManager.swift */; };
+		04C0147C2BB7F7F8005F1A77 /* Geohash in Frameworks */ = {isa = PBXBuildFile; productRef = 04C0147B2BB7F7F8005F1A77 /* Geohash */; };
 		5B0142D42B9346F00033FB9C /* RegisterNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142D32B9346F00033FB9C /* RegisterNicknameView.swift */; };
 		5B0142D62B9347040033FB9C /* RegisterProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142D52B9347040033FB9C /* RegisterProfileImageView.swift */; };
 		5B0142D92B9356670033FB9C /* NicknameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142D82B9356670033FB9C /* NicknameTextField.swift */; };
@@ -69,7 +70,6 @@
 		5B2F1BF72BA1CEE70058A64F /* HearBalloonBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F1BF62BA1CEE70058A64F /* HearBalloonBackground.swift */; };
 		5B2F1BF92BA1CF7B0058A64F /* HearBalloonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F1BF82BA1CF7B0058A64F /* HearBalloonViewModel.swift */; };
 		5B2F1BFB2BA1D9B60058A64F /* OnBoardingPageOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F1BFA2BA1D9B60058A64F /* OnBoardingPageOne.swift */; };
-		5B3ABD3B2BA9BCCA002C8201 /* Geohash in Frameworks */ = {isa = PBXBuildFile; productRef = 5B3ABD3A2BA9BCCA002C8201 /* Geohash */; };
 		5B3ABD3E2BA9BCE0002C8201 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 5B3ABD3D2BA9BCE0002C8201 /* GoogleSignIn */; };
 		5B3ABD422BA9CD71002C8201 /* HearModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3ABD412BA9CD71002C8201 /* HearModel+Mock.swift */; };
 		5B3B35D22BC41763000F68F0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B3B35D02BC41763000F68F0 /* GoogleService-Info.plist */; };
@@ -186,6 +186,7 @@
 		04C014702BB458CC005F1A77 /* VideoPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreviewView.swift; sourceTree = "<group>"; };
 		04C014722BB7D530005F1A77 /* HearViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearViewModel.swift; sourceTree = "<group>"; };
 		04C014742BB7D980005F1A77 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		04C014812BB7F901005F1A77 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B0142D32B9346F00033FB9C /* RegisterNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNicknameView.swift; sourceTree = "<group>"; };
 		5B0142D52B9347040033FB9C /* RegisterProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProfileImageView.swift; sourceTree = "<group>"; };
 		5B0142D82B9356670033FB9C /* NicknameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameTextField.swift; sourceTree = "<group>"; };
@@ -252,8 +253,8 @@
 				5B3ABD3E2BA9BCE0002C8201 /* GoogleSignIn in Frameworks */,
 				5BD2A5202BA322A700EC4049 /* FirebaseFirestore in Frameworks */,
 				5BD2A51E2BA322A700EC4049 /* FirebaseAuth in Frameworks */,
-				5B3ABD3B2BA9BCCA002C8201 /* Geohash in Frameworks */,
 				5BD2A5222BA322A700EC4049 /* FirebaseStorage in Frameworks */,
+				04C0147C2BB7F7F8005F1A77 /* Geohash in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -672,8 +673,8 @@
 				5BD2A51D2BA322A700EC4049 /* FirebaseAuth */,
 				5BD2A51F2BA322A700EC4049 /* FirebaseFirestore */,
 				5BD2A5212BA322A700EC4049 /* FirebaseStorage */,
-				5B3ABD3A2BA9BCCA002C8201 /* Geohash */,
 				5B3ABD3D2BA9BCE0002C8201 /* GoogleSignIn */,
+				04C0147B2BB7F7F8005F1A77 /* Geohash */,
 			);
 			productName = "Here-Hear";
 			productReference = 04A746B62B8464A700182C5F /* Here-Hear.app */;
@@ -750,8 +751,8 @@
 			mainGroup = 04A746AD2B8464A700182C5F;
 			packageReferences = (
 				5BD2A51C2BA322A700EC4049 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				5B3ABD392BA9BCCA002C8201 /* XCRemoteSwiftPackageReference "Geohash" */,
 				5B3ABD3C2BA9BCE0002C8201 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				04C0147A2BB7F7F8005F1A77 /* XCRemoteSwiftPackageReference "Geohash" */,
 			);
 			productRefGroup = 04A746B72B8464A700182C5F /* Products */;
 			projectDirPath = "";
@@ -777,6 +778,7 @@
 				5BDBBD352B8483D500DEB7DC /* Localizable.xcstrings in Resources */,
 				04A746BE2B8464A800182C5F /* Assets.xcassets in Resources */,
 				5BDBBD382B84844200DEB7DC /* InfoPlist.strings in Resources */,
+				04C014572BA32441005F1A77 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1304,9 +1306,11 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5B3ABD392BA9BCCA002C8201 /* XCRemoteSwiftPackageReference "Geohash" */ = {
+
+
+		04C0147A2BB7F7F8005F1A77 /* XCRemoteSwiftPackageReference "Geohash" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/nh7a/Geohash.git";
+			repositoryURL = "https://github.com/nh7a/Geohash";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -1331,9 +1335,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5B3ABD3A2BA9BCCA002C8201 /* Geohash */ = {
+		04C0147B2BB7F7F8005F1A77 /* Geohash */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5B3ABD392BA9BCCA002C8201 /* XCRemoteSwiftPackageReference "Geohash" */;
+			package = 04C0147A2BB7F7F8005F1A77 /* XCRemoteSwiftPackageReference "Geohash" */;
 			productName = Geohash;
 		};
 		5B3ABD3D2BA9BCE0002C8201 /* GoogleSignIn */ = {

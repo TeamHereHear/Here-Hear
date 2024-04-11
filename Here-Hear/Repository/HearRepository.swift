@@ -42,6 +42,7 @@ protocol HearRepositoryInterface {
 class HearRepository: HearRepositoryInterface {
     
     let collectionRef = Firestore.firestore().collection("Hear")
+    
 
     func fetchAroundHears(
         from center: CLLocation,
@@ -175,7 +176,7 @@ class HearRepository: HearRepositoryInterface {
             } catch {
                 promise(.failure(.custom(error)))
             }
-            
+            print("\(hear)")
         }
         .eraseToAnyPublisher()
     }

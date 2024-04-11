@@ -16,7 +16,6 @@ final class HearBalloonViewModel: ObservableObject {
     }
     
     private let hear: HearModel
-    
     private let container: DIContainer
     private var cancellables = Set<AnyCancellable>()
     
@@ -30,16 +29,11 @@ final class HearBalloonViewModel: ObservableObject {
         
         container.services.musicService.fetchMusic(ofIds: [musicId])
             .receive(on: DispatchQueue.main)
-            .sink { completion in
-                switch completion {
-                case .finished: 
-                    print("finished")
-                case .failure(let error): 
-                    print(error)
-                }
-            } receiveValue: { [weak self] models in
+            .sink { _ in
+            } receiveValue: { [weak self] musicData in
                 guard let self else { return }
-                self.music = models.first
+                self.music = musicData.first
+              //  print("HearBallonViewModel 가져온 음악 정보: \(String(describing: music))")
             }
             .store(in: &cancellables)
     }

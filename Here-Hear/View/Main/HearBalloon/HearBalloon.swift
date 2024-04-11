@@ -23,6 +23,7 @@ struct HearBalloon: View {
     
     var body: some View {
         HStack(spacing: 0) {
+            
             albumArt
                 .padding(.trailing, 5)
             

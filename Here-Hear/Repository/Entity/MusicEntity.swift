@@ -14,7 +14,6 @@ struct MusicEntity: Codable, Hashable, Identifiable {
     var artist: String
     var artwork: String?
     var previewURL: String?
-
 }
 
 extension MusicEntity {

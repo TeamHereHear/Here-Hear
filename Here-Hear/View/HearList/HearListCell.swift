@@ -94,6 +94,7 @@ struct HearListCell: View {
         formatter.dateFormat = "YY.MM.dd"
         return formatter
     }
+    
     private var detailedInformation: some View {
         HStack(spacing: 5) {
             RemoteImage(

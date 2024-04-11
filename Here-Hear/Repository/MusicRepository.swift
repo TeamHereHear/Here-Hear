@@ -35,17 +35,17 @@ class MusicRepository: MusicRepositoryInterface {
     func addMusic(_ music: MusicEntity) -> AnyPublisher<MusicEntity, MusicRepositoryError> {
         Future { [weak self] promise in
             guard let self else {
-                promise(.failure(MusicRepositoryError.nilSelf))
+                promise(.failure(.nilSelf))
                 return
             }
             
             do {
-                try self.collectionRef
-                    .document(music.id)
-                    .setData(from: music)
+                // Firestore에 MusicEntity 추가
+                let documentReference = self.collectionRef.document(music.id) // 문서 ID를 명시적으로 지정
+                try documentReference.setData(from: music)
                 promise(.success(music))
             } catch {
-                promise(.failure(MusicRepositoryError.custom(error)))
+                promise(.failure(.custom(error)))
             }
         }
         .eraseToAnyPublisher()
@@ -59,36 +59,42 @@ class MusicRepository: MusicRepositoryInterface {
     func fetchMusic(ofIds ids: [String]) -> AnyPublisher<[MusicEntity], MusicRepositoryError> {
         Future { [weak self] promise in
             guard let self else {
-                promise(.failure(MusicRepositoryError.nilSelf))
+                promise(.failure(.nilSelf))
                 return
             }
-                     
-            self.collectionRef
-                .whereField("id", in: ids)
-                .getDocuments { snapshot, error in
-                    if let error {
-                        promise(.failure(MusicRepositoryError.custom(error)))
-                        return
-                    }
+            
+            // 결과를 담을 배열 초기화
+            var results: [MusicEntity] = []
+            
+            // 각 ID에 대해 문서를 조회하는 작업 그룹 생성
+            let group = DispatchGroup()
+            
+            for id in ids {
+                group.enter()
+                self.collectionRef.document(id).getDocument { (document, error) in
+                    defer { group.leave() }
                     
-                    guard let snapshot else {
-                        promise(.failure(MusicRepositoryError.emptyData))
-                        return
+                    if let document = document, document.exists, let entity = try? document.data(as: MusicEntity.self) {
+                        
+                        results.append(entity)
+//                        print("Repo에서 fetchMusic 한거임 \(results)")
+                    } else if let error = error {
+                        print("Error fetching document: \(error)")
                     }
-                    
-                    let entities: [MusicEntity] = snapshot.documents.compactMap {
-                        try? $0.data(as: MusicEntity.self)
-                    }
-                    
-                    promise(.success(entities))
                 }
+            }
+            
+            // 모든 작업이 완료될 때까지 대기
+            group.notify(queue: .main) {
+                promise(.success(results))
+            }
         }
         .eraseToAnyPublisher()
     }
-    
+
     func fetchMusic(ofIds ids: [String]) async throws -> [MusicEntity] {
         let snapshot = try await self.collectionRef
-            .whereField("id", in: ids)
+            .whereField(FieldPath.documentID(), in: ids)
             .getDocuments()
         
         return snapshot.documents.compactMap { try? $0.data(as: MusicEntity.self) }
