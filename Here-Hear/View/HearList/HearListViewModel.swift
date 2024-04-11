@@ -10,10 +10,22 @@ import Combine
 import CoreLocation
 
 final class HearListViewModel: ObservableObject {
-    @Published var hears: [HearModel] = []
-    @Published var userNicknames: [String: String] = [:] // @Published 를 제거해도 잘 동작하는지 살펴볼 것
-    @Published var musicOfHear: [String: [MusicModel]] = [:]
+    private var hears: [HearModel] = [] {
+        didSet {
+            sortedHears = sortHears(by: sortingOrder, hears)
+        }
+    }
+    @Published var sortingOrder: SortingOrder = .nearest {
+        didSet {
+            sortedHears = sortHears(by: sortingOrder, hears)
+        }
+    }
+    @Published var sortedHears: [HearModel] = []
+    var userNicknames: [String: String] = [:] // @Published 를 제거해도 잘 동작하는지 살펴볼 것
+    var musicOfHear: [String: [MusicModel]] = [:]
+    
     @Published var loadingState: LoadingState = .none
+    
     private var userLocation: CLLocation?
     
     private let container: DIContainer
@@ -24,21 +36,13 @@ final class HearListViewModel: ObservableObject {
         container: DIContainer
     ) {
         self.container = container
-        container.managers.userLocationManager.locationPublisher
-            .sink { self.userLocation = $0 }
-            .store(in: &cancellables)
-    }
-    
-    enum LoadingState {
-        case none
-        case fetching
-        case completed
-        case failed
+        self.userLocation = container.managers.userLocationManager.userLocation
     }
     
     @MainActor
-    func fetchHears() async {
+    public func fetchHears() async {
         guard let userLocation else { return }
+        let fetchingLimit: Int = 20
         let latitude = userLocation.coordinate.latitude
         let longitude = userLocation.coordinate.longitude
         
@@ -57,26 +61,37 @@ final class HearListViewModel: ObservableObject {
                 radiusInMeter: 1000,
                 inGeohashes: overlappingGeohashes,
                 startAt: self.lastDocumentID,
-                limit: 20
+                limit: fetchingLimit
             )
             
             _ = await [fetchUserNicknames(models), fetchMusicOfHears(models)]
             
-            self.hears.append(contentsOf: models)
+            DispatchQueue.main.async {
+                self.hears.append(contentsOf: models)
+            }
             self.lastDocumentID = lastDocumentID
             
-            loadingState = .completed
+            loadingState = models.count == fetchingLimit ? .none : .completed
         } catch {
             loadingState = .failed
         }
+    }
+    
+    public func distanceOfHear(_ hear: HearModel) -> Double? {
+        guard let userCoordinate = userLocation?.coordinate else { return nil }
+        let hearCoordinate: CLLocationCoordinate2D = .init(geohash: hear.location.geohashExact)
+        return userCoordinate.distanceInMeters(with: hearCoordinate)
     }
     
     private func fetchUserNicknames(_ hears: [HearModel]) async {
         let asyncHears = makeAsyncHears(hears)
         
         for await hear in asyncHears {
+            print("asyncHears")
             if let userNickname = try? await container.services.userService.fetchUser(ofId: hear.userId)?.nickname {
-                self.userNicknames[hear.id] = userNickname
+                DispatchQueue.main.async {
+                    self.userNicknames[hear.id] = userNickname
+                }
             }
         }
     }
@@ -86,7 +101,9 @@ final class HearListViewModel: ObservableObject {
         
         for await hear in asyncHears {
             if let musics = try? await container.services.musicService.fetchMusic(ofIds: hear.musicIds) {
-                self.musicOfHear[hear.id] = musics
+                DispatchQueue.main.async {
+                    self.musicOfHear[hear.id] = musics
+                }
             }
         }
     }
@@ -99,5 +116,70 @@ final class HearListViewModel: ObservableObject {
             continuation.finish()
         }
     }
+}
 
+extension HearListViewModel {
+    enum LoadingState {
+        case none
+        case fetching
+        case completed
+        case failed
+    }
+}
+
+// MARK: Sorting
+extension HearListViewModel {
+    enum SortingOrder: String, CaseIterable {
+        case nearest
+        case mostLiked
+        case newest
+        case oldest
+        
+        var localizedName: String {
+            switch self {
+            case .nearest:
+                String(localized: "hearListView.sorting.order.nearest")
+            case .mostLiked:
+                String(localized: "hearListView.sorting.order.most.liked")
+            case .newest:
+                String(localized: "hearListView.sorting.order.newest")
+            case .oldest:
+                String(localized: "hearListView.sorting.order.oldest")
+            }
+        }
+    }
+    
+    func sortHears(by sortingOrder: SortingOrder, _ hears: [HearModel]) -> [HearModel] {
+        switch sortingOrder {
+        case .nearest:
+            sortHearsByDistance(hears)
+        case .mostLiked:
+            sortHearsByLike(hears)
+        case .newest:
+            sortHearsByDescendingTime(hears)
+        case .oldest:
+            sortHearsByAscendingTime(hears)
+        }
+    }
+    
+    func sortHearsByDistance(_ hears: [HearModel]) -> [HearModel] {
+        hears.sorted {
+            guard let userCoordinate = userLocation?.coordinate else { return true }
+            let coordinate0 = CLLocationCoordinate2D(latitude: $0.location.latitude, longitude: $0.location.longitude)
+            let coordinate1 = CLLocationCoordinate2D(latitude: $1.location.latitude, longitude: $1.location.longitude)
+            return userCoordinate.distanceInMeters(with: coordinate0) <= userCoordinate.distanceInMeters(with: coordinate1)
+        }
+    }
+    
+    func sortHearsByLike(_ hears: [HearModel]) -> [HearModel] {
+        hears.sorted { $0.like >= $1.like }
+    }
+    
+    func sortHearsByDescendingTime(_ hears: [HearModel]) -> [HearModel] {
+        hears.sorted { $0.createdAt >= $1.createdAt }
+    }
+    
+    func sortHearsByAscendingTime(_ hears: [HearModel]) -> [HearModel] {
+        hears.sorted { $0.createdAt <= $1.createdAt }
+    }
 }

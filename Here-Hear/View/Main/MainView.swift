@@ -35,29 +35,8 @@ struct MainView: View {
                     HearBalloon(viewModel: .init(hear: hear, container: container))
                 }
             }
-            .ignoresSafeArea()
-            .tint(.hhSecondary)
-            .overlay(alignment: .topTrailing) {
-               UserTrackingButton($userTrackingMode)
-            }
-            .fullScreenCover(isPresented: $shouldPresentHearList) {
-                HearListView(
-                    viewModel: .init(container: container),
-                    present: $shouldPresentHearList
-                )
-            }
 
-            .overlay(alignment: .bottomLeading) {
-                Button {
-                    shouldPresentHearList = true
-                } label: {
-                    Image(systemName: "music.note.list")
-                        .font(.system(size: 45))
-                }
-                .padding(.leading, 16)
-                .padding(.bottom, 30)
-                .tint(.hhAccent2)
-            }
+
             .overlay(alignment: .bottom) {
                 Button {
                     shouldPresentAddHear = true
@@ -74,13 +53,45 @@ struct MainView: View {
                 }
                 
             }
+        .navigationBarBackButtonHidden()
+        .ignoresSafeArea()
+        .tint(.hhSecondary)
+        .overlay(alignment: .bottom) {
+            Button {
+                viewModel.fetchAroundHears()
+            } label: {
+                Text("mainView.fetchAround.button.title")
+                    .font(.caption.bold())
+                    .foregroundStyle(.white)
+            }
+            .frame(maxHeight: 36)
+            .padding(.horizontal)
+            .background(.black, in: .capsule)
+            .shadow(color: .hhSecondary, radius: 10)
+            .padding(.bottom, 100)
+            .opacity(viewModel.showFetchAroundHearButton ? 1 : 0)
+            .animation(.easeInOut, value: viewModel.showFetchAroundHearButton)
+        }
+        .overlay(alignment: .topTrailing) {
+           UserTrackingButton($userTrackingMode)
+        }
+        .fullScreenCover(isPresented: $shouldPresentHearList) {
+            HearListView(
+                viewModel: .init(container: container),
+                present: $shouldPresentHearList
+            )
+        }
+        .overlay(alignment: .bottomLeading) {
             
-            .onAppear {
-                authViewModel.send(action: .checkAnonymousUser)
+            Button {
+                shouldPresentHearList = true
+            } label: {
+                Image(systemName: "music.note.list")
+                    .font(.system(size: 45))
             }
         }
-        }
-        
+     }
+}
 }
 
 #Preview {

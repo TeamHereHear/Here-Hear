@@ -14,7 +14,71 @@
     "Google로 로그인" : {
 
     },
-    "hearListView_title" : {
+    "hearListView.sorting.order.most.liked" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Most Liked"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "좋아요 순"
+          }
+        }
+      }
+    },
+    "hearListView.sorting.order.nearest" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nearest"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "가까운 순"
+          }
+        }
+      }
+    },
+    "hearListView.sorting.order.newest" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Newest"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "새로운 순"
+          }
+        }
+      }
+    },
+    "hearListView.sorting.order.oldest" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oldest"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "오래된 순"
+          }
+        }
+      }
+    },
+    "hearListView.title" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
@@ -31,6 +95,22 @@
     "Here, Hear" : {
 
     },
+    "mainView.fetchAround.button.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fetch Nearby Hears"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "주변 Hear 불러오기"
+          }
+        }
+      }
+    },
     "nicknameTextField.nicknameLengthRules" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
@@ -42,7 +122,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "10글자 이하로 만들어 주세요."
           }
         }
@@ -92,7 +172,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "다음"
           }
         }
@@ -108,7 +188,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "다음"
           }
         }
@@ -124,7 +204,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "주변에서\n무슨 음악을 듣는지\n찾아보세요"
           }
         }
@@ -140,7 +220,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "간편하게\n당신의 주변 ‘Hear’를 \n목록으로 확인하세요"
           }
         }
@@ -156,7 +236,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "여기서 \n무슨 음악을 듣고\n어떤 생각이 드는지\n‘Hear’ 로 공유하세요."
           }
         }
@@ -166,9 +246,6 @@
 
     },
     "개인정보 처리방침" : {
-
-    },
-    "거리순" : {
 
     },
     "건너뛰기" : {
