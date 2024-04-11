@@ -16,6 +16,9 @@ struct Here_HearApp: App {
         WindowGroup {
             AuthenticatedView(authViewModel: .init(container: container))
                 .environmentObject(container)
+                .onAppear {
+                    container.managers.musicManager.setupMusic()
+                }
         }
         
     }

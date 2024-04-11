@@ -9,12 +9,12 @@ import Foundation
 import Combine
 import MusicKit
 
-protocol MusicMangerProtocol {
+protocol MusicManagerProtocol {
     func fetchMusic(with term: String) -> AnyPublisher<[MusicModel], Error>
+    func setupMusic()
 }
 
-class MusicManger: MusicMangerProtocol {
-    static let shared = MusicManger()
+class MusicManager: MusicManagerProtocol {
     
     init() {}
     
@@ -86,6 +86,7 @@ class MusicManger: MusicMangerProtocol {
                                 // return
                             return MusicModel(
                                 id: song.id.rawValue,
+                                albumId: song.albums?.first?.id.rawValue,
                                 album: song.albumTitle,
                                 title: song.title,
                                 artist: song.artistName,
@@ -108,7 +109,10 @@ class MusicManger: MusicMangerProtocol {
 
 }
 
-final class StubMusicManager: MusicMangerProtocol {
+final class StubMusicManager: MusicManagerProtocol {
+    func setupMusic() {
+    }
+    
     func fetchMusic(with term: String) -> AnyPublisher<[MusicModel], any Error> {
         Empty().eraseToAnyPublisher()
     }

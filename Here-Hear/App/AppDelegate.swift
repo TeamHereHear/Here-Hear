@@ -8,7 +8,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     // Firebase 및 기타 초기 설정을 구성
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         FirebaseApp.configure()
-        MusicManger.shared.setupMusic()
+//        MusicManager.shared.setupMusic()
         return true
     }
 

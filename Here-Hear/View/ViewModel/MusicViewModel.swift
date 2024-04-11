@@ -18,10 +18,10 @@ class MusicViewModel: ObservableObject {
     private var player: AVPlayer?
     var currentlyPlayingURL: URL?
     private var timeObserverToken: Any?
-    private var musicManager: MusicMangerProtocol
+    private var musicManager: MusicManagerProtocol
     private var cancellables: Set<AnyCancellable> = []
     
-    init(musicManager: MusicMangerProtocol = MusicManger()) {
+    init(musicManager: MusicManagerProtocol = MusicManager()) {
         self.musicManager = musicManager
         setupSearchTextPublisher()
     }

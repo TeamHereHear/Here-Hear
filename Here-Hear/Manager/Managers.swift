@@ -8,21 +8,21 @@
 import Foundation
 
 protocol ManagersProtocol {
-    var musicManager: MusicMangerProtocol { get set }
+    var musicManager: MusicManagerProtocol { get set }
     var userLocationManager: UserLocationManagerProtocol { get set }
 }
 
 final class Managers: ManagersProtocol {
-    var musicManager: MusicMangerProtocol
+    var musicManager: MusicManagerProtocol
     var userLocationManager: UserLocationManagerProtocol
     
     init() {
-        self.musicManager = MusicManger()
+        self.musicManager = MusicManager()
         self.userLocationManager = UserLocationManager()
     }
 }
 
 final class StubManagers: ManagersProtocol {
-    var musicManager: MusicMangerProtocol = StubMusicManager()
+    var musicManager: MusicManagerProtocol = StubMusicManager()
     var userLocationManager: UserLocationManagerProtocol = StubUserLocationManager()
 }

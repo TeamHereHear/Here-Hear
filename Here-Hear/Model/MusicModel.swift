@@ -9,6 +9,7 @@ import Foundation
 
 struct MusicModel: Codable, Hashable, Identifiable {
     var id: String
+    var albumId: String?
     var album: String?
     var title: String
     var artist: String
@@ -20,6 +21,7 @@ extension MusicModel {
     func toEntity() -> MusicEntity {
         .init(
             id: id,
+            albumId: albumId,
             album: album,
             title: title,
             artist: artist,
@@ -33,6 +35,7 @@ extension MusicModel {
 extension MusicModel {
     static let onBoardingPageStubOne: MusicModel = .init(
         id: "1611813405",
+        albumId: "1234567890",
         album: "G - Stream 2 - Turn It Up - Single",
         title: "G - Wiggle",
         artist: "Gerald Albright",
@@ -46,6 +49,7 @@ extension MusicModel {
     
     static let onBoardingPageStubTwo: MusicModel = .init(
         id: "1623193283",
+        albumId: "1234567890",
         album: "Twelve Carat Toothache",
         title: "I Like You (A Happier Song) [feat. Doja Cat]",
         artist: "Post Malone",
@@ -59,6 +63,7 @@ extension MusicModel {
     
     static let onBoardingPageStubThree: MusicModel = .init(
         id: "1656358106",
+        albumId: "1234567890",
         album: "Look at Me !!!",
         title: "I adore you (feat. Crush)",
         artist: "Chan",
