@@ -63,6 +63,24 @@ class MusicRepository: MusicRepositoryInterface {
                 return
             }
             
+            self.collectionRef
+                .whereField(FieldPath.documentID(), in: ids)
+                .getDocuments { snapshot, error in
+                    if let error {
+                        promise(.failure(.custom(error)))
+                        return
+                    }
+                    
+                    if let result = snapshot?.documents.compactMap({ try? $0.data(as: MusicEntity.self)}) {
+                        promise(.success(result))
+                        return
+                    }
+                    
+                    promise(.failure(.emptyData))
+                    return
+                }
+             
+            /*
             // 결과를 담을 배열 초기화
             var results: [MusicEntity] = []
             
@@ -88,10 +106,12 @@ class MusicRepository: MusicRepositoryInterface {
             group.notify(queue: .main) {
                 promise(.success(results))
             }
+             */
+             
         }
         .eraseToAnyPublisher()
     }
-
+    
     func fetchMusic(ofIds ids: [String]) async throws -> [MusicEntity] {
         let snapshot = try await self.collectionRef
             .whereField(FieldPath.documentID(), in: ids)
@@ -100,8 +120,7 @@ class MusicRepository: MusicRepositoryInterface {
         return snapshot.documents.compactMap { try? $0.data(as: MusicEntity.self) }
     }
     
-    // MARK: - MusicEntity 삭제
-    
+
     /// 데이터베이스에서 id에 해당하는 MusicEntity를 삭제하는 메서드
     /// - Parameter id: 삭제할 MusicEntity의 id
     /// - Returns: AnyPublisher<Void, MusicRepositoryError>
