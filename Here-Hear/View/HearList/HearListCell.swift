@@ -155,7 +155,7 @@ struct HearListCell: View {
                     .foregroundStyle(.hhSecondary)
             }
             .sheet(item: $openMusic) { music in
-                OpenInAnotherMusicServiceView(music: music)
+                OpenInOtherMusicServiceView(music: music)
             }
             
             Button {
