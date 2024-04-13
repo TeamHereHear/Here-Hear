@@ -9,7 +9,7 @@ import Foundation
 
 struct MusicEntity: Codable, Hashable, Identifiable {
     var id: String
-    var albumId: String?
+    var songUrl: URL?
     var album: String?
     var title: String
     var artist: String
@@ -21,7 +21,7 @@ extension MusicEntity {
     func toModel() -> MusicModel {
         .init(
             id: id,
-            albumId: albumId,
+            songUrl: songUrl,
             album: album,
             title: title,
             artist: artist,
