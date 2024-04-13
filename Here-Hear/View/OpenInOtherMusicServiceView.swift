@@ -16,9 +16,8 @@ struct OpenInOtherMusicServiceView: View {
     
     var body: some View {
         HStack {
-            
             if let appleMusicIconImage = UIImage(named: "AppleMusicIcon"),
-               let url = URL(string: "music://music.apple.com/kr/songs/1734500886?i=1734500896") {
+               let url = URL(string: "music://music.apple.com/kr/search?term=\(music.title)") {
                 Button {
                     Task {
                         await UIApplication.shared.open(url)

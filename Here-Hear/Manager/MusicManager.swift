@@ -80,13 +80,9 @@ class MusicManager: MusicManagerProtocol {
                         let response = try await request.response()
 
                         let models = response.songs.compactMap { song in
-//                            if let artworkURL = song.artwork?.url(width: 200, height: 200) {
-//                                print("\(artworkURL)")
-//                            }
-                                // return
                             return MusicModel(
                                 id: song.id.rawValue,
-                                albumId: song.albums?.first?.id.rawValue,
+                                songUrl: song.url,
                                 album: song.albumTitle,
                                 title: song.title,
                                 artist: song.artistName,
