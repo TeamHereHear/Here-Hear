@@ -18,7 +18,8 @@ struct CameraHomeView: View {
 
     @Binding var selectedSong: MusicModel?
     @State private var optionalVideoURL: URL? // 건너뛰기 nil값
-    
+    @EnvironmentObject private var container: DIContainer
+
     //앨범 이미지 보여주는 변수들
     //@State private var isImagePickerPresented = false
     //@State private var latestImage: UIImage?

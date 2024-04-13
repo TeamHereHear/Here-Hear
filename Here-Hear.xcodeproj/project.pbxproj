@@ -57,6 +57,7 @@
 		04C014752BB7D980005F1A77 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C014742BB7D980005F1A77 /* LocationManager.swift */; };
 		04C0147C2BB7F7F8005F1A77 /* Geohash in Frameworks */ = {isa = PBXBuildFile; productRef = 04C0147B2BB7F7F8005F1A77 /* Geohash */; };
 		04D0831F2BC80FD900C6A143 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04D0831E2BC80FD900C6A143 /* GoogleService-Info.plist */; };
+		04D083212BCA5E4F00C6A143 /* AudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D083202BCA5E4F00C6A143 /* AudioSessionManager.swift */; };
 		5B0142D42B9346F00033FB9C /* RegisterNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142D32B9346F00033FB9C /* RegisterNicknameView.swift */; };
 		5B0142D62B9347040033FB9C /* RegisterProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142D52B9347040033FB9C /* RegisterProfileImageView.swift */; };
 		5B0142D92B9356670033FB9C /* NicknameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142D82B9356670033FB9C /* NicknameTextField.swift */; };
@@ -187,6 +188,7 @@
 		04C014722BB7D530005F1A77 /* HearViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearViewModel.swift; sourceTree = "<group>"; };
 		04C014742BB7D980005F1A77 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		04D0831E2BC80FD900C6A143 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		04D083202BCA5E4F00C6A143 /* AudioSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSessionManager.swift; sourceTree = "<group>"; };
 		5B0142D32B9346F00033FB9C /* RegisterNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNicknameView.swift; sourceTree = "<group>"; };
 		5B0142D52B9347040033FB9C /* RegisterProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProfileImageView.swift; sourceTree = "<group>"; };
 		5B0142D82B9356670033FB9C /* NicknameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameTextField.swift; sourceTree = "<group>"; };
@@ -426,11 +428,12 @@
 			isa = PBXGroup;
 			children = (
 				04A746EC2B84670300182C5F /* NotificationManager.swift */,
-				04A747952B934C4000182C5F /* MusicManager.swift */,
 				04A7479B2B9363DE00182C5F /* ManagerError.swift */,
+				5B7F8FAA2BAB18F4008171C9 /* Managers.swift */,
+				04A747952B934C4000182C5F /* MusicManager.swift */,
 				04C014742BB7D980005F1A77 /* LocationManager.swift */,
 				5B7F8FA82BAB0FA9008171C9 /* UserLocationManager.swift */,
-				5B7F8FAA2BAB18F4008171C9 /* Managers.swift */,
+				04D083202BCA5E4F00C6A143 /* AudioSessionManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -824,6 +827,7 @@
 			files = (
 				04A747A02B95E73500182C5F /* CameraHomeView.swift in Sources */,
 				5BD2A52D2BA337FB00EC4049 /* HearListCell.swift in Sources */,
+				04D083212BCA5E4F00C6A143 /* AudioSessionManager.swift in Sources */,
 				5BDEDCED2B99D9800055D40A /* ImageUploadService.swift in Sources */,
 				04A747422B8C320C00182C5F /* SHA256.swift in Sources */,
 				5B0142E22B95EAC40033FB9C /* RegisterNicknameViewModel.swift in Sources */,
@@ -1092,7 +1096,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Here-Hear/Preview Content\"";
-				DEVELOPMENT_TEAM = SUDPP9C593;
+				DEVELOPMENT_TEAM = QUMNMR4BSR;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1138,7 +1142,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Here-Hear/Preview Content\"";
-				DEVELOPMENT_TEAM = SUDPP9C593;
+				DEVELOPMENT_TEAM = QUMNMR4BSR;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;

@@ -18,6 +18,7 @@ struct Here_HearApp: App {
                 .environmentObject(container)
                 .onAppear {
                     container.managers.musicManager.setupMusic()
+                    container.managers.audioSessionManager.configureAudioSession()
                 }
         }
         

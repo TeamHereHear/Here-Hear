@@ -53,6 +53,7 @@ struct FinalSummaryHearView: View {
                          .font(.title3)
                          .foregroundColor(.white)
                          .shadow(radius: 10)
+                
 
                      // 날씨 정보
                      HStack {
@@ -111,6 +112,6 @@ struct FinalSummaryHearView: View {
         .onDisappear {
             musicPlayer.pause()
         }
-         .edgesIgnoringSafeArea(.all)
+//         .edgesIgnoringSafeArea(.all)
      }
  }

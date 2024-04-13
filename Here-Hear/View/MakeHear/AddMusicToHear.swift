@@ -17,6 +17,8 @@ extension View {
 
 struct AddMusicToHear: View {
     @StateObject private var musicViewModel = MusicViewModel()
+    @EnvironmentObject private var container: DIContainer
+
     @State var videoURL: URL?
     @State var selectedSong: MusicModel?
     
@@ -30,44 +32,11 @@ struct AddMusicToHear: View {
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                HStack {
-                    TextField(text: $musicViewModel.searchText) {
-                        Text(
-                            "공유하고 싶은 음악을 검색해주세요 :)"
-                        ).foregroundStyle(.gray)
-                    }
-                    .padding(20)
-                    .padding(.leading, 20)
-                    .background(Color("HHTertiary"))
-                    .cornerRadius(10)
-                    .padding(.horizontal) // 화면 좌우 패딩
-                    .foregroundColor(.accentColor)
-                    .overlay(
-                        HStack {
-                            Image(systemName: "magnifyingglass")
-                                .font(.title3)
-                                .foregroundColor(Color("HHGray"))
-                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, 25)
-                            Spacer()
-                            
-                            if !musicViewModel.searchText.isEmpty {
-                                Button(action: {
-                                    musicViewModel.searchText = ""
-                                }) {
-                                    Image(systemName: "multiply.circle")
-                                        .font(.title3)
-                                        .foregroundColor(Color("HHGray"))
-                                        .padding(.trailing, 25)
-                                }
-                            }
-                        }
-                    )
-                } // HStack TextField요소
-                .padding(.bottom, 20)
+                searchField
+                
                 Spacer().frame(maxWidth: .infinity).overlay {
                     if musicViewModel.isLoading {
-                        // ProgressView()
+                         ProgressView()
                     } else {
                         musicList
                     }
@@ -78,13 +47,57 @@ struct AddMusicToHear: View {
                 CameraHomeView(selectedSong: $selectedSong)
                     .onAppear {
                         musicViewModel.pauseMusicIfNeeded()
+                        container.managers.audioSessionManager.deactivateAudioSession()
+
                     }
             }
             .onTapGesture {
                 self.hideKeyboard()
             }
+            .onAppear {
+                container.managers.audioSessionManager.activateAudioSession()
+            }
+
         } // NavigationView 종료
     } // body 종료
+    
+    private var searchField: some View {
+        HStack {
+            TextField(text: $musicViewModel.searchText) {
+                Text(
+                    "공유하고 싶은 음악을 검색해주세요 :)"
+                ).foregroundStyle(.gray)
+            }
+            .padding(20)
+            .padding(.leading, 20)
+            .background(Color("HHTertiary"))
+            .cornerRadius(10)
+            .padding(.horizontal) // 화면 좌우 패딩
+            .foregroundColor(.accentColor)
+            .overlay(
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .font(.title3)
+                        .foregroundColor(Color("HHGray"))
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 25)
+                    Spacer()
+                    
+                    if !musicViewModel.searchText.isEmpty {
+                        Button(action: {
+                            musicViewModel.searchText = ""
+                        }) {
+                            Image(systemName: "multiply.circle")
+                                .font(.title3)
+                                .foregroundColor(Color("HHGray"))
+                                .padding(.trailing, 25)
+                        }
+                    }
+                }
+            )
+        } // HStack TextField요소
+        .padding(.bottom, 20)
+    }
     
     @ViewBuilder
     private var musicList: some View {
