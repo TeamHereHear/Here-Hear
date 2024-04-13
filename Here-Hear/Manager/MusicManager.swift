@@ -82,7 +82,7 @@ class MusicManager: MusicManagerProtocol {
                         let models = response.songs.compactMap { song in
                             return MusicModel(
                                 id: song.id.rawValue,
-                                songUrl: song.url,
+                                songURL: song.url,
                                 album: song.albumTitle,
                                 title: song.title,
                                 artist: song.artistName,
