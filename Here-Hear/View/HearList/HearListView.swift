@@ -22,10 +22,8 @@ struct HearListView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .trailing) {
-               HearListSortingMenu(viewModel: viewModel)
-                
+                HearListSortingMenu(viewModel: viewModel)
                 List {
-                    
                     ForEach(viewModel.sortedHears, id: \.id) { hearListCell($0) }
                     progressView
                 }
@@ -59,7 +57,7 @@ struct HearListView: View {
                 trailing: 7
             )
         )
-        .listRowSeparator(.visible)
+        
     }
     
     @MainActor
