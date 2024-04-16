@@ -18,6 +18,29 @@ struct MusicModel: Codable, Hashable, Identifiable {
 }
 
 extension MusicModel {
+    func appleMusicDeeplinkURL(ofCountryCode countryCode: String) -> URL? {
+        guard let urlString = self.songURL?.absoluteString else { return nil }
+        guard let lastPart = urlString.components(separatedBy: "album").last else { return nil }
+        let firstPart: String = "music://music.apple.com/\(countryCode)/album"
+        
+        return URL(string: firstPart + lastPart)
+    }
+    
+    func spotifyDeeplinkURL() -> URL? {
+        guard let bundleIdentifier = Bundle.main.bundleIdentifier else { return nil }
+        let canonicalURLString: String = "https://open.spotify.com/search/\(self.title) artist:\(artist)"
+        let branchLink = "https://spotify.link/content_linking?~campaign=\(bundleIdentifier)&$canonical_url=\(canonicalURLString)"
+        
+        return URL(string: branchLink)
+    }
+    
+    func youtubeMusicDeeplinkURL() -> URL? {
+        let youtubeMusicURLString = "youtubemusic://music.youtube.com/search?q=\(self.title) artist:\(artist)"
+        return URL(string: youtubeMusicURLString)
+    }
+}
+
+extension MusicModel {
     func toEntity() -> MusicEntity {
         .init(
             id: id,
