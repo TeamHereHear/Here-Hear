@@ -117,6 +117,7 @@
 		5BEA6B012B9F33E6006C48AC /* RemoteImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA6B002B9F33E6006C48AC /* RemoteImageViewModel.swift */; };
 		5BEA6B032B9F3522006C48AC /* StorageImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA6B022B9F3522006C48AC /* StorageImageService.swift */; };
 		5BEA6B052B9F3D0A006C48AC /* RemoteImageLoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA6B042B9F3D0A006C48AC /* RemoteImageLoadingState.swift */; };
+		5BF07ACE2BCFF7B300FCBDCE /* InfiniteHearsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF07ACD2BCFF7B300FCBDCE /* InfiniteHearsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -248,6 +249,7 @@
 		5BEA6B002B9F33E6006C48AC /* RemoteImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageViewModel.swift; sourceTree = "<group>"; };
 		5BEA6B022B9F3522006C48AC /* StorageImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageImageService.swift; sourceTree = "<group>"; };
 		5BEA6B042B9F3D0A006C48AC /* RemoteImageLoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageLoadingState.swift; sourceTree = "<group>"; };
+		5BF07ACD2BCFF7B300FCBDCE /* InfiniteHearsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteHearsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -367,6 +369,7 @@
 		04A746E42B8465B700182C5F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5BF07ACC2BCFF7A200FCBDCE /* InfiniteHears */,
 				04C0146F2BB30CF1005F1A77 /* MakeHear */,
 				04A746E52B8465BC00182C5F /* ViewModel */,
 				5B9769292BA07F5C0054068F /* Main */,
@@ -660,6 +663,14 @@
 			path = RemoteImage;
 			sourceTree = "<group>";
 		};
+		5BF07ACC2BCFF7A200FCBDCE /* InfiniteHears */ = {
+			isa = PBXGroup;
+			children = (
+				5BF07ACD2BCFF7B300FCBDCE /* InfiniteHearsView.swift */,
+			);
+			path = InfiniteHears;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -874,6 +885,7 @@
 				04A747012B84679E00182C5F /* MusicModel.swift in Sources */,
 				5B3ABD422BA9CD71002C8201 /* HearModel+Mock.swift in Sources */,
 				04A747532B8DBB3600182C5F /* FeelingEntity+Mock.swift in Sources */,
+				5BF07ACE2BCFF7B300FCBDCE /* InfiniteHearsView.swift in Sources */,
 				5BDBBD1B2B846F9F00DEB7DC /* DIContainer.swift in Sources */,
 				5B2F03AB2BBED1D40010266C /* HearListSortingMenu.swift in Sources */,
 				04A747242B85DCDB00182C5F /* Color+StringConverter.swift in Sources */,
