@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserEntity {
+struct UserEntity: Codable {
     var id: String
     var nickname: String
     var createdAt: Date
@@ -20,5 +20,12 @@ extension UserEntity {
             nickname: nickname,
             createdAt: createdAt
         )
+    }
+    func toDictionary() -> [String: Any] {
+        return [
+            "id": id,
+            "nickname": nickname,
+            "createdAt": createdAt
+        ]
     }
 }

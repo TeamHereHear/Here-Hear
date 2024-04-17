@@ -10,12 +10,16 @@ import SwiftUI
 @main
 struct Here_HearApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    
-    @StateObject private var container: DIContainer = DIContainer(services: Services())
+    @StateObject private var container: DIContainer = DIContainer(services: Services(), managers: Managers())
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AuthenticatedView(authViewModel: .init(container: container))
                 .environmentObject(container)
+                .onAppear {
+                    container.managers.musicManager.setupMusic()
+                }
         }
+        
     }
 }

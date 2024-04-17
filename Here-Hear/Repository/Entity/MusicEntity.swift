@@ -7,22 +7,26 @@
 
 import Foundation
 
-struct MusicEntity {
+struct MusicEntity: Codable, Hashable, Identifiable {
     var id: String
-    var album: String
+    var songURL: URL?
+    var album: String?
     var title: String
     var artist: String
     var artwork: String?
+    var previewURL: String?
 }
 
 extension MusicEntity {
     func toModel() -> MusicModel {
         .init(
             id: id,
+            songURL: songURL,
             album: album,
             title: title,
             artist: artist,
-            artwork: URL(string: artwork ?? "")
+            artwork: URL(string: artwork ?? ""),
+            previewURL: URL(string: previewURL ?? "")
         )
     }
 }
