@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HearListSortingMenu: View {
+    @Environment(\.colorScheme) var scheme
     @ObservedObject private var viewModel: HearListViewModel
     
     init(viewModel: HearListViewModel) {
@@ -20,12 +21,14 @@ struct HearListSortingMenu: View {
                 Button {
                     viewModel.sortingOrder = sortingOrder
                 } label: {
-                    Text(sortingOrder.rawValue)
+                    Text(sortingOrder.localizedName)
                 }
             }
         } label: {
             Label {
                 Text(viewModel.sortingOrder.localizedName)
+                    .font(.system(size: 14))
+                    .foregroundStyle(scheme == .light ? .black : .white)
             } icon: {
                 Image(systemName: "arrow.up.arrow.down.circle.fill")
             }

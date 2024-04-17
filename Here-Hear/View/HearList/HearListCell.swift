@@ -28,15 +28,9 @@ struct HearListCell: View {
     }
     
     var body: some View {
-        VStack(alignment: .trailing, spacing: 0) {
-            HStack {
-                informations
-                previewButton
-            }
-            HStack {
-                Spacer()
-                
-            }
+        HStack {
+            informations
+            previewButton
         }
         .frame(height: 130)
     }
@@ -155,7 +149,9 @@ struct HearListCell: View {
                     .foregroundStyle(.hhSecondary)
             }
             .sheet(item: $openMusic) { music in
-                OpenInOtherMusicServiceView(music: music)
+                HalfSheet {
+                    OpenInOtherMusicServiceView(music: music)
+                }.ignoresSafeArea()
             }
             
             Button {
@@ -171,6 +167,7 @@ struct HearListCell: View {
                     }
             }
         }
+        .buttonStyle(PlainButtonStyle())
     }
     
 }

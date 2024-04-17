@@ -10,12 +10,12 @@ import SwiftUI
 struct HearBalloon: View {
     @StateObject private var viewModel: HearBalloonViewModel
     
-    private let width: CGFloat = 185
-    private let height: CGFloat = 63
+    private let width: CGFloat = 192
+    private let height: CGFloat = 72
     private let cornerRadius: CGFloat = 10
-    private let tipHeight: CGFloat = 20
+    private let tipHeight: CGFloat = 15
     
-    private let albumArtWidth: CGFloat = 63
+    private let albumArtWidth: CGFloat = 72
     
     init(viewModel: HearBalloonViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
@@ -61,7 +61,7 @@ struct HearBalloon: View {
     }
     
     private var informations: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: 8) {
             musicInfo
             
             hearInfo
@@ -71,7 +71,7 @@ struct HearBalloon: View {
     
     @ViewBuilder
     private var musicInfo: some View {
-        Group {
+        VStack(alignment: .leading, spacing: 0) {
             Text(viewModel.music?.title ?? "Music Title")
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundStyle(.black)

@@ -120,7 +120,6 @@ class MusicRepository: MusicRepositoryInterface {
         return snapshot.documents.compactMap { try? $0.data(as: MusicEntity.self) }
     }
     
-
     /// 데이터베이스에서 id에 해당하는 MusicEntity를 삭제하는 메서드
     /// - Parameter id: 삭제할 MusicEntity의 id
     /// - Returns: AnyPublisher<Void, MusicRepositoryError>

@@ -110,6 +110,7 @@
 		5BDBBD352B8483D500DEB7DC /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5BDBBD342B8483D500DEB7DC /* Localizable.xcstrings */; };
 		5BDBBD382B84844200DEB7DC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BDBBD3A2B84844200DEB7DC /* InfoPlist.strings */; };
 		5BDBBD3F2B84888500DEB7DC /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5BDBBD3E2B84888500DEB7DC /* .swiftlint.yml */; };
+		5BDD3E692BCBB5D6007DE573 /* HalfSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDD3E682BCBB5D6007DE573 /* HalfSheet.swift */; };
 		5BDEDCED2B99D9800055D40A /* ImageUploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDEDCEC2B99D9800055D40A /* ImageUploadService.swift */; };
 		5BE065922BBD7DA90018479B /* CLLocationCoordinate2D+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE065912BBD7DA90018479B /* CLLocationCoordinate2D+Extension.swift */; };
 		5BEA6AFE2B9F32D4006C48AC /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA6AFD2B9F32D4006C48AC /* RemoteImage.swift */; };
@@ -240,6 +241,7 @@
 		5BDBBD392B84844200DEB7DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5BDBBD3B2B84844700DEB7DC /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5BDBBD3E2B84888500DEB7DC /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		5BDD3E682BCBB5D6007DE573 /* HalfSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSheet.swift; sourceTree = "<group>"; };
 		5BDEDCEC2B99D9800055D40A /* ImageUploadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadService.swift; sourceTree = "<group>"; };
 		5BE065912BBD7DA90018479B /* CLLocationCoordinate2D+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Extension.swift"; sourceTree = "<group>"; };
 		5BEA6AFD2B9F32D4006C48AC /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
@@ -577,6 +579,7 @@
 				5BEA6AFF2B9F3364006C48AC /* RemoteImage */,
 				5B0142D82B9356670033FB9C /* NicknameTextField.swift */,
 				5B0142E52B960BCB0033FB9C /* HHProgressBar.swift */,
+				5BDD3E682BCBB5D6007DE573 /* HalfSheet.swift */,
 			);
 			path = ViewComponent;
 			sourceTree = "<group>";
@@ -859,6 +862,7 @@
 				5B3FD1C12BC818E1006A94BD /* OpenInOtherMusicServiceView.swift in Sources */,
 				04A7479C2B9363DE00182C5F /* ManagerError.swift in Sources */,
 				04A746F32B84673200182C5F /* MusicEntity.swift in Sources */,
+				5BDD3E692BCBB5D6007DE573 /* HalfSheet.swift in Sources */,
 				04A746FD2B84678F00182C5F /* UserModel.swift in Sources */,
 				04A747392B89AD6F00182C5F /* LoginButtonStyle.swift in Sources */,
 				5BD2A5282BA32C5300EC4049 /* OnBoardingTitleStyle.swift in Sources */,
@@ -1123,7 +1127,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.HereHear.Here-Hear";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.HereHear.Here-Hear.martin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1169,7 +1173,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.HereHear.Here-Hear";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.HereHear.Here-Hear.martin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
