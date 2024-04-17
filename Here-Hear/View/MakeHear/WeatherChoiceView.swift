@@ -28,8 +28,10 @@ struct WeatherChoiceView: View {
     
     var body: some View {
         ZStack {
+            
             if let videoURL = videoURL {
-                VideoPlayer(player: AVPlayer(url: videoURL))
+                Player(player: AVPlayer(url: videoURL), loop: true)
+                    .ignoresSafeArea(.all)
             } else {
                 Color("HHTertiary")
                     .edgesIgnoringSafeArea(.all)

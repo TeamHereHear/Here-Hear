@@ -11,6 +11,7 @@ protocol ManagersProtocol {
     var musicManager: MusicManagerProtocol { get set }
     var userLocationManager: UserLocationManagerProtocol { get set }
     var audioSessionManager: AudioSessionManagerProtocol { get set }
+    
 }
 
 final class Managers: ManagersProtocol {

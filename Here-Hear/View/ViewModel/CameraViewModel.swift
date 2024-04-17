@@ -56,7 +56,7 @@ class CameraViewModel: NSObject, ObservableObject, AVCaptureFileOutputRecordingD
     func setUp() {
         self.session.beginConfiguration()
         
-        if let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
+        if let videoDevice = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: .back),
             let videoInput = try? AVCaptureDeviceInput(device: videoDevice),
            
             let audioDevice = AVCaptureDevice.default(for: .audio),

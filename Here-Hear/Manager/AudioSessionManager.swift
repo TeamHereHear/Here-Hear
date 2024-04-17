@@ -7,9 +7,9 @@ protocol AudioSessionManagerProtocol {
 }
 
 class AudioSessionManager: AudioSessionManagerProtocol {
-
-    static let shared = AudioSessionManager()
+    static let shared = AudioSessionManager()  // 싱글톤 패턴 사용
     private let session = AVAudioSession.sharedInstance()
+    private let serialQueue = DispatchQueue(label: "audioSessionQueue")  // 오디오 세션 관리를 위한 직렬 큐
 
     init() {
         configureAudioSession()
@@ -17,22 +17,24 @@ class AudioSessionManager: AudioSessionManagerProtocol {
     }
     
     func configureAudioSession() {
-        do {
-            try session.setCategory(.playback, mode: .default, options: [.mixWithOthers, .interruptSpokenAudioAndMixWithOthers])
-            try session.setActive(true)
-            print("Audio session configured successfully.")
-        } catch {
-            print("Failed to configure audio session: \(error)")
+        serialQueue.sync {
+            do {
+                try session.setCategory(.playback, mode: .default, options: [.mixWithOthers, .interruptSpokenAudioAndMixWithOthers])
+                try session.setActive(true)
+                print("Audio session configured successfully.")
+            } catch {
+                print("Failed to configure audio session: \(error)")
+            }
         }
     }
 
     func activateAudioSession() {
         serialQueue.sync {
             do {
-                try session.setActive(true, options: .notifyOthersOnDeactivation)
+                try session.setActive(true)
                 print("Audio session activated successfully.")
             } catch {
-                print("Failed to activate audio session: \(error.localizedDescription)")
+                print("Failed to activate audio session: \(error)")
             }
         }
     }
@@ -43,11 +45,10 @@ class AudioSessionManager: AudioSessionManagerProtocol {
                 try session.setActive(false)
                 print("Audio session deactivated successfully.")
             } catch {
-                print("Failed to deactivate audio session: \(error.localizedDescription)")
+                print("Failed to deactivate audio session: \(error)")
             }
         }
     }
-
 
     private func setupNotifications() {
         NotificationCenter.default.addObserver(
@@ -69,13 +70,16 @@ class AudioSessionManager: AudioSessionManagerProtocol {
             if let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt {
                 let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
                 if options.contains(.shouldResume) {
-                    try? session.setActive(true)
-                    print("Audio session resumed after interruption.")
+                    serialQueue.sync {
+                        try? session.setActive(true)
+                        print("Audio session resumed after interruption.")
+                    }
                 }
             }
         }
     }
 }
+
 final class StubAudioSessionManager: AudioSessionManagerProtocol {
     func configureAudioSession() {
         print("Stub: Setup audio session.")
