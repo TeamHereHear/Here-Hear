@@ -21,7 +21,8 @@ struct FinalSummaryHearView: View {
     var body: some View {
         ZStack {
             if let videoURL = videoURL {
-                VideoPlayer(player: AVPlayer(url: videoURL))
+                Player(player: AVPlayer(url: videoURL), loop: true)
+                    .ignoresSafeArea(.all)
             } else {
                 Color("HHTertiary")
                     .edgesIgnoringSafeArea(.all)
@@ -43,17 +44,23 @@ struct FinalSummaryHearView: View {
 
                      // 음악 제목
                      Text(selectedSong?.title ?? "제목 없음")
-                         .font(.title2)
+                        .font(.headline)
                          .fontWeight(.bold)
                          .foregroundColor(.white)
                          .shadow(radius: 10)
 
+                    // 앨범
+                    Text(selectedSong?.album ?? "")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                        .shadow(radius: 10)
+                    
                      // 아티스트 이름
                      Text(selectedSong?.artist ?? "아티스트 정보 없음")
-                         .font(.title3)
+                         .font(.headline)
                          .foregroundColor(.white)
                          .shadow(radius: 10)
-
+                    
                      // 날씨 정보
                      HStack {
                          Image(systemName: selectedWeather?.systemImage ?? "questionmark.circle")
@@ -111,6 +118,5 @@ struct FinalSummaryHearView: View {
         .onDisappear {
             musicPlayer.pause()
         }
-         .edgesIgnoringSafeArea(.all)
      }
  }

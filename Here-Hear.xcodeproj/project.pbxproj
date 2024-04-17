@@ -52,11 +52,13 @@
 		04C014682BB1A43C005F1A77 /* WeatherChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C014672BB1A43C005F1A77 /* WeatherChoiceView.swift */; };
 		04C0146A2BB1A5C5005F1A77 /* WeatherChoiceButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C014692BB1A5C5005F1A77 /* WeatherChoiceButtonModifier.swift */; };
 		04C0146E2BB305D9005F1A77 /* FinalSummaryHearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0146D2BB305D9005F1A77 /* FinalSummaryHearView.swift */; };
-		04C014712BB458CC005F1A77 /* VideoPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C014702BB458CC005F1A77 /* VideoPreviewView.swift */; };
 		04C014732BB7D530005F1A77 /* HearViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C014722BB7D530005F1A77 /* HearViewModel.swift */; };
 		04C014752BB7D980005F1A77 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C014742BB7D980005F1A77 /* LocationManager.swift */; };
 		04C0147C2BB7F7F8005F1A77 /* Geohash in Frameworks */ = {isa = PBXBuildFile; productRef = 04C0147B2BB7F7F8005F1A77 /* Geohash */; };
 		04D0831F2BC80FD900C6A143 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04D0831E2BC80FD900C6A143 /* GoogleService-Info.plist */; };
+		04D083212BCA5E4F00C6A143 /* AudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D083202BCA5E4F00C6A143 /* AudioSessionManager.swift */; };
+		04D083232BCEA60700C6A143 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D083222BCEA60700C6A143 /* Player.swift */; };
+		04D083272BCEE25200C6A143 /* AddFeelingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D083262BCEE25200C6A143 /* AddFeelingText.swift */; };
 		5B0142D42B9346F00033FB9C /* RegisterNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142D32B9346F00033FB9C /* RegisterNicknameView.swift */; };
 		5B0142D62B9347040033FB9C /* RegisterProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142D52B9347040033FB9C /* RegisterProfileImageView.swift */; };
 		5B0142D92B9356670033FB9C /* NicknameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0142D82B9356670033FB9C /* NicknameTextField.swift */; };
@@ -184,10 +186,12 @@
 		04C014672BB1A43C005F1A77 /* WeatherChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherChoiceView.swift; sourceTree = "<group>"; };
 		04C014692BB1A5C5005F1A77 /* WeatherChoiceButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherChoiceButtonModifier.swift; sourceTree = "<group>"; };
 		04C0146D2BB305D9005F1A77 /* FinalSummaryHearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalSummaryHearView.swift; sourceTree = "<group>"; };
-		04C014702BB458CC005F1A77 /* VideoPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreviewView.swift; sourceTree = "<group>"; };
 		04C014722BB7D530005F1A77 /* HearViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearViewModel.swift; sourceTree = "<group>"; };
 		04C014742BB7D980005F1A77 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		04D0831E2BC80FD900C6A143 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		04D083202BCA5E4F00C6A143 /* AudioSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSessionManager.swift; sourceTree = "<group>"; };
+		04D083222BCEA60700C6A143 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		04D083262BCEE25200C6A143 /* AddFeelingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeelingText.swift; sourceTree = "<group>"; };
 		5B0142D32B9346F00033FB9C /* RegisterNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNicknameView.swift; sourceTree = "<group>"; };
 		5B0142D52B9347040033FB9C /* RegisterProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProfileImageView.swift; sourceTree = "<group>"; };
 		5B0142D82B9356670033FB9C /* NicknameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameTextField.swift; sourceTree = "<group>"; };
@@ -428,11 +432,12 @@
 			isa = PBXGroup;
 			children = (
 				04A746EC2B84670300182C5F /* NotificationManager.swift */,
-				04A747952B934C4000182C5F /* MusicManager.swift */,
 				04A7479B2B9363DE00182C5F /* ManagerError.swift */,
+				5B7F8FAA2BAB18F4008171C9 /* Managers.swift */,
+				04A747952B934C4000182C5F /* MusicManager.swift */,
 				04C014742BB7D980005F1A77 /* LocationManager.swift */,
 				5B7F8FA82BAB0FA9008171C9 /* UserLocationManager.swift */,
-				5B7F8FAA2BAB18F4008171C9 /* Managers.swift */,
+				04D083202BCA5E4F00C6A143 /* AudioSessionManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -471,8 +476,9 @@
 			children = (
 				04A747992B93563B00182C5F /* AddMusicToHear.swift */,
 				04A7479F2B95E73500182C5F /* CameraHomeView.swift */,
-				04C014702BB458CC005F1A77 /* VideoPreviewView.swift */,
 				04C014612BA484DD005F1A77 /* CameraView.swift */,
+				04D083222BCEA60700C6A143 /* Player.swift */,
+				04D083262BCEE25200C6A143 /* AddFeelingText.swift */,
 				04C014672BB1A43C005F1A77 /* WeatherChoiceView.swift */,
 				04C0146D2BB305D9005F1A77 /* FinalSummaryHearView.swift */,
 			);
@@ -827,6 +833,7 @@
 			files = (
 				04A747A02B95E73500182C5F /* CameraHomeView.swift in Sources */,
 				5BD2A52D2BA337FB00EC4049 /* HearListCell.swift in Sources */,
+				04D083212BCA5E4F00C6A143 /* AudioSessionManager.swift in Sources */,
 				5BDEDCED2B99D9800055D40A /* ImageUploadService.swift in Sources */,
 				04A747422B8C320C00182C5F /* SHA256.swift in Sources */,
 				5B0142E22B95EAC40033FB9C /* RegisterNicknameViewModel.swift in Sources */,
@@ -837,6 +844,7 @@
 				04A7472F2B88600100182C5F /* LoginView.swift in Sources */,
 				5BEA6B052B9F3D0A006C48AC /* RemoteImageLoadingState.swift in Sources */,
 				5B97692B2BA07F710054068F /* HearBalloon.swift in Sources */,
+				04D083232BCEA60700C6A143 /* Player.swift in Sources */,
 				5BDBBD232B8476B900DEB7DC /* HearRepository.swift in Sources */,
 				5B7690712B9892430023A26F /* ProfileImagePicker.swift in Sources */,
 				04C0146A2BB1A5C5005F1A77 /* WeatherChoiceButtonModifier.swift in Sources */,
@@ -854,7 +862,6 @@
 				5B3FD1C12BC818E1006A94BD /* OpenInOtherMusicServiceView.swift in Sources */,
 				04A7479C2B9363DE00182C5F /* ManagerError.swift in Sources */,
 				04A746F32B84673200182C5F /* MusicEntity.swift in Sources */,
-				04C014712BB458CC005F1A77 /* VideoPreviewView.swift in Sources */,
 				5BDD3E692BCBB5D6007DE573 /* HalfSheet.swift in Sources */,
 				04A746FD2B84678F00182C5F /* UserModel.swift in Sources */,
 				04A747392B89AD6F00182C5F /* LoginButtonStyle.swift in Sources */,
@@ -879,6 +886,7 @@
 				5BA429D12B9C5A0200998112 /* ImageDiskStorage.swift in Sources */,
 				04A7471C2B849C2E00182C5F /* AppDelegate.swift in Sources */,
 				04A746ED2B84670300182C5F /* NotificationManager.swift in Sources */,
+				04D083272BCEE25200C6A143 /* AddFeelingText.swift in Sources */,
 				5BDBBD252B8477C500DEB7DC /* MusicRepository.swift in Sources */,
 				5B2F1BF72BA1CEE70058A64F /* HearBalloonBackground.swift in Sources */,
 				5BDBBD2E2B847A2700DEB7DC /* AuthService.swift in Sources */,
@@ -1096,7 +1104,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Here-Hear/Preview Content\"";
-				DEVELOPMENT_TEAM = SUDPP9C593;
+				DEVELOPMENT_TEAM = QUMNMR4BSR;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1142,7 +1150,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Here-Hear/Preview Content\"";
-				DEVELOPMENT_TEAM = SUDPP9C593;
+				DEVELOPMENT_TEAM = QUMNMR4BSR;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;

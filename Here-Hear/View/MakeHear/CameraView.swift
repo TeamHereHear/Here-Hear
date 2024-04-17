@@ -30,49 +30,47 @@ struct CameraView: View {
             .frame(height: 10)
             .frame(maxHeight: .infinity, alignment: .top)
         }
-            .onAppear(perform: cameraModel.checkPermission)
-            .alert(isPresented: $cameraModel.alert) {
-                Alert(title: Text("Please Enable cameraModel Access Or Microphone Acess !!!"))
+        .onAppear(perform: cameraModel.checkPermission)
+        .alert(isPresented: $cameraModel.alert) {
+            Alert(title: Text("Please Enable cameraModel Access Or Microphone Acess !!!"))
+        }
+        .onReceive(Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()) { _ in
+            if cameraModel.recordedDuration <= cameraModel.maxDuration && cameraModel.isRecording {
+                cameraModel.recordedDuration += 0.001
             }
-            .onReceive(Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()) { _ in
-                if cameraModel.recordedDuration <= cameraModel.maxDuration && cameraModel.isRecording {
-                    cameraModel.recordedDuration += 0.01
-                }
-                
-                if cameraModel.recordedDuration >= cameraModel.maxDuration && cameraModel.isRecording {
-                    // Stopping the Recording
-                    cameraModel.stopRecording()
-                    cameraModel.isRecording = false
-                }
-                    
+            
+            if cameraModel.recordedDuration >= cameraModel.maxDuration && cameraModel.isRecording {
+                // Stopping the Recording
+                cameraModel.stopRecording()
+                cameraModel.isRecording = false
             }
+            
+        }
     }
-}
-// setting view for preview
-
-struct CameraPreview: UIViewRepresentable {
-    @EnvironmentObject var cameraViewModel: CameraViewModel
-    var size: CGSize
     
-    func makeUIView(context: Context) -> some UIView {
+    struct CameraPreview: UIViewRepresentable {
+        @EnvironmentObject var cameraViewModel: CameraViewModel
+        var size: CGSize
         
-        let view = UIView()
-        
-        cameraViewModel.preview = AVCaptureVideoPreviewLayer(session: cameraViewModel.session)
-        cameraViewModel.preview.frame.size = size
-        
-        cameraViewModel.preview.videoGravity = .resizeAspectFill
-        view.layer.addSublayer(cameraViewModel.preview)
-        
-        // AVCaptureSession의 startRunning이 메인스레드에서 호출말고 UI응답성 유지하기 위해서 백그라운드 스레드에서 실행하기
-        DispatchQueue.global(qos: .userInitiated).async {
-           cameraViewModel.session.startRunning()
+        func makeUIView(context: Context) -> some UIView {
+            
+            let view = UIView()
+            
+            cameraViewModel.preview = AVCaptureVideoPreviewLayer(session: cameraViewModel.session)
+            cameraViewModel.preview.frame.size = size
+            
+            cameraViewModel.preview.videoGravity = .resizeAspectFill
+            view.layer.addSublayer(cameraViewModel.preview)
+            
+            // AVCaptureSession의 startRunning이 메인스레드에서 호출말고 UI응답성 유지하기 위해서 백그라운드 스레드에서 실행하기
+            DispatchQueue.global(qos: .userInitiated).async {
+                cameraViewModel.session.startRunning()
+            }
+            
+            return view
         }
         
-        return view
+        func updateUIView(_ uiView: UIViewType, context: Context) {
+        }
     }
-    
-    func updateUIView(_ uiView: UIViewType, context: Context) {
-    }
-    
 }

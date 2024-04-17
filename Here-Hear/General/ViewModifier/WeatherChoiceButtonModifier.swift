@@ -12,7 +12,7 @@ struct WeatherChoiceButtonModifier: ViewModifier {
         content
             .padding()
             .frame(width: 325, height: 65)
-            .background(Color.gray.opacity(0.35))
+            .background(Color.gray.opacity(0.45))
             .foregroundColor(.white)
             .cornerRadius(50)
     }
