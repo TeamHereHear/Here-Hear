@@ -14,6 +14,7 @@ struct WeatherChoiceView: View {
     @State private var navigateToSummary = false
     @Binding var videoURL: URL?
     @Binding var selectedSong: MusicModel?
+    @Binding var feelingText: String
     @EnvironmentObject var cameraViewModel: CameraViewModel
 
     private let weatherOptions = [
@@ -68,7 +69,8 @@ struct WeatherChoiceView: View {
                         NavigationLink(destination: FinalSummaryHearView(
                             videoURL: $videoURL,
                             selectedSong: $selectedSong,
-                            selectedWeather: $selectedWeather
+                            selectedWeather: $selectedWeather,
+                            feelingText: $feelingText
                         ), isActive: $navigateToSummary) {
                             EmptyView()
                         }

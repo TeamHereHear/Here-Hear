@@ -38,7 +38,6 @@ struct CameraView: View {
             if cameraModel.recordedDuration <= cameraModel.maxDuration && cameraModel.isRecording {
                 cameraModel.recordedDuration += 0.001
             }
-            
             if cameraModel.recordedDuration >= cameraModel.maxDuration && cameraModel.isRecording {
                 // Stopping the Recording
                 cameraModel.stopRecording()

@@ -170,8 +170,8 @@ class HearRepository: HearRepositoryInterface {
             }
             
             do {
-                try self.collectionRef
-                    .addDocument(from: hear)
+                let documentReference = self.collectionRef.document(hear.id) // 문서 ID를 명시적으로 지정
+                try documentReference.setData(from: hear)
                 promise(.success(hear))
             } catch {
                 promise(.failure(.custom(error)))

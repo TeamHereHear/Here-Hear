@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0492E54E2BD14A9100CFA23B /* VideoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0492E54D2BD14A9100CFA23B /* VideoService.swift */; };
 		04A746BA2B8464A700182C5F /* Here_HearApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A746B92B8464A700182C5F /* Here_HearApp.swift */; };
 		04A746BC2B8464A700182C5F /* AuthenticatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A746BB2B8464A700182C5F /* AuthenticatedView.swift */; };
 		04A746BE2B8464A800182C5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A746BD2B8464A800182C5F /* Assets.xcassets */; };
@@ -137,6 +138,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0492E54D2BD14A9100CFA23B /* VideoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoService.swift; sourceTree = "<group>"; };
 		04A746B62B8464A700182C5F /* Here-Hear.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Here-Hear.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04A746B92B8464A700182C5F /* Here_HearApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Here_HearApp.swift; sourceTree = "<group>"; };
 		04A746BB2B8464A700182C5F /* AuthenticatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatedView.swift; sourceTree = "<group>"; };
@@ -280,6 +282,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0492E54C2BD14A7A00CFA23B /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				0492E54D2BD14A9100CFA23B /* VideoService.swift */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
 		04A746AD2B8464A700182C5F = {
 			isa = PBXGroup;
 			children = (
@@ -395,6 +405,7 @@
 			children = (
 				04A747082B8467FB00182C5F /* Services.swift */,
 				04A747362B8872D100182C5F /* ServiceError.swift */,
+				0492E54C2BD14A7A00CFA23B /* Video */,
 				5BDEDCEE2B99DBFC0055D40A /* Image */,
 				04A747562B8DBBE600182C5F /* Geohash */,
 				5BDBBD302B847A3100DEB7DC /* Hear */,
@@ -850,6 +861,7 @@
 				04C0146A2BB1A5C5005F1A77 /* WeatherChoiceButtonModifier.swift in Sources */,
 				5BA429CD2B9C598C00998112 /* ImageService.swift in Sources */,
 				5BEA6AFE2B9F32D4006C48AC /* RemoteImage.swift in Sources */,
+				0492E54E2BD14A9100CFA23B /* VideoService.swift in Sources */,
 				04A747092B8467FB00182C5F /* Services.swift in Sources */,
 				04A7479A2B93563B00182C5F /* AddMusicToHear.swift in Sources */,
 				5BDBBD212B8476AC00DEB7DC /* UserRepository.swift in Sources */,
@@ -1127,7 +1139,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.HereHear.Here-Hear.martin";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.HereHear.Here-Hear";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1173,7 +1185,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.HereHear.Here-Hear.martin";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.HereHear.Here-Hear";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
