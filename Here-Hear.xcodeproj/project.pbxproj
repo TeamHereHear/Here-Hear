@@ -118,6 +118,7 @@
 		5BEA6B012B9F33E6006C48AC /* RemoteImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA6B002B9F33E6006C48AC /* RemoteImageViewModel.swift */; };
 		5BEA6B032B9F3522006C48AC /* StorageImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA6B022B9F3522006C48AC /* StorageImageService.swift */; };
 		5BEA6B052B9F3D0A006C48AC /* RemoteImageLoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA6B042B9F3D0A006C48AC /* RemoteImageLoadingState.swift */; };
+		5BEF283E2BD68B9100C798C0 /* HearPlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF283D2BD68B9100C798C0 /* HearPlayViewModel.swift */; };
 		5BF07ACE2BCFF7B300FCBDCE /* InfiniteHearsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF07ACD2BCFF7B300FCBDCE /* InfiniteHearsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -251,6 +252,7 @@
 		5BEA6B002B9F33E6006C48AC /* RemoteImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageViewModel.swift; sourceTree = "<group>"; };
 		5BEA6B022B9F3522006C48AC /* StorageImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageImageService.swift; sourceTree = "<group>"; };
 		5BEA6B042B9F3D0A006C48AC /* RemoteImageLoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageLoadingState.swift; sourceTree = "<group>"; };
+		5BEF283D2BD68B9100C798C0 /* HearPlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearPlayViewModel.swift; sourceTree = "<group>"; };
 		5BF07ACD2BCFF7B300FCBDCE /* InfiniteHearsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteHearsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -670,6 +672,7 @@
 			children = (
 				5BF07ACD2BCFF7B300FCBDCE /* InfiniteHearsView.swift */,
 				5B47F8CA2BD14E170059FCA7 /* HearPlayView.swift */,
+				5BEF283D2BD68B9100C798C0 /* HearPlayViewModel.swift */,
 			);
 			path = InfiniteHears;
 			sourceTree = "<group>";
@@ -909,6 +912,7 @@
 				5B0142E02B9372CC0033FB9C /* OnBoardingView.swift in Sources */,
 				04A747512B8DBB2800182C5F /* HearEntity+Mock.swift in Sources */,
 				04C014602BA483D9005F1A77 /* CameraViewModel.swift in Sources */,
+				5BEF283E2BD68B9100C798C0 /* HearPlayViewModel.swift in Sources */,
 				5BDBBD272B8479C400DEB7DC /* UserService.swift in Sources */,
 				04A747962B934C4000182C5F /* MusicManager.swift in Sources */,
 				04C014752BB7D980005F1A77 /* LocationManager.swift in Sources */,

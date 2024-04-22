@@ -10,11 +10,16 @@ import AVKit
 
 struct HearPlayView: View {
     @State private var player: AVPlayer?
+    private let hear: HearModel
     private let music: MusicModel = .onBoardingPageStubOne
     private let fileUrl: URL? = Bundle.main.url(
         forResource: "OnBoardingPageTwoVideo",
         withExtension: "MOV"
     )
+    
+    init(hear: HearModel) {
+        self.hear = hear
+    }
     
     var body: some View {
         ZStack {
@@ -77,7 +82,6 @@ struct HearPlayView: View {
                 .padding(.trailing, 12)
                 .frame(maxWidth: .infinity, alignment: .trailing)
 
-                
                 VStack(alignment: .leading) {
                     HStack(spacing: 5) {
                         Circle()
@@ -135,7 +139,7 @@ struct HearPlayView: View {
 }
 
 #Preview {
-    HearPlayView()
+    HearPlayView(hear: .onBoardingPageOneStub)
         .environmentObject(
             DIContainer(
                 services: StubServices(),
