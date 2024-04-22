@@ -120,6 +120,7 @@
 		5BEA6B032B9F3522006C48AC /* StorageImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA6B022B9F3522006C48AC /* StorageImageService.swift */; };
 		5BEA6B052B9F3D0A006C48AC /* RemoteImageLoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA6B042B9F3D0A006C48AC /* RemoteImageLoadingState.swift */; };
 		5BEF283E2BD68B9100C798C0 /* HearPlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF283D2BD68B9100C798C0 /* HearPlayViewModel.swift */; };
+		5BEF28422BD6939000C798C0 /* VideoDiskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF28412BD6939000C798C0 /* VideoDiskStorage.swift */; };
 		5BF07ACE2BCFF7B300FCBDCE /* InfiniteHearsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF07ACD2BCFF7B300FCBDCE /* InfiniteHearsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -255,6 +256,7 @@
 		5BEA6B022B9F3522006C48AC /* StorageImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageImageService.swift; sourceTree = "<group>"; };
 		5BEA6B042B9F3D0A006C48AC /* RemoteImageLoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageLoadingState.swift; sourceTree = "<group>"; };
 		5BEF283D2BD68B9100C798C0 /* HearPlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearPlayViewModel.swift; sourceTree = "<group>"; };
+		5BEF28412BD6939000C798C0 /* VideoDiskStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDiskStorage.swift; sourceTree = "<group>"; };
 		5BF07ACD2BCFF7B300FCBDCE /* InfiniteHearsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteHearsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -292,6 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				0492E54D2BD14A9100CFA23B /* VideoService.swift */,
+				5BEF28412BD6939000C798C0 /* VideoDiskStorage.swift */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -940,6 +943,7 @@
 				04A746FF2B84679700182C5F /* HearModel.swift in Sources */,
 				04A746EF2B84671900182C5F /* UserEntity.swift in Sources */,
 				04C014682BB1A43C005F1A77 /* WeatherChoiceView.swift in Sources */,
+				5BEF28422BD6939000C798C0 /* VideoDiskStorage.swift in Sources */,
 				04C014622BA484DD005F1A77 /* CameraView.swift in Sources */,
 				04A747332B88647800182C5F /* AuthViewModel.swift in Sources */,
 				04A747402B8C31E900182C5F /* RandomNonceString.swift in Sources */,

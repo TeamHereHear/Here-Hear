@@ -22,29 +22,25 @@ class HearPlayViewModel: ObservableObject {
         self.hear = hear
     }
     
-    private var cancellables = Set<AnyCancellable>()
     
-    func fetchMusic() {
+    func fetchMusic() async {
         guard let musicId = hear.musicIds.first else { return }
+        do {
+            self.music = try await container.services.musicService.fetchMusic(ofIds: [musicId]).first
+        } catch {
+            // TODO: 에러핸들링
+            print(error)
+        }
         
-        container.services.musicService.fetchMusic(ofIds: [musicId])
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-            } receiveValue: { [weak self] musicData in
-                guard let self else { return }
-                self.music = musicData.first
-            }
-            .store(in: &cancellables)
     }
     
-    func fetchHearUser() {
-        container.services.userService.fetchUser(ofId: hear.userId)
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-            } receiveValue: { [weak self] user in
-                guard let self else { return }
-                self.userNickname = user?.nickname
-            }
-            .store(in: &cancellables)
+    func fetchHearUser() async {
+        do {
+            self.userNickname = try await container.services.userService.fetchUser(ofId: hear.userId)?.nickname
+        } catch {
+            // TODO: 에러 핸들링
+            print(error)
+        }
+        
     }
 }
