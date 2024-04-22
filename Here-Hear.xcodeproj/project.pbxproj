@@ -75,6 +75,7 @@
 		5B3ABD3E2BA9BCE0002C8201 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 5B3ABD3D2BA9BCE0002C8201 /* GoogleSignIn */; };
 		5B3ABD422BA9CD71002C8201 /* HearModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3ABD412BA9CD71002C8201 /* HearModel+Mock.swift */; };
 		5B3FD1C12BC818E1006A94BD /* OpenInOtherMusicServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FD1C02BC818E1006A94BD /* OpenInOtherMusicServiceView.swift */; };
+		5B47F8CB2BD14E170059FCA7 /* HearPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B47F8CA2BD14E170059FCA7 /* HearPlayView.swift */; };
 		5B7690712B9892430023A26F /* ProfileImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7690702B9892430023A26F /* ProfileImagePicker.swift */; };
 		5B7690742B98A35E0023A26F /* NavigationAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7690732B98A35E0023A26F /* NavigationAdaptor.swift */; };
 		5B7F8FA72BAB0E00008171C9 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7F8FA62BAB0E00008171C9 /* MainViewModel.swift */; };
@@ -117,6 +118,8 @@
 		5BEA6B012B9F33E6006C48AC /* RemoteImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA6B002B9F33E6006C48AC /* RemoteImageViewModel.swift */; };
 		5BEA6B032B9F3522006C48AC /* StorageImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA6B022B9F3522006C48AC /* StorageImageService.swift */; };
 		5BEA6B052B9F3D0A006C48AC /* RemoteImageLoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA6B042B9F3D0A006C48AC /* RemoteImageLoadingState.swift */; };
+		5BEF283E2BD68B9100C798C0 /* HearPlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF283D2BD68B9100C798C0 /* HearPlayViewModel.swift */; };
+		5BF07ACE2BCFF7B300FCBDCE /* InfiniteHearsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF07ACD2BCFF7B300FCBDCE /* InfiniteHearsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -208,6 +211,7 @@
 		5B3ABD412BA9CD71002C8201 /* HearModel+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HearModel+Mock.swift"; sourceTree = "<group>"; };
 		5B3B35D12BC41763000F68F0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B3FD1C02BC818E1006A94BD /* OpenInOtherMusicServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenInOtherMusicServiceView.swift; sourceTree = "<group>"; };
+		5B47F8CA2BD14E170059FCA7 /* HearPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearPlayView.swift; sourceTree = "<group>"; };
 		5B7690702B9892430023A26F /* ProfileImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePicker.swift; sourceTree = "<group>"; };
 		5B7690732B98A35E0023A26F /* NavigationAdaptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAdaptor.swift; sourceTree = "<group>"; };
 		5B7F8FA62BAB0E00008171C9 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -248,6 +252,8 @@
 		5BEA6B002B9F33E6006C48AC /* RemoteImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageViewModel.swift; sourceTree = "<group>"; };
 		5BEA6B022B9F3522006C48AC /* StorageImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageImageService.swift; sourceTree = "<group>"; };
 		5BEA6B042B9F3D0A006C48AC /* RemoteImageLoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageLoadingState.swift; sourceTree = "<group>"; };
+		5BEF283D2BD68B9100C798C0 /* HearPlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearPlayViewModel.swift; sourceTree = "<group>"; };
+		5BF07ACD2BCFF7B300FCBDCE /* InfiniteHearsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteHearsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -367,6 +373,7 @@
 		04A746E42B8465B700182C5F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5BF07ACC2BCFF7A200FCBDCE /* InfiniteHears */,
 				04C0146F2BB30CF1005F1A77 /* MakeHear */,
 				04A746E52B8465BC00182C5F /* ViewModel */,
 				5B9769292BA07F5C0054068F /* Main */,
@@ -660,6 +667,16 @@
 			path = RemoteImage;
 			sourceTree = "<group>";
 		};
+		5BF07ACC2BCFF7A200FCBDCE /* InfiniteHears */ = {
+			isa = PBXGroup;
+			children = (
+				5BF07ACD2BCFF7B300FCBDCE /* InfiniteHearsView.swift */,
+				5B47F8CA2BD14E170059FCA7 /* HearPlayView.swift */,
+				5BEF283D2BD68B9100C798C0 /* HearPlayViewModel.swift */,
+			);
+			path = InfiniteHears;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -874,6 +891,7 @@
 				04A747012B84679E00182C5F /* MusicModel.swift in Sources */,
 				5B3ABD422BA9CD71002C8201 /* HearModel+Mock.swift in Sources */,
 				04A747532B8DBB3600182C5F /* FeelingEntity+Mock.swift in Sources */,
+				5BF07ACE2BCFF7B300FCBDCE /* InfiniteHearsView.swift in Sources */,
 				5BDBBD1B2B846F9F00DEB7DC /* DIContainer.swift in Sources */,
 				5B2F03AB2BBED1D40010266C /* HearListSortingMenu.swift in Sources */,
 				04A747242B85DCDB00182C5F /* Color+StringConverter.swift in Sources */,
@@ -894,6 +912,7 @@
 				5B0142E02B9372CC0033FB9C /* OnBoardingView.swift in Sources */,
 				04A747512B8DBB2800182C5F /* HearEntity+Mock.swift in Sources */,
 				04C014602BA483D9005F1A77 /* CameraViewModel.swift in Sources */,
+				5BEF283E2BD68B9100C798C0 /* HearPlayViewModel.swift in Sources */,
 				5BDBBD272B8479C400DEB7DC /* UserService.swift in Sources */,
 				04A747962B934C4000182C5F /* MusicManager.swift in Sources */,
 				04C014752BB7D980005F1A77 /* LocationManager.swift in Sources */,
@@ -924,6 +943,7 @@
 				5B0142DE2B9368CD0033FB9C /* OnBoardRouterView.swift in Sources */,
 				5BEA6B032B9F3522006C48AC /* StorageImageService.swift in Sources */,
 				04A747552B8DBB7500182C5F /* LocationEntity.swift in Sources */,
+				5B47F8CB2BD14E170059FCA7 /* HearPlayView.swift in Sources */,
 				04A747222B85D72400182C5F /* CGPoint+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
