@@ -22,7 +22,6 @@ class HearPlayViewModel: ObservableObject {
         self.hear = hear
     }
     
-    
     func fetchMusic() async {
         guard let musicId = hear.musicIds.first else { return }
         do {

@@ -10,6 +10,7 @@ import AVKit
 
 struct HearPlayView: View {
     @State private var player: AVPlayer?
+    @State private var progress: CGFloat?
     private let hear: HearModel
     private let music: MusicModel = .onBoardingPageStubOne
     private let fileUrl: URL? = Bundle.main.url(
@@ -26,7 +27,12 @@ struct HearPlayView: View {
             VideoPlayer(player: player)
                 .ignoresSafeArea()
                 .scaledToFill()
+                .allowsHitTesting(false)
             VStack {
+                if let progress {
+                    HHProgressBar(value: progress)
+                        .padding(.horizontal)
+                }
                 HStack(spacing: 15) {
                     RemoteImage(
                         path: music.artwork?.absoluteString,
@@ -52,7 +58,7 @@ struct HearPlayView: View {
                 }
                 .padding(12)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Material.ultraThin, in: .rect(cornerRadius: 21, style: .continuous))
+                .background(Material.thin, in: .rect(cornerRadius: 21, style: .continuous))
                 .padding(12)
                 Spacer()
                 
@@ -118,18 +124,27 @@ struct HearPlayView: View {
                 
             }
             .frame(maxWidth: UIScreen.main.bounds.width)
-
             .ignoresSafeArea(edges: .bottom)
            
-            
-            
-            
         }
-        .onAppear {
+        .task {
             guard let fileUrl else { return }
             player = AVPlayer(url: fileUrl)
+           
             player?.isMuted = true
+            
             player?.play()
+            
+            let interval = CMTime(seconds: 0.01, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+            let totalTime = try? await player?.currentItem?.asset.load(.duration)
+            player?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main) { time in
+                let currentTimeSeconds = CMTimeGetSeconds(time)
+                if let totalTime {
+                    let totalTimeSeconds = CMTimeGetSeconds(totalTime)
+                    self.progress = CGFloat(currentTimeSeconds) / CGFloat(totalTimeSeconds)
+                }
+            }
+            
         }
         .onDisappear {
             player?.pause()
