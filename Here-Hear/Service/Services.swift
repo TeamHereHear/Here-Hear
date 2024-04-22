@@ -16,6 +16,7 @@ protocol ServicesInterface {
     var imageUploadService: ImageUploadServiceProtocol { get set }
     var storageImageService: StorageImageServiceProtocol { get set }
     var imageService: ImageServiceProtocol { get set }
+    var videoService: VideoServiceProtocol { get set }
 }
 
 class Services: ServicesInterface {
@@ -27,6 +28,7 @@ class Services: ServicesInterface {
     var imageUploadService: ImageUploadServiceProtocol
     var storageImageService: StorageImageServiceProtocol
     var imageService: ImageServiceProtocol
+    var videoService: VideoServiceProtocol
     
     init() {
         self.userService = UserService(repository: UserRepository())
@@ -37,6 +39,7 @@ class Services: ServicesInterface {
         self.imageUploadService = ImageUploadService()
         self.storageImageService = StorageImageService()
         self.imageService = ImageService()
+        self.videoService = VideoService()
     }
 }
 
@@ -49,4 +52,5 @@ class StubServices: ServicesInterface {
     var imageUploadService: ImageUploadServiceProtocol = StubImageUploadService()
     var storageImageService: StorageImageServiceProtocol = StubStorageImageService()
     var imageService: ImageServiceProtocol = StubImageService()
+    var videoService: VideoServiceProtocol = StubVideoService()
 }
