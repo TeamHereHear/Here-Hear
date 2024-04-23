@@ -263,6 +263,83 @@
     "User Nickname" : {
 
     },
+    "weather.optionTitle.cloudy" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It's cloudy"
+          }
+        }
+      }
+    },
+    "weather.optionTitle.dusty" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It's dusty"
+          }
+        }
+      }
+    },
+    "weather.optionTitle.foggy" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It's foggy"
+          }
+        }
+      }
+    },
+    "weather.optionTitle.rainy" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It's rainy"
+          }
+        }
+      }
+    },
+    "weather.optionTitle.snowy" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It's snowy"
+          }
+        }
+      }
+    },
+    "weather.optionTitle.sunny" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It's sunny"
+          }
+        }
+      }
+    },
+    "weather.optionTitle.windy" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It's windy"
+          }
+        }
+      }
+    },
     "Youtube Music" : {
 
     },

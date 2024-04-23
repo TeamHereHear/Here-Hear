@@ -14,6 +14,7 @@ protocol ImageMemoryStorageProtocol {
 
 final class ImageMemoryStorage: ImageMemoryStorageProtocol {
     private let cache = NSCache<NSString, UIImage>()
+    
     func image(for key: String) -> UIImage? {
         cache.object(forKey: key as NSString)
     }

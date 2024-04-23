@@ -4,7 +4,7 @@ import AVKit
 struct FinalSummaryHearView: View {
     @Binding var videoURL: URL?
     @Binding var selectedSong: MusicModel?
-    @Binding var selectedWeather: WeatherOption?
+    @Binding var selectedWeather: Weather?
     @Binding var feelingText: String
     @EnvironmentObject var cameraViewModel: CameraViewModel
     @StateObject var hearViewModel = HearViewModel()
@@ -117,13 +117,13 @@ struct FinalSummaryHearView: View {
             
             // 날씨 정보
             HStack {
-                Image(systemName: selectedWeather?.systemImage ?? "questionmark.circle")
+                Image(systemName: selectedWeather?.imageName ?? "questionmark.circle")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 30, height: 30)
                     .foregroundColor(selectedWeather?.color ?? .white)
                 
-                Text(selectedWeather?.title ?? "날씨 정보 없음")
+                Text(selectedWeather?.optionTitle ?? "날씨 정보 없음")
                     .foregroundColor(.white)
                     .shadow(radius: 10)
             }
