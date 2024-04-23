@@ -1,7 +1,6 @@
 import Foundation
 import FirebaseStorage
 import Combine
-import Firebase
 import AVKit
 
 enum VideoServiceError: Error {
@@ -13,7 +12,7 @@ enum VideoServiceError: Error {
         case .custom(let message):
             return message
         case .defaultError:
-            return "예상 못한 에러 발생"
+            return "예상하지 못한 에러 발생"
         }
     }
 }
@@ -26,28 +25,35 @@ class VideoService: VideoServiceProtocol {
     private let storageReference = Storage.storage().reference()
 
     func uploadVideoAndThumbnail(url: URL, hearId: String) -> AnyPublisher<(videoURL: URL?, thumbnailURL: URL?), VideoServiceError> {
-        Future<(videoURL: URL?, thumbnailURL: URL?), VideoServiceError> { promise in
-            self.createThumbnail(for: url) { thumbnail in
-                let videoRef = self.storageReference.child("Video/\(hearId).mov")
-                let thumbnailRef = self.storageReference.child("Thumbnail/\(hearId).jpg")
+        let videoRef = storageReference.child("Video/\(hearId).mov")
+        let thumbnailRef = storageReference.child("Thumbnail/\(hearId).jpg")
+        
+        return createThumbnail(for: url)
+            .flatMap { thumbnail -> AnyPublisher<(videoURL: URL?, thumbnailURL: URL?), VideoServiceError> in
+                let uploadVideo = self.uploadVideo(url: url, to: videoRef)
+                let uploadThumbnail = thumbnail.map {
+                    self.uploadImage($0, to: thumbnailRef)
+                } ?? Fail(error: VideoServiceError.custom("썸네일 이미지 생성 실패")).eraseToAnyPublisher()
+                
+                return Publishers.Zip(uploadVideo, uploadThumbnail)
+                    .map { (videoURL, thumbnailURL) in (videoURL, thumbnailURL) }
+                    .eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
+    }
 
-                self.uploadVideo(url: url, to: videoRef) { result in
-                    switch result {
-                    case .success(let videoURL):
-                        if let thumbnail = thumbnail {
-                            self.uploadImage(thumbnail, to: thumbnailRef) { result in
-                                switch result {
-                                case .success(let thumbnailURL):
-                                    promise(.success((videoURL: videoURL, thumbnailURL: thumbnailURL)))
-                                case .failure(let error):
-                                    promise(.failure(error))
-                                }
-                            }
-                        } else {
-                            promise(.failure(.custom("Thumbnail creation failed")))
-                        }
-                    case .failure(let error):
-                        promise(.failure(error))
+    private func uploadVideo(url: URL, to reference: StorageReference) -> AnyPublisher<URL?, VideoServiceError> {
+        Future<URL?, VideoServiceError> { promise in
+            reference.putFile(from: url, metadata: nil) { _, error in
+                if let error = error {
+                    promise(.failure(.custom(error.localizedDescription)))
+                    return
+                }
+                reference.downloadURL { url, error in
+                    if let url = url {
+                        promise(.success(url))
+                    } else if let error = error {
+                        promise(.failure(.custom(error.localizedDescription)))
                     }
                 }
             }
@@ -55,66 +61,56 @@ class VideoService: VideoServiceProtocol {
         .eraseToAnyPublisher()
     }
 
-    private func uploadVideo(url: URL, to reference: StorageReference, completion: @escaping (Result<URL?, VideoServiceError>) -> Void) {
-        reference.putFile(from: url, metadata: nil) { _, error in
-            if let error = error {
-                completion(.failure(.custom(error.localizedDescription)))
+    private func uploadImage(_ image: UIImage, to reference: StorageReference) -> AnyPublisher<URL?, VideoServiceError> {
+        Future<URL?, VideoServiceError> { promise in
+            guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+                promise(.failure(.custom("이미지 JPEG변환 실패")))
                 return
             }
-            reference.downloadURL { url, error in
-                if let url = url {
-                    completion(.success(url))
-                } else if let error = error {
-                    completion(.failure(.custom(error.localizedDescription)))
+            reference.putData(imageData, metadata: nil) { metadata, error in
+                if let error = error {
+                    promise(.failure(.custom(error.localizedDescription)))
+                    return
+                }
+                reference.downloadURL { url, error in
+                    if let url = url {
+                        promise(.success(url))
+                    } else if let error = error {
+                        promise(.failure(.custom(error.localizedDescription)))
+                    }
                 }
             }
         }
+        .eraseToAnyPublisher()
     }
 
-    private func uploadImage(_ image: UIImage, to reference: StorageReference, completion: @escaping (Result<URL?, VideoServiceError>) -> Void) {
-        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
-            completion(.failure(.custom("이미지 JPEG변환 실패")))
-            return
-        }
-        reference.putData(imageData, metadata: nil) { metadata, error in
-            if let error = error {
-                completion(.failure(.custom(error.localizedDescription)))
-                return
-            }
-            reference.downloadURL { url, error in
-                if let url = url {
-                    completion(.success(url))
-                } else if let error = error {
-                    completion(.failure(.custom(error.localizedDescription)))
-                }
-            }
-        }
-    }
+    private func createThumbnail(for url: URL) -> AnyPublisher<UIImage?, VideoServiceError> {
+        Future<UIImage?, VideoServiceError> { promise in
+            DispatchQueue.global().async {
+                let asset = AVAsset(url: url)
+                let assetImgGenerate = AVAssetImageGenerator(asset: asset)
+                assetImgGenerate.appliesPreferredTrackTransform = true
+                assetImgGenerate.requestedTimeToleranceAfter = .zero
+                assetImgGenerate.requestedTimeToleranceBefore = .zero
 
-    private func createThumbnail(for url: URL, completion: @escaping (UIImage?) -> Void) {
-        DispatchQueue.global().async {
-            let asset = AVAsset(url: url)
-            let assetImgGenerate = AVAssetImageGenerator(asset: asset)
-            assetImgGenerate.appliesPreferredTrackTransform = true
-            assetImgGenerate.requestedTimeToleranceAfter = .zero
-            assetImgGenerate.requestedTimeToleranceBefore = .zero
-
-            let time = CMTimeMake(value: 1, timescale: 2)
-            do {
-                let img = try assetImgGenerate.copyCGImage(at: time, actualTime: nil)
-                let thumbnail = UIImage(cgImage: img)
-                DispatchQueue.main.async {
-                    completion(thumbnail)
-                }
-            } catch {
-                print("thumbnail 생성 실패: \(error.localizedDescription)")
-                DispatchQueue.main.async {
-                    completion(nil)
+                let time = CMTimeMake(value: 1, timescale: 2)
+                do {
+                    let img = try assetImgGenerate.copyCGImage(at: time, actualTime: nil)
+                    let thumbnail = UIImage(cgImage: img)
+                    DispatchQueue.main.async {
+                        promise(.success(thumbnail))
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        promise(.failure(.custom("썸네일 생성 실패: \(error.localizedDescription)")))
+                    }
                 }
             }
         }
+        .eraseToAnyPublisher()
     }
 }
+
 
 class StubVideoService: VideoServiceProtocol {
     func uploadVideoAndThumbnail(url: URL, hearId: String) -> AnyPublisher<(videoURL: URL?, thumbnailURL: URL?), VideoServiceError> {

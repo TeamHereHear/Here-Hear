@@ -1,10 +1,3 @@
-//
-//  HearResultView.swift
-//  Here-Hear
-//
-//  Created by 이원형 on 3/26/24.
-//
-
 import SwiftUI
 import AVKit
 
@@ -21,7 +14,6 @@ struct FinalSummaryHearView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            
             ZStack {
                 if let videoURL = videoURL {
                     Player(player: AVPlayer(url: videoURL), loop: true)
@@ -30,65 +22,73 @@ struct FinalSummaryHearView: View {
                     Color("HHTertiary")
                         .edgesIgnoringSafeArea(.all)
                 }
-                VStack {
-                    Spacer()
-                        .frame(height: geometry.size.height * 0.2)
-                    
-                    Text(feelingText)
-                        .font(.title)
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                    
-                    detailsView
-                    Spacer()
-                    
-                    HStack {
+
+                if hearViewModel.isLoading {
+                    ProgressView()
+                        .scaleEffect(2.0, anchor: .center)
+                        .progressViewStyle(CircularProgressViewStyle(tint: Color("HHTertiary")))
+                } else {
+                    VStack {
                         Spacer()
-                        Button(action: {
-                            hearViewModel.selectedSong = selectedSong
-                            hearViewModel.selectedWeather = selectedWeather
-                            hearViewModel.videoURL = videoURL
-                            hearViewModel.feelingText = feelingText
-                            
-                            hearViewModel.saveHearToFirebase()
-                        }) {
-                            Text("내 Hear 저장하기")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .shadow(radius: 10)
-                                .padding()
-                        }
-                        .padding([.bottom, .trailing], 15)
-                        .padding(.bottom, 5)
                         
-                        NavigationLink(
-                            destination: MainView(viewModel: MainViewModel(container: container)).navigationBarBackButtonHidden(true),
-                            isActive: $hearViewModel.isSaveCompleted
-                        ) { EmptyView()
-                        }
+                        Text(feelingText)
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
                         
+                        detailsView
+                        Spacer()
+                        actionButton
                     }
                 }
             }
         }
         .onAppear {
             if let previewURL = selectedSong?.previewURL {
-                musicPlayer .replaceCurrentItem(with: AVPlayerItem(url: previewURL))
+                musicPlayer.replaceCurrentItem(with: AVPlayerItem(url: previewURL))
                 musicPlayer.play()
             }
         }
         .onDisappear {
             musicPlayer.pause()
         }
-     }
+    }
+    
+    private var actionButton: some View {
+        HStack {
+            Spacer()
+            Button(action: saveHear) {
+                Text("내 Hear 저장하기")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .shadow(radius: 10)
+                    .padding()
+            }
+            .padding([.bottom, .trailing], 15)
+            .padding(.bottom, 5)
+            
+            NavigationLink(
+                destination: MainView(viewModel: MainViewModel(container: container)).navigationBarBackButtonHidden(true),
+                isActive: $hearViewModel.isSaveCompleted
+            ) { EmptyView() }
+        }
+    }
+    
+    private func saveHear() {
+        hearViewModel.selectedSong = selectedSong
+        hearViewModel.selectedWeather = selectedWeather
+        hearViewModel.videoURL = videoURL
+        hearViewModel.feelingText = feelingText
+        
+        hearViewModel.saveHearToFirebase()
+    }
+
     private var detailsView: some View {
         VStack(spacing: 16) {
-            
             // 아트워크 이미지
             if let artworkURL = selectedSong?.artwork {
                 AsyncImage(url: artworkURL) { image in
-                    image
-                        .resizable()
+                    image.resizable()
                 } placeholder: {
                     ProgressView()
                 }
@@ -127,13 +127,10 @@ struct FinalSummaryHearView: View {
                     .foregroundColor(.white)
                     .shadow(radius: 10)
             }
-            // Hear 저장하기
         }
         .padding()
         .background(Color.gray.opacity(0.35))
         .cornerRadius(10)
         .shadow(radius: 10)
-        
     }
-
- }
+}
