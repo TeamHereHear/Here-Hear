@@ -44,6 +44,11 @@ struct HearPlayView: View {
                             .font(.system(size: 25))
                             .foregroundStyle(.white)
                     }
+                    if let weather = hear.weather {
+                        Image(systemName: weather.imageName)
+                            .foregroundStyle(weather.color)
+                            .font(.system(size: 35))
+                    }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.vertical, 11)
@@ -65,9 +70,14 @@ struct HearPlayView: View {
                     
                     VStack(alignment: .leading) {
                         Text(music.title)
+                            .font(.headline)
                         Text(music.artist)
+                            .font(.caption)
+                            .foregroundStyle(Color(hexString: "757575"))
                         if let album = music.album {
                             Text(album)
+                                .font(.caption)
+                                .foregroundStyle(Color(hexString: "757575"))
                         }
                     }
                     .lineLimit(1)

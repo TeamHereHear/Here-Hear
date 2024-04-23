@@ -47,6 +47,7 @@ extension HearModel {
         musicIds: ["10"],
         feeling: .init(expressionText: String(localized: "hearModel.onBoardingPageOneStub.feeling.expressionText")),
         like: 400,
-        createdAt: .now
+        createdAt: .now,
+        weather: .sunny
     )
 }
