@@ -52,7 +52,7 @@ struct WeatherChoiceView: View {
                 Text("지금 여기\n날씨는 어떤가요?")
                     .padding()
                     .font(.title)
-                    .foregroundColor(.black)
+                    .foregroundColor(videoURL != nil ? .white : .black)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 VStack(spacing: 15) {

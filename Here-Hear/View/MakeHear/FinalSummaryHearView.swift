@@ -39,58 +39,7 @@ struct FinalSummaryHearView: View {
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                     
-                    VStack(spacing: 16) {
-                        
-                        // 아트워크 이미지
-                        if let artworkURL = selectedSong?.artwork {
-                            AsyncImage(url: artworkURL) { image in
-                                image
-                                    .resizable()
-                            } placeholder: {
-                                ProgressView()
-                            }
-                            .frame(width: 85, height: 85)
-                            .cornerRadius(10)
-                        }
-                        
-                        // 음악 제목
-                        Text(selectedSong?.title ?? "제목 없음")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .shadow(radius: 10)
-                        
-                        // 앨범
-                        Text(selectedSong?.album ?? "")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .shadow(radius: 10)
-                        
-                        // 아티스트 이름
-                        Text(selectedSong?.artist ?? "아티스트 정보 없음")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .shadow(radius: 10)
-                        
-                        // 날씨 정보
-                        HStack {
-                            Image(systemName: selectedWeather?.systemImage ?? "questionmark.circle")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 30, height: 30)
-                                .foregroundColor(selectedWeather?.color ?? .white)
-                            
-                            Text(selectedWeather?.title ?? "날씨 정보 없음")
-                                .foregroundColor(.white)
-                                .shadow(radius: 10)
-                        }
-                        // Hear 저장하기
-                    }
-                    .padding()
-                    .background(Color.gray.opacity(0.35))
-                    .cornerRadius(10)
-                    .shadow(radius: 10)
-                    
+                    detailsView
                     Spacer()
                     
                     HStack {
@@ -115,7 +64,8 @@ struct FinalSummaryHearView: View {
                         NavigationLink(
                             destination: MainView(viewModel: MainViewModel(container: container)).navigationBarBackButtonHidden(true),
                             isActive: $hearViewModel.isSaveCompleted
-                        ) { EmptyView() }
+                        ) { EmptyView()
+                        }
                         
                     }
                 }
@@ -131,4 +81,59 @@ struct FinalSummaryHearView: View {
             musicPlayer.pause()
         }
      }
+    private var detailsView: some View {
+        VStack(spacing: 16) {
+            
+            // 아트워크 이미지
+            if let artworkURL = selectedSong?.artwork {
+                AsyncImage(url: artworkURL) { image in
+                    image
+                        .resizable()
+                } placeholder: {
+                    ProgressView()
+                }
+                .frame(width: 85, height: 85)
+                .cornerRadius(10)
+            }
+            
+            // 음악 제목
+            Text(selectedSong?.title ?? "제목 없음")
+                .font(.headline)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+                .shadow(radius: 10)
+            
+            // 앨범
+            Text(selectedSong?.album ?? "")
+                .font(.headline)
+                .foregroundColor(.white)
+                .shadow(radius: 10)
+            
+            // 아티스트 이름
+            Text(selectedSong?.artist ?? "아티스트 정보 없음")
+                .font(.headline)
+                .foregroundColor(.white)
+                .shadow(radius: 10)
+            
+            // 날씨 정보
+            HStack {
+                Image(systemName: selectedWeather?.systemImage ?? "questionmark.circle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 30, height: 30)
+                    .foregroundColor(selectedWeather?.color ?? .white)
+                
+                Text(selectedWeather?.title ?? "날씨 정보 없음")
+                    .foregroundColor(.white)
+                    .shadow(radius: 10)
+            }
+            // Hear 저장하기
+        }
+        .padding()
+        .background(Color.gray.opacity(0.35))
+        .cornerRadius(10)
+        .shadow(radius: 10)
+        
+    }
+
  }

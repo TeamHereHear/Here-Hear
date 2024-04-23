@@ -12,7 +12,7 @@ class HearViewModel: ObservableObject {
     private var hearRepository: HearRepositoryInterface
     private var musicRepository: MusicRepositoryInterface
     private var videoService: VideoServiceProtocol
-    
+
     private var cancellables = Set<AnyCancellable>()
     private let locationManager = LocationManager()
     @Published var selectedSong: MusicModel?
@@ -21,7 +21,7 @@ class HearViewModel: ObservableObject {
     @Published var isSaveCompleted = false
     @Published var isLoading = false
     @Published var feelingText: String = ""
-    
+
     init(
         hearRepository: HearRepositoryInterface = HearRepository(),
         musicRepository: MusicRepositoryInterface = MusicRepository(),
@@ -31,53 +31,46 @@ class HearViewModel: ObservableObject {
         self.musicRepository = musicRepository
         self.videoService = videoService
     }
-    
+
     func saveHearToFirebase() {
-        
-        guard let videoURL = videoURL else {
-            print("비디오 데이터 없음")
-            return
-        }
-        
-        isLoading = true  // 로딩 시작
+        isLoading = true
         let hearId = UUID().uuidString
-        
-        videoService.uploadVideo(url: videoURL, hearId: hearId)
-            .sink(receiveCompletion: { [weak self] completion in
-                switch completion {
-                case . failure(let error):
-                    print("비디오 업로드 실패: \(error.localizedDescription)")
-                    self?.isLoading = false
-                case .finished:
-                    print("비디오 업로드 성공")
-                }
-            }, receiveValue: { [weak self] downloadURL in
-                self?.processUploadedVideo(url: downloadURL)
-            })
-            .store(in: &cancellables)
-        
+
+        if let videoURL = videoURL {
+            // 비디오 URL이 존재하는 경우, 비디오와 썸네일 업로드 진행
+            videoService.uploadVideoAndThumbnail(url: videoURL, hearId: hearId)
+                .sink(receiveCompletion: { [weak self] completion in
+                    switch completion {
+                    case .failure(let error):
+                        print("비디오 및 썸네일 업로드 실패: \(error.localizedDescription)")
+                        self?.isLoading = false
+                    case .finished:
+                        print("비디오 및 썸네일 업로드 성공")
+                    }
+                }, receiveValue: { [weak self] (videoURL, thumbnailURL) in
+                    self?.processUploadedContent(videoURL: videoURL, thumbnailURL: thumbnailURL, hearId: hearId)
+                })
+                .store(in: &cancellables)
+        } else {
+            // 비디오 URL이 없는 경우, 직접 엔티티 저장으로 넘어감
+            processUploadedContent(videoURL: nil, thumbnailURL: nil, hearId: hearId)
+        }
+    }
+
+    private func processUploadedContent(videoURL: URL?, thumbnailURL: URL?, hearId: String) {
         guard let selectedSong = selectedSong,
               let selectedWeather = selectedWeather,
-              let userId = Auth.auth().currentUser?.uid else {
-            print("데이터가 없음")
+              let userId = Auth.auth().currentUser?.uid,
+              let location = locationManager.currentLocation else {
+            isLoading = false
             return
         }
-        
-        guard let location = locationManager.currentLocation else {
-            print("위치 정보를 가져올 수 없습니다.")
-            return
-        }
-        
+
         let geohashExact = GeohashService().geohashExact(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        
-        guard let locationEntity = LocationEntity(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, geohashExact: geohashExact) else {
-            print("LocationEntity 초기화 실패!")
-            return
-        }
-        
-        // Entity 설정
+        guard let locationEntity = LocationEntity(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, geohashExact: geohashExact) else { return }
+
         let feeling = FeelingEntity(expressionText: feelingText, colorHexString: "#FFFFFF", textLocation: [0.0, 0.0])
-        
+
         let hearEntity = HearEntity(
             id: hearId,
             userId: userId,
@@ -88,21 +81,15 @@ class HearViewModel: ObservableObject {
             createdAt: Date(),
             weather: selectedWeather.weatherType.rawValue
         )
-        
-        // 음악 엔티티 저장
+
+        // Store music entity
         let musicEntity = selectedSong.toEntity()
         musicRepository.addMusic(musicEntity).sink(receiveCompletion: handleCompletion, receiveValue: { _ in }).store(in: &cancellables)
-        
-        // Hear 엔티티 저장
+
+        // Store hear entity
         hearRepository.add(hearEntity).sink(receiveCompletion: handleCompletion, receiveValue: { _ in }).store(in: &cancellables)
     }
-    
-    private func processUploadedVideo(url: URL?) {
-        guard let url = url, let selectedSong = selectedSong, let selectedWeather = selectedWeather else {
-            isLoading = false
-            return
-        }
-    }
+
     private func handleCompletion<T>(_ completion: Subscribers.Completion<T>) {
         DispatchQueue.main.async {
             self.isLoading = false
@@ -111,13 +98,7 @@ class HearViewModel: ObservableObject {
                 self.isSaveCompleted = true
                 print("Hear 업로드 성공")
             case .failure(let error):
-                if let musicError = error as? MusicRepositoryError {
-                    print("Music Repository 에러: \(musicError)")
-                } else if let hearError = error as? HearRepositoryError {
-                    print("Hear Repository 에러: \(hearError)")
-                } else {
-                    print("에러: \(error.localizedDescription)")
-                }
+                print("업로드 실패: \(error.localizedDescription)")
             }
         }
     }
