@@ -16,7 +16,7 @@ class HearViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let locationManager = LocationManager()
     @Published var selectedSong: MusicModel?
-    @Published var selectedWeather: WeatherOption?
+    @Published var selectedWeather: Weather?
     @Published var videoURL: URL?
     @Published var isSaveCompleted = false
     @Published var isLoading = false
@@ -79,7 +79,7 @@ class HearViewModel: ObservableObject {
             feeling: feeling,
             like: 0,
             createdAt: Date(),
-            weather: selectedWeather.weatherType.rawValue
+            weather: selectedWeather.rawValue
         )
 
         // Store music entity

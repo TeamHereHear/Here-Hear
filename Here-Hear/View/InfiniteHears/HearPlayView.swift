@@ -24,15 +24,31 @@ struct HearPlayView: View {
     
     var body: some View {
         ZStack {
-            VideoPlayer(player: player)
-                .ignoresSafeArea()
-                .scaledToFill()
-                .allowsHitTesting(false)
-            VStack {
+            if let player {
+                Player(player: player, loop: true)
+                    .ignoresSafeArea()
+                    .scaledToFill()
+                    .allowsHitTesting(false)
+            }
+            VStack(spacing: 0) {
                 if let progress {
                     HHProgressBar(value: progress)
                         .padding(.horizontal)
                 }
+                
+                HStack {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "arrow.left")
+                            .font(.system(size: 25))
+                            .foregroundStyle(.white)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.vertical, 11)
+                .padding(.horizontal)
+                
                 HStack(spacing: 15) {
                     RemoteImage(
                         path: music.artwork?.absoluteString,
@@ -59,7 +75,8 @@ struct HearPlayView: View {
                 .padding(12)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Material.thin, in: .rect(cornerRadius: 21, style: .continuous))
-                .padding(12)
+                .padding(.horizontal, 12)
+                
                 Spacer()
                 
                 VStack(spacing: 24) {
