@@ -35,7 +35,7 @@ struct CameraHomeView: View {
                 VStack {
                     Text("음악에 어울리는\n동영상을 촬영해 볼까요?")
                         .font(.title)
-                        .foregroundColor(.black)
+                        .foregroundColor(.white)
                         .opacity(cameraViewModel.isRecording ? 0 : 1)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

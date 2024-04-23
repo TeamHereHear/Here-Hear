@@ -19,15 +19,7 @@ struct CameraView: View {
             CameraPreview(size: size)
                 .environmentObject(cameraModel)
             
-            ZStack(alignment: .leading) {
-                Rectangle()
-                    .fill(.black.opacity(0.25))
-                
-                Rectangle()
-                    .fill(Color.pink)
-                    .frame(width: size.width * (cameraModel.recordedDuration / cameraModel.maxDuration))
-            }
-            .frame(height: 10)
+            HHProgressBar(value: (cameraModel.recordedDuration / cameraModel.maxDuration))
             .frame(maxHeight: .infinity, alignment: .top)
         }
         .onAppear(perform: cameraModel.checkPermission)

@@ -32,7 +32,7 @@ struct AddFeelingText: View {
                                 if feelingText.isEmpty && !isEditingText {
                                     Text("지금 떠오르는 생각을 적어볼까요?")
                                         .font(.title)
-                                        .foregroundColor(.white.opacity(0.7))
+                                        .foregroundColor(videoURL != nil ? .white : .black)
                                         .multilineTextAlignment(.center)
                                         .onTapGesture {
                                             isEditingText = true
