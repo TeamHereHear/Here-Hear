@@ -177,6 +177,11 @@ struct HearPlayView: View {
             player?.pause()
             player = nil
         }
+        .onAppear {
+            // TODO: 동영상 불러오기
+            // TODO: hear 정보 불러오기 like, music도 포함
+            // TODO: 동영상 재생하기
+        }
     }
 }
 

@@ -16,3 +16,7 @@ class DIContainer: ObservableObject {
         self.managers = managers
     }
 }
+
+extension DIContainer {
+    static let stub: DIContainer = .init(services: StubServices(), managers: StubManagers())
+}

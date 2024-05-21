@@ -89,6 +89,7 @@
 		5BA842712BAC645F00E4FE7B /* UserTrackingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA842702BAC645F00E4FE7B /* UserTrackingButton.swift */; };
 		5BA842762BB1AC8D00E4FE7B /* HearListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA842752BB1AC8D00E4FE7B /* HearListView.swift */; };
 		5BA842782BB1B49C00E4FE7B /* HearListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA842772BB1B49C00E4FE7B /* HearListViewModel.swift */; };
+		5BC3AAAC2BFCD3D8004897B8 /* InfiniteHearsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3AAAB2BFCD3D8004897B8 /* InfiniteHearsViewModel.swift */; };
 		5BC7CB622BC4254500B409A7 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC7CB612BC4254500B409A7 /* Constant.swift */; };
 		5BD2A51E2BA322A700EC4049 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5BD2A51D2BA322A700EC4049 /* FirebaseAuth */; };
 		5BD2A5202BA322A700EC4049 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5BD2A51F2BA322A700EC4049 /* FirebaseFirestore */; };
@@ -227,6 +228,7 @@
 		5BA842702BAC645F00E4FE7B /* UserTrackingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTrackingButton.swift; sourceTree = "<group>"; };
 		5BA842752BB1AC8D00E4FE7B /* HearListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearListView.swift; sourceTree = "<group>"; };
 		5BA842772BB1B49C00E4FE7B /* HearListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearListViewModel.swift; sourceTree = "<group>"; };
+		5BC3AAAB2BFCD3D8004897B8 /* InfiniteHearsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteHearsViewModel.swift; sourceTree = "<group>"; };
 		5BC7CB612BC4254500B409A7 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		5BD2A5232BA32C0900EC4049 /* OnBoardingPageTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPageTwo.swift; sourceTree = "<group>"; };
 		5BD2A5252BA32C1700EC4049 /* OnBoardingPageThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPageThree.swift; sourceTree = "<group>"; };
@@ -685,6 +687,7 @@
 			isa = PBXGroup;
 			children = (
 				5BF07ACD2BCFF7B300FCBDCE /* InfiniteHearsView.swift */,
+				5BC3AAAB2BFCD3D8004897B8 /* InfiniteHearsViewModel.swift */,
 				5B47F8CA2BD14E170059FCA7 /* HearPlayView.swift */,
 				5BEF283D2BD68B9100C798C0 /* HearPlayViewModel.swift */,
 			);
@@ -918,6 +921,7 @@
 				5B2F1BFB2BA1D9B60058A64F /* OnBoardingPageOne.swift in Sources */,
 				5BA429D12B9C5A0200998112 /* ImageDiskStorage.swift in Sources */,
 				04A7471C2B849C2E00182C5F /* AppDelegate.swift in Sources */,
+				5BC3AAAC2BFCD3D8004897B8 /* InfiniteHearsViewModel.swift in Sources */,
 				04A746ED2B84670300182C5F /* NotificationManager.swift in Sources */,
 				04D083272BCEE25200C6A143 /* AddFeelingText.swift in Sources */,
 				5BDBBD252B8477C500DEB7DC /* MusicRepository.swift in Sources */,

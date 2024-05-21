@@ -33,6 +33,8 @@ final class HearListViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var lastDocumentID: String?
     
+    private var searchingRadiusInMeter: Double = 1000
+    
     init(
         container: DIContainer,
         location: CLLocationCoordinate2D
@@ -55,13 +57,15 @@ final class HearListViewModel: ObservableObject {
             let overlappingGeohashes: [String] = container.services.geohashService.overlappingGeohash(
                 latitude: latitude,
                 longitude: longitude,
-                precision: .twentyFourHundredMeters
+                precision: GeohashPrecision.minimumGeohashPrecisionLength(
+                    when: searchingRadiusInMeter
+                ) ?? .sixHundredTenMeters
             )
             
             let (models, lastDocumentID) = try await container.services.hearService.fetchAroundHears(
                 latitude: latitude,
                 longitude: longitude,
-                radiusInMeter: 1000,
+                radiusInMeter: searchingRadiusInMeter,
                 inGeohashes: overlappingGeohashes,
                 startAt: self.lastDocumentID,
                 limit: fetchingLimit

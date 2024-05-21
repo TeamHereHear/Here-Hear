@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct InfiniteHearsView: View {
+    @StateObject private var viewModel: InfiniteHearsViewModel
+    
+    init(viewModel: InfiniteHearsViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
     @State private var offset: CGFloat = 0
     
     @State private var colors: [Color] = [
@@ -22,8 +28,8 @@ struct InfiniteHearsView: View {
         ScrollViewReader { proxy in
             ScrollView(showsIndicators: false) {
                 LazyVStack(spacing: 0) {
-                    ForEach(0..<colors.count, id: \.self) { index in
-                        colors[index]
+                    ForEach(0..<viewModel.hears.count, id: \.self) { index in
+                        HearPlayView(hear: viewModel.hears[index])
                             .frame(height: UIScreen.main.bounds.height)
                             .ignoresSafeArea(.all)
                             .id(index)
@@ -63,16 +69,7 @@ struct InfiniteHearsView: View {
                                 }
                             )
                             .onAppear {
-                                // TODO: 동영상 불러오기
-                                // TODO: hear 정보 불러오기 like, music도 포함
-                                // TODO: 동영상 재생하기
-                            }
-                            .onAppear {
-                                guard index == Int(Double(colors.count) * 0.8) else { return }
-                                guard !didAdd else { return }
-                                print("추가중")
-                                colors.append(contentsOf: extraColors)
-                                self.didAdd = true
+                                fetchMoreHears(whenIndexIs: index, outOfTotalCount: viewModel.hears.count)
                             }
                     }
                 }
@@ -82,8 +79,20 @@ struct InfiniteHearsView: View {
             .ignoresSafeArea(.all)
         }
     }
+    
+    private func fetchMoreHears(
+        whenIndexIs index: Int,
+        outOfTotalCount count: Int
+    ) {
+        guard index == Int(Double(count) * 0.8) else { return }
+        guard !didAdd else { return }
+        // TODO: viewModel 에서 추가로 hear를 불러오는 로직
+        colors.append(contentsOf: extraColors)
+        self.didAdd = true
+        
+    }
 }
 
 #Preview {
-    InfiniteHearsView()
+    InfiniteHearsView(viewModel: .init(container: .stub))
 }
