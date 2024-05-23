@@ -21,5 +21,6 @@ extension Constant {
     
     struct StoragePath {
         static let UserInfo: String = "UserInfo"
+        static let Thumbnail: String = "Thumbnail"
     }
 }

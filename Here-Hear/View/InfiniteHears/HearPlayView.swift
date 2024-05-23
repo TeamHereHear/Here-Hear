@@ -9,6 +9,7 @@ import SwiftUI
 import AVKit
 
 struct HearPlayView: View {
+    
     @State private var player: AVPlayer?
     @State private var progress: CGFloat?
     private let hear: HearModel

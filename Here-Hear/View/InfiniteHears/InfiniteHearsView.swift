@@ -16,14 +16,6 @@ struct InfiniteHearsView: View {
     
     @State private var offset: CGFloat = 0
     
-    @State private var colors: [Color] = [
-        .red, .blue, .green, .pink, .purple, .orange
-    ]
-    @State private var didAdd: Bool = false
-    private let extraColors: [Color] = [
-        .hhGray, .hhAccent, .hhAccent2, .hhTertiary, .hhSecondary
-    ]
-    
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView(showsIndicators: false) {
@@ -38,38 +30,10 @@ struct InfiniteHearsView: View {
                                     minimumDistance: 0,
                                     coordinateSpace: .local
                                 )
-                                .onEnded { value in
-                                    switch value.translation.height {
-                                    case ...(-80):
-                                        guard index < colors.count - 1 else { return }
-                                        withAnimation(.easeInOut) {
-                                            proxy.scrollTo(index + 1, anchor: .top)
-                                        }
-                                    case -80..<0:
-                                        guard index < colors.count - 1 else { return }
-                                        offset = -80
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                            offset = .zero
-                                        }
-                                    case 0..<80:
-                                        guard index > 0 else { return }
-                                        offset = 80
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                            offset = .zero
-                                        }
-                                    case 80...:
-                                        guard index > 0 else { return }
-                                        withAnimation(.easeInOut) {
-                                            proxy.scrollTo(index - 1, anchor: .top)
-                                        }
-                                    default:
-                                        return
-                                    }
-                                    
-                                }
+                                .onEnded { swipeTo($0, currentIndex: index, scrollProxy: proxy) }
                             )
-                            .onAppear {
-                                fetchMoreHears(whenIndexIs: index, outOfTotalCount: viewModel.hears.count)
+                            .task {
+                                await fetchMoreHears(whenIndexIs: index, outOfTotalCount: viewModel.hears.count)
                             }
                     }
                 }
@@ -78,18 +42,54 @@ struct InfiniteHearsView: View {
             }
             .ignoresSafeArea(.all)
         }
+        .task {
+            await viewModel.fetchHears()
+        }
     }
     
     private func fetchMoreHears(
         whenIndexIs index: Int,
         outOfTotalCount count: Int
-    ) {
+    ) async {
         guard index == Int(Double(count) * 0.8) else { return }
-        guard !didAdd else { return }
-        // TODO: viewModel 에서 추가로 hear를 불러오는 로직
-        colors.append(contentsOf: extraColors)
-        self.didAdd = true
         
+        await viewModel.fetchHears()
+    }
+    
+    private let swipeThreshold: CGFloat = 80
+    private func swipeTo(
+        _ value: DragGesture.Value,
+        currentIndex index: Int,
+        scrollProxy proxy: ScrollViewProxy
+    ) {
+        let hearsCount = viewModel.hears.count
+        
+        switch value.translation.height {
+        case ...(-swipeThreshold):
+            guard index < hearsCount - 1 else { return }
+            withAnimation(.easeInOut) {
+                proxy.scrollTo(index + 1, anchor: .top)
+            }
+        case -swipeThreshold..<0:
+            guard index < hearsCount - 1 else { return }
+            offset = -swipeThreshold
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                offset = .zero
+            }
+        case 0..<swipeThreshold:
+            guard index > 0 else { return }
+            offset = swipeThreshold
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                offset = .zero
+            }
+        case swipeThreshold...:
+            guard index > 0 else { return }
+            withAnimation(.easeInOut) {
+                proxy.scrollTo(index - 1, anchor: .top)
+            }
+        default:
+            return
+        }
     }
 }
 

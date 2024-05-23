@@ -10,12 +10,34 @@ import Combine
 import CoreLocation
 
 // TODO: 정책상 정해야하는 부분
-enum InfiniteHearsSearchingRadius: Double {
-    case fiveHundredMeters = 500
-    case oneKillometer = 1_000
-    case twoKillometers = 2_000
-    case fiveKillometers = 5_000
-    case tenKillometers = 10_000
+enum InfiniteHearsSearchingRadius: Int {
+    case fiveHundredMeters = 0
+    case oneKillometer
+    case twoKillometers
+    case fiveKillometers
+    case tenKillometers
+    
+    mutating func expand() -> Bool {
+        guard self != .tenKillometers else { return false }
+        guard let expanded = InfiniteHearsSearchingRadius(rawValue: self.rawValue + 1) else { return false }
+        self = expanded
+        return true
+    }
+    
+    var meter: Double {
+        switch self {
+        case .fiveHundredMeters:
+            500
+        case .oneKillometer:
+            1_000
+        case .twoKillometers:
+            2_000
+        case .fiveKillometers:
+            5_000
+        case .tenKillometers:
+            10_000
+        }
+    }
 }
 
 class InfiniteHearsViewModel: ObservableObject {
@@ -48,7 +70,7 @@ class InfiniteHearsViewModel: ObservableObject {
             return
         }
         guard let geohashPrecision = GeohashPrecision
-             .minimumGeohashPrecisionLength(when: searchingRadius.rawValue) else {
+             .minimumGeohashPrecisionLength(when: searchingRadius.meter) else {
             updateLoadingState(to: .failed(.unexpected))
             return
         }
@@ -67,7 +89,7 @@ class InfiniteHearsViewModel: ObservableObject {
             let (models, lastDocumentID) = try await container.services.hearService.fetchAroundHears(
                 latitude: latitude,
                 longitude: longitude,
-                radiusInMeter: searchingRadius.rawValue,
+                radiusInMeter: searchingRadius.meter,
                 inGeohashes: overlappingGeohashes,
                 startAt: self.lastDocumentID,
                 limit: fetchingLimit
@@ -78,16 +100,24 @@ class InfiniteHearsViewModel: ObservableObject {
             }
             self.lastDocumentID = lastDocumentID
             
-            updateLoadingState(to: models.count == fetchingLimit ? .none : .fetchedAll)
-            // TODO: .fetchedAll 일경우 범위를 늘려서 탐색을 해야함
+            if models.count == fetchingLimit {
+                updateLoadingState(to: .none)
+                return
+            }
+            
+            if searchingRadius.expand() {
+                updateLoadingState(to: .none)
+                return
+            }
+            
+            updateLoadingState(to: .fetchedAll)
             
         } catch {
             // TODO: 에러의 종류에 따라서 세분화 하기
             updateLoadingState(to: .failed(.unexpected))
         }
         
-    }
-    
+    }    
 }
 
 extension InfiniteHearsViewModel {

@@ -15,15 +15,11 @@ struct MainView: View {
 
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject private var container: DIContainer
-    @StateObject private var viewModel: MainViewModel
+    @StateObject var viewModel: MainViewModel
     @State private var userTrackingMode: MapUserTrackingMode = .none
     @State private var shouldPresentHearList: Bool = false
     @State private var shouldPresentAddHear: Bool = false
-    
-    init(viewModel: MainViewModel) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-    }
-    
+        
     var body: some View {
         NavigationView {
             Map(
@@ -51,7 +47,6 @@ struct MainView: View {
                 NavigationLink(destination: AddMusicToHear(), isActive: $shouldPresentAddHear) {
                     EmptyView()
                 }
-                
             }
         .onAppear { didAnonymousUserHasOnboarded = true }
         .navigationBarBackButtonHidden()
