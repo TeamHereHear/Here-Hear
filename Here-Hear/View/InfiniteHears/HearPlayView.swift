@@ -9,30 +9,18 @@ import SwiftUI
 import AVKit
 
 struct HearPlayView: View {
-    
-    @State private var player: AVPlayer?
-    @State private var progress: CGFloat?
-    private let hear: HearModel
-    private let music: MusicModel = .onBoardingPageStubOne
-    private let fileUrl: URL? = Bundle.main.url(
-        forResource: "OnBoardingPageTwoVideo",
-        withExtension: "MOV"
-    )
-    
-    init(hear: HearModel) {
-        self.hear = hear
-    }
+    @StateObject var viewModel: HearPlayViewModel
     
     var body: some View {
         ZStack {
-            if let player {
-                Player(player: player, loop: true)
+            if let videoPlayer = viewModel.videoPlayer {
+                Player(player: videoPlayer, loop: true)
                     .ignoresSafeArea()
                     .scaledToFill()
                     .allowsHitTesting(false)
             }
             VStack(spacing: 0) {
-                if let progress {
+                if let progress = viewModel.videoProgress {
                     HHProgressBar(value: progress)
                         .padding(.horizontal)
                 }
@@ -45,7 +33,7 @@ struct HearPlayView: View {
                             .font(.system(size: 25))
                             .foregroundStyle(.white)
                     }
-                    if let weather = hear.weather {
+                    if let weather = viewModel.hear.weather {
                         Image(systemName: weather.imageName)
                             .foregroundStyle(weather.color)
                             .font(.system(size: 35))
@@ -55,39 +43,40 @@ struct HearPlayView: View {
                 .padding(.vertical, 11)
                 .padding(.horizontal)
                 
-                HStack(spacing: 15) {
-                    RemoteImage(
-                        path: music.artwork?.absoluteString,
-                        isStorageImage: false,
-                        transitionDuration: 0.5
-                    ) {
-                        Rectangle()
-                            .foregroundStyle(.hhGray)
-                    }
-                    .aspectRatio(1, contentMode: .fit)
-                    .frame(width: 85, height: 85)
-                    .background(.hhGray)
-                    .clipShape(.rect(cornerRadius: 11, style: .continuous))
-                    
-                    VStack(alignment: .leading) {
-                        Text(music.title)
-                            .font(.headline)
-                        Text(music.artist)
-                            .font(.caption)
-                            .foregroundStyle(Color(hexString: "757575"))
-                        if let album = music.album {
-                            Text(album)
+                if let music = viewModel.viewData.music {
+                    HStack(spacing: 15) {
+                        RemoteImage(
+                            path: music.artwork?.absoluteString,
+                            isStorageImage: false,
+                            transitionDuration: 0.5
+                        ) {
+                            Rectangle()
+                                .foregroundStyle(.hhGray)
+                        }
+                        .aspectRatio(1, contentMode: .fit)
+                        .frame(width: 85, height: 85)
+                        .background(.hhGray)
+                        .clipShape(.rect(cornerRadius: 11, style: .continuous))
+                        
+                        VStack(alignment: .leading) {
+                            Text(music.title)
+                                .font(.headline)
+                            Text(music.artist)
                                 .font(.caption)
                                 .foregroundStyle(Color(hexString: "757575"))
+                            if let album = music.album {
+                                Text(album)
+                                    .font(.caption)
+                                    .foregroundStyle(Color(hexString: "757575"))
+                            }
                         }
+                        .lineLimit(1)
                     }
-                    .lineLimit(1)
+                    .padding(12)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Material.thin, in: .rect(cornerRadius: 21, style: .continuous))
+                    .padding(.horizontal, 12)
                 }
-                .padding(12)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Material.thin, in: .rect(cornerRadius: 21, style: .continuous))
-                .padding(.horizontal, 12)
-                
                 Spacer()
                 
                 VStack(spacing: 24) {
@@ -122,13 +111,13 @@ struct HearPlayView: View {
                             .foregroundStyle(.hhGray)
                             .frame(width: 50, height: 50)
                             
-                        Text("User Nickname")
+                        Text(viewModel.viewData.userNickname ?? "")
                             .foregroundStyle(.white)
                             .font(.caption.weight(.bold))
                         Text("50m")
                             .foregroundStyle(.white)
                             .font(.caption2)
-                        Text("24.02.15")
+                        Text(viewModel.hear.createdAt, format: .dateTime)
                             .foregroundStyle(.white)
                             .font(.caption2)
                     }
@@ -156,42 +145,17 @@ struct HearPlayView: View {
            
         }
         .task {
-            guard let fileUrl else { return }
-            player = AVPlayer(url: fileUrl)
-           
-            player?.isMuted = true
-            
-            player?.play()
-            
-            let interval = CMTime(seconds: 0.01, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
-            let totalTime = try? await player?.currentItem?.asset.load(.duration)
-            player?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main) { time in
-                let currentTimeSeconds = CMTimeGetSeconds(time)
-                if let totalTime {
-                    let totalTimeSeconds = CMTimeGetSeconds(totalTime)
-                    self.progress = CGFloat(currentTimeSeconds) / CGFloat(totalTimeSeconds)
-                }
-            }
-            
+            await viewModel.fetchAllData()
         }
         .onDisappear {
-            player?.pause()
-            player = nil
-        }
-        .onAppear {
-            // TODO: 동영상 불러오기
-            // TODO: hear 정보 불러오기 like, music도 포함
-            // TODO: 동영상 재생하기
+            viewModel.cleanPlayer()
         }
     }
 }
 
 #Preview {
-    HearPlayView(hear: .onBoardingPageOneStub)
+    HearPlayView(viewModel: .init(container: .stub, hear: .onBoardingPageOneStub))
         .environmentObject(
-            DIContainer(
-                services: StubServices(),
-                managers: StubManagers()
-            )
+            DIContainer.stub
         )
 }

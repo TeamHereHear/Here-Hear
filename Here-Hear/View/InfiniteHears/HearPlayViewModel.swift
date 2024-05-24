@@ -7,20 +7,29 @@
 
 import Foundation
 import Combine
+import AVKit
 
 class HearPlayViewModel: ObservableObject {
-    private let hear: HearModel
+    let hear: HearModel
     var thumbnailPath: String {
         "\(StoragePath.Thumbnail)/\(hear.id).jpg"
     }
     private let container: DIContainer
-    @Published var music: MusicModel?
-    @Published var userNickname: String?
+    @Published var viewData: ViewData = .init()
+    
+    struct ViewData {
+        var videoURL: URL?
+        var music: MusicModel?
+        var userNickname: String?
+    }
+    
+    @Published var videoPlayer: AVPlayer?
+    @Published var videoProgress: CGFloat?
+    
+
     @Published var error: HearPlayError?
-    
-    //TODO: 동영상 받아오기
-    
     enum HearPlayError: LocalizedError {
+        case failedToFetchVideoURL
         case failedToFetchMusic
         case failedToFetchUserInfo
     }
@@ -32,31 +41,79 @@ class HearPlayViewModel: ObservableObject {
         self.container = container
         self.hear = hear
     }
+    
+    @MainActor
+    func fetchAllData() async {
+        async let videoURL = fetchVideoURL()
+        async let music = fetchMusic()
+        async let nickname = fetchHearUser()
+        do {
+            try await self.viewData = .init(
+                videoURL: videoURL,
+                music: music,
+                userNickname: nickname
+            )
+        } catch {
+            self.error = error as? HearPlayError
+        }
+    }
+    
+    @MainActor
+    private func fetchVideoURL() async throws -> URL {
+        do {
+            return try await container.services.videoService.hearVideoUrl(ofId: hear.id)
+        } catch {
+            throw HearPlayError.failedToFetchVideoURL
+        }
+    }
 
     
     @MainActor
-    func fetchMusic() async {
-        guard let musicId = hear.musicIds.first else { return }
+    private func fetchMusic() async throws -> MusicModel? {
+        guard let musicId = hear.musicIds.first else { return nil }
         do {
-            self.music = try await container.services.musicService.fetchMusic(ofIds: [musicId])
-                .first
+            let musics = try await container.services.musicService.fetchMusic(ofIds: [musicId])
+            if musics.isEmpty { return nil }
+            return musics.first
+        
         } catch {
-            // TODO: 에러핸들링
-            print(error)
-            self.error = .failedToFetchMusic
+            throw HearPlayError.failedToFetchMusic
         }
         
     }
     
     @MainActor
-    func fetchHearUser() async {
+    private func fetchHearUser() async throws -> String? {
         do {
-            self.userNickname = try await container.services.userService.fetchUser(ofId: hear.userId)?.nickname
+            return try await container.services.userService.fetchUser(ofId: hear.userId)?.nickname
         } catch {
-            // TODO: 에러 핸들링
-            print(error)
-            self.error = .failedToFetchUserInfo
+            throw HearPlayError.failedToFetchUserInfo
         }
         
+    }
+    
+    
+    func setPlayer(withVideoUrl videoUrl: URL?) async {
+        guard let videoUrl else { return }
+        videoPlayer = AVPlayer(url: videoUrl)
+       
+        videoPlayer?.isMuted = true
+        
+        await videoPlayer?.play()
+        
+        let interval = CMTime(seconds: 0.01, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        let totalTime = try? await videoPlayer?.currentItem?.asset.load(.duration)
+        videoPlayer?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main) { time in
+            let currentTimeSeconds = CMTimeGetSeconds(time)
+            if let totalTime {
+                let totalTimeSeconds = CMTimeGetSeconds(totalTime)
+                self.videoProgress = CGFloat(currentTimeSeconds) / CGFloat(totalTimeSeconds)
+            }
+        }
+    }
+    
+    func cleanPlayer() {
+        videoPlayer?.pause()
+        videoPlayer = nil
     }
 }

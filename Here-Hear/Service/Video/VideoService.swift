@@ -5,12 +5,15 @@ import AVKit
 
 enum VideoServiceError: Error {
     case custom(String)
+    case invalidId
     case defaultError
 
     var localizedDescription: String {
         switch self {
         case .custom(let message):
             return message
+        case .invalidId:
+            return "유효하지 않은 hear id"
         case .defaultError:
             return "예상하지 못한 에러 발생"
         }
@@ -18,11 +21,18 @@ enum VideoServiceError: Error {
 }
 
 protocol VideoServiceProtocol {
+    func hearVideoUrl(ofId hearId: String) async throws -> URL
     func uploadVideoAndThumbnail(url: URL, hearId: String) -> AnyPublisher<(videoURL: URL?, thumbnailURL: URL?), VideoServiceError>
 }
 
 class VideoService: VideoServiceProtocol {
     private let storageReference = Storage.storage().reference()
+    
+    func hearVideoUrl(ofId hearId: String) async throws -> URL {
+        guard !hearId.isEmpty else { throw VideoServiceError.invalidId }
+        let videoRef = storageReference.child("Video/\(hearId).mov")
+        return try await videoRef.downloadURL()
+    }
 
     func uploadVideoAndThumbnail(url: URL, hearId: String) -> AnyPublisher<(videoURL: URL?, thumbnailURL: URL?), VideoServiceError> {
         let videoRef = storageReference.child("Video/\(hearId).mov")
@@ -113,6 +123,10 @@ class VideoService: VideoServiceProtocol {
 
 
 class StubVideoService: VideoServiceProtocol {
+    func hearVideoUrl(ofId hearId: String) async throws -> URL {
+        throw VideoServiceError.defaultError
+    }
+
     func uploadVideoAndThumbnail(url: URL, hearId: String) -> AnyPublisher<(videoURL: URL?, thumbnailURL: URL?), VideoServiceError> {
         Just((videoURL: nil, thumbnailURL: nil))
             .setFailureType(to: VideoServiceError.self)
