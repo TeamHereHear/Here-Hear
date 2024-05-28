@@ -91,7 +91,7 @@ final class HearListViewModel: ObservableObject {
     }
     
     private func fetchUserNicknames(_ hears: [HearModel]) async {
-        let asyncHears = makeAsyncHears(hears)
+        let asyncHears = HearModel.makeAsync(hears)
         
         for await hear in asyncHears {
             print("asyncHears")
@@ -104,7 +104,7 @@ final class HearListViewModel: ObservableObject {
     }
     
     private func fetchMusicOfHears(_ hears: [HearModel]) async {
-        let asyncHears = makeAsyncHears(hears)
+        let asyncHears = HearModel.makeAsync(hears)
         
         for await hear in asyncHears {
             if let musics = try? await container.services.musicService.fetchMusic(ofIds: hear.musicIds) {
@@ -112,15 +112,6 @@ final class HearListViewModel: ObservableObject {
                     self.musicOfHear[hear.id] = musics
                 }
             }
-        }
-    }
-    
-    private func makeAsyncHears(_ hears: [HearModel]) -> AsyncStream<HearModel> {
-        AsyncStream<HearModel> { continuation in
-            for hear in hears {
-                continuation.yield(hear)
-            }
-            continuation.finish()
         }
     }
 }

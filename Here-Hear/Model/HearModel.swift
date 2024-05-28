@@ -51,3 +51,14 @@ extension HearModel {
         weather: .sunny
     )
 }
+
+extension HearModel {
+    static func makeAsync(_ hears: [HearModel]) -> AsyncStream<HearModel> {
+        AsyncStream<HearModel> { continuation in
+            for hear in hears {
+                continuation.yield(hear)
+            }
+            continuation.finish()
+        }
+    }
+}

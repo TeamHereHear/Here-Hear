@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct InfiniteHearsView: View {
-    @StateObject private var viewModel: InfiniteHearsViewModel
+    @StateObject var viewModel: InfiniteHearsViewModel
+    @EnvironmentObject private var container: DIContainer
     
-    init(viewModel: InfiniteHearsViewModel) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-    }
     
     @State private var offset: CGFloat = 0
     
@@ -21,7 +19,12 @@ struct InfiniteHearsView: View {
             ScrollView(showsIndicators: false) {
                 LazyVStack(spacing: 0) {
                     ForEach(0..<viewModel.hears.count, id: \.self) { index in
-                        HearPlayView(hear: viewModel.hears[index])
+                        HearPlayView(
+                            viewModel: .init(
+                                container: container,
+                                hear: viewModel.hears[index]
+                            )
+                        )
                             .frame(height: UIScreen.main.bounds.height)
                             .ignoresSafeArea(.all)
                             .id(index)

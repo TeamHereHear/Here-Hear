@@ -42,6 +42,7 @@ enum InfiniteHearsSearchingRadius: Int {
 
 class InfiniteHearsViewModel: ObservableObject {
     @Published var hears: [HearModel] = []
+    
     @Published var loadingState: LoadingState = .none
     @Published var userLocation: CLLocation? // Published 값이 아니어도 될지 살펴보기
     
@@ -53,6 +54,7 @@ class InfiniteHearsViewModel: ObservableObject {
     private var lastDocumentID: String?
     
     init(container: DIContainer) {
+        //TODO: hear 하나를 받아오고 그 위치로부터 반경을 넓혀가며 보이는 것으로
         self.container = container
         self.userLocation = container.managers.userLocationManager.userLocation
     }
@@ -118,6 +120,8 @@ class InfiniteHearsViewModel: ObservableObject {
         }
         
     }    
+    
+  
 }
 
 extension InfiniteHearsViewModel {

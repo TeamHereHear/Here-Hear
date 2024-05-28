@@ -53,6 +53,7 @@ class HearPlayViewModel: ObservableObject {
                 music: music,
                 userNickname: nickname
             )
+            await self.setPlayer(withVideoUrl: try? videoURL)
         } catch {
             self.error = error as? HearPlayError
         }
@@ -93,7 +94,7 @@ class HearPlayViewModel: ObservableObject {
     }
     
     
-    func setPlayer(withVideoUrl videoUrl: URL?) async {
+    private func setPlayer(withVideoUrl videoUrl: URL?) async {
         guard let videoUrl else { return }
         videoPlayer = AVPlayer(url: videoUrl)
        
