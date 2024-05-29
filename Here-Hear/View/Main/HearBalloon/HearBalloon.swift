@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct HearBalloon: View {
-    @StateObject private var viewModel: HearBalloonViewModel
+    @StateObject var viewModel: HearBalloonViewModel
+    @EnvironmentObject private var container: DIContainer
+    @State private var isPresented: Bool = false
     
     private let width: CGFloat = 192
     private let height: CGFloat = 72
@@ -17,13 +19,25 @@ struct HearBalloon: View {
     
     private let albumArtWidth: CGFloat = 72
     
-    init(viewModel: HearBalloonViewModel) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
-    }
-    
     var body: some View {
+        content
+            .overlay {
+                NavigationLink {
+                    InfiniteHearsView(viewModel: .init(container: container))
+                } label: {
+                    Spacer()
+                        .frame(maxHeight: .infinity)
+                }
+            }
+            .onAppear {
+                viewModel.fetchMusic()
+                viewModel.fetchHearUser()
+            }
+    }
+
+    
+    private var content: some View {
         HStack(spacing: 0) {
-            
             albumArt
                 .padding(.trailing, 5)
             
@@ -42,10 +56,7 @@ struct HearBalloon: View {
                 tipHeight: tipHeight
             )
         }
-        .onAppear {
-            viewModel.fetchMusic()
-            viewModel.fetchHearUser()
-        }
+        
     }
     
     private var albumArt: some View {

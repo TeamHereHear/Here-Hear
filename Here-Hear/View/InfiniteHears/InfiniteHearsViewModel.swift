@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import CoreLocation
+import Logging
 
 // TODO: 정책상 정해야하는 부분
 enum InfiniteHearsSearchingRadius: Int {
@@ -40,7 +41,9 @@ enum InfiniteHearsSearchingRadius: Int {
     }
 }
 
+@Logging
 class InfiniteHearsViewModel: ObservableObject {
+    @Published var error: InfiniteHearsViewModelError? = nil
     @Published var hears: [HearModel] = []
     
     @Published var loadingState: LoadingState = .none
@@ -64,16 +67,24 @@ class InfiniteHearsViewModel: ObservableObject {
         self.loadingState = state
     }
     
+    private func setError(_ error: InfiniteHearsViewModelError) {
+        logger.error("\(error.localizedDescription)")
+        self.error = error
+    }
+    
     @MainActor
     func fetchHears() async {
         guard loadingState != .fetchedAll else { return }
         guard let userLocation else {
-            updateLoadingState(to: .failed(.unknownUserLocation))
+            updateLoadingState(to: .failed)
+            setError(.unknownUserLocation)
             return
         }
         guard let geohashPrecision = GeohashPrecision
              .minimumGeohashPrecisionLength(when: searchingRadius.meter) else {
-            updateLoadingState(to: .failed(.unexpected))
+            updateLoadingState(to: .failed)
+            //TODO: 에러 신설
+            setError(.unknownUserLocation)
             return
         }
         
@@ -116,21 +127,21 @@ class InfiniteHearsViewModel: ObservableObject {
             
         } catch {
             // TODO: 에러의 종류에 따라서 세분화 하기
-            updateLoadingState(to: .failed(.unexpected))
+            updateLoadingState(to: .failed)
+            setError(.failedToFetchHears(error))
         }
         
-    }    
-    
+    }
   
 }
 
 extension InfiniteHearsViewModel {
     enum LoadingState: Hashable {
-        case none, fetching, fetchedAll, failed(InfiniteHearsViewModelError)
+        case none, fetching, fetchedAll, failed
     }
     
     enum InfiniteHearsViewModelError: Error {
-        case failedToFetchHears
+        case failedToFetchHears(Error)
         case unknownUserLocation
         case unexpected
     }

@@ -116,6 +116,7 @@
 		5BDD3E692BCBB5D6007DE573 /* HalfSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDD3E682BCBB5D6007DE573 /* HalfSheet.swift */; };
 		5BDEDCED2B99D9800055D40A /* ImageUploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDEDCEC2B99D9800055D40A /* ImageUploadService.swift */; };
 		5BE065922BBD7DA90018479B /* CLLocationCoordinate2D+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE065912BBD7DA90018479B /* CLLocationCoordinate2D+Extension.swift */; };
+		5BE22A972C075E2100D3F62A /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 5BE22A962C075E2100D3F62A /* Logging */; };
 		5BEA6AFE2B9F32D4006C48AC /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA6AFD2B9F32D4006C48AC /* RemoteImage.swift */; };
 		5BEA6B012B9F33E6006C48AC /* RemoteImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA6B002B9F33E6006C48AC /* RemoteImageViewModel.swift */; };
 		5BEA6B032B9F3522006C48AC /* StorageImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA6B022B9F3522006C48AC /* StorageImageService.swift */; };
@@ -267,6 +268,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BE22A972C075E2100D3F62A /* Logging in Frameworks */,
 				5B3ABD3E2BA9BCE0002C8201 /* GoogleSignIn in Frameworks */,
 				5BD2A5202BA322A700EC4049 /* FirebaseFirestore in Frameworks */,
 				5BD2A51E2BA322A700EC4049 /* FirebaseAuth in Frameworks */,
@@ -717,6 +719,7 @@
 				5BD2A5212BA322A700EC4049 /* FirebaseStorage */,
 				5B3ABD3D2BA9BCE0002C8201 /* GoogleSignIn */,
 				04C0147B2BB7F7F8005F1A77 /* Geohash */,
+				5BE22A962C075E2100D3F62A /* Logging */,
 			);
 			productName = "Here-Hear";
 			productReference = 04A746B62B8464A700182C5F /* Here-Hear.app */;
@@ -795,6 +798,7 @@
 				5BD2A51C2BA322A700EC4049 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				5B3ABD3C2BA9BCE0002C8201 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				04C0147A2BB7F7F8005F1A77 /* XCRemoteSwiftPackageReference "Geohash" */,
+				5BE22A952C075E2100D3F62A /* XCRemoteSwiftPackageReference "Swift-Logger" */,
 			);
 			productRefGroup = 04A746B72B8464A700182C5F /* Products */;
 			projectDirPath = "";
@@ -1384,6 +1388,14 @@
 				minimumVersion = 10.22.1;
 			};
 		};
+		5BE22A952C075E2100D3F62A /* XCRemoteSwiftPackageReference "Swift-Logger" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tyrell84/Swift-Logger.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1411,6 +1423,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5BD2A51C2BA322A700EC4049 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		5BE22A962C075E2100D3F62A /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5BE22A952C075E2100D3F62A /* XCRemoteSwiftPackageReference "Swift-Logger" */;
+			productName = Logging;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -31,7 +31,9 @@ struct MainView: View {
             ) { hear in
                 MapAnnotation(coordinate: .init(geohash: hear.location.geohashExact)) {
                     HearBalloon(viewModel: .init(hear: hear, container: container))
+                        
                 }
+                
             }
             .overlay(alignment: .bottom) {
                 Button {

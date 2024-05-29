@@ -20,7 +20,7 @@ struct HearPlayView: View {
                     .allowsHitTesting(false)
             } else {
                 RemoteImage(
-                    path: "Thumbnails/\(viewModel.hear.id).jpg",
+                    path: "Thumbnail/\(viewModel.hear.id).jpg",
                     isStorageImage: true,
                     transitionDuration: 1
                 ) {
