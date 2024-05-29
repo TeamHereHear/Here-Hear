@@ -13,20 +13,31 @@ struct HearPlayView: View {
     
     var body: some View {
         ZStack {
-            if let videoPlayer = viewModel.videoPlayer {
-                Player(player: videoPlayer, loop: true)
-                    .ignoresSafeArea()
-                    .scaledToFill()
-                    .allowsHitTesting(false)
+            if viewModel.hasVideo {
+                if let videoPlayer = viewModel.videoPlayer {
+                    Player(player: videoPlayer, loop: true)
+                        .ignoresSafeArea()
+                        .scaledToFill()
+                        .allowsHitTesting(false)
+                } else {
+                    RemoteImage(
+                        path: viewModel.thumbnailPath,
+                        isStorageImage: true,
+                        transitionDuration: 1
+                    ) {
+                        ProgressView()
+                    }
+                }
             } else {
                 RemoteImage(
-                    path: "Thumbnail/\(viewModel.hear.id).jpg",
-                    isStorageImage: true,
+                    path: viewModel.viewData.music?.artwork?.absoluteString,
+                    isStorageImage: false,
                     transitionDuration: 1
                 ) {
                     ProgressView()
                 }
             }
+           
             VStack(spacing: 0) {
                 progressBar
                 

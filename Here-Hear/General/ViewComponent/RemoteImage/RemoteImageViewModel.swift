@@ -14,7 +14,7 @@ final class RemoteImageViewModel: ObservableObject {
     
     private let container: DIContainer
     private let path: String
-    public let isStorageImage: Bool
+    public let fetchFromFBStorage: Bool
     
     init(
         container: DIContainer,
@@ -23,14 +23,14 @@ final class RemoteImageViewModel: ObservableObject {
     ) {
         self.container = container
         self.path = path
-        self.isStorageImage = isStorageImage
+        self.fetchFromFBStorage = isStorageImage
     }
     
     @MainActor
     func fetch() async {
         self.imageLoadingState = .loading
         
-        guard !isStorageImage else {
+        guard !fetchFromFBStorage else {
             self.imageLoadingState = .failed
              return
         }
@@ -48,7 +48,7 @@ final class RemoteImageViewModel: ObservableObject {
     func fetchFromStoragePath() async {
         self.imageLoadingState = .loading
         
-        guard isStorageImage else {
+        guard fetchFromFBStorage else {
             self.imageLoadingState = .failed
              return
         }

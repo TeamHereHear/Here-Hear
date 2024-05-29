@@ -11,7 +11,7 @@ struct RemoteImage<Placeholder: View>: View {
     @EnvironmentObject private var container: DIContainer
     
     private let path: String?
-    private let isStorageImage: Bool
+    private let fetchFromFBStorage: Bool
     private let transitionDuration: TimeInterval
     private let placeholder: () -> Placeholder
     
@@ -22,7 +22,7 @@ struct RemoteImage<Placeholder: View>: View {
         @ViewBuilder placeholder: @escaping () -> Placeholder
     ) {
         self.path = path
-        self.isStorageImage = isStorageImage
+        self.fetchFromFBStorage = isStorageImage
         self.transitionDuration = transitionDuration
         self.placeholder = placeholder
     }
@@ -33,7 +33,7 @@ struct RemoteImage<Placeholder: View>: View {
                 viewModel: .init(
                     container: container,
                     path: path,
-                    isStorageImage: isStorageImage
+                    isStorageImage: fetchFromFBStorage
                 ),
                 placeholder: placeholder
             )
@@ -79,7 +79,7 @@ private struct RemoteImageInnerView<Placeholder: View>: View {
                 return
             }
             
-            if viewModel.isStorageImage {
+            if viewModel.fetchFromFBStorage {
                 await viewModel.fetchFromStoragePath()
             } else {
                 await viewModel.fetch()

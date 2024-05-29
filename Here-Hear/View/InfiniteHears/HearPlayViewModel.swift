@@ -23,9 +23,9 @@ class HearPlayViewModel: ObservableObject {
         var userNickname: String?
     }
     
+    @Published var hasVideo: Bool = true
     @Published var videoPlayer: AVPlayer?
     @Published var videoProgress: CGFloat?
-    
 
     @Published var error: HearPlayError?
     enum HearPlayError: LocalizedError {
@@ -53,25 +53,25 @@ class HearPlayViewModel: ObservableObject {
                 music: music,
                 userNickname: nickname
             )
-            await self.setPlayer(withVideoUrl: try? videoURL)
+            await self.setPlayer(withVideoUrl: videoURL)
         } catch {
             self.error = error as? HearPlayError
         }
     }
     
     @MainActor
-    private func fetchVideoURL() async throws -> URL {
-        do {
-            return try await container.services.videoService.hearVideoUrl(ofId: hear.id)
-        } catch {
-            throw HearPlayError.failedToFetchVideoURL
-        }
+    private func fetchVideoURL() async -> URL? {        
+        let url = try? await container.services.videoService.hearVideoUrl(ofId: hear.id)
+        if url == nil { hasVideo = false }
+        
+        return url
     }
 
-    
     @MainActor
     private func fetchMusic() async throws -> MusicModel? {
-        guard let musicId = hear.musicIds.first else { return nil }
+        guard let musicId = hear.musicIds.first else {
+            return nil
+        }
         do {
             let musics = try await container.services.musicService.fetchMusic(ofIds: [musicId])
             if musics.isEmpty { return nil }
@@ -95,7 +95,9 @@ class HearPlayViewModel: ObservableObject {
     
     
     private func setPlayer(withVideoUrl videoUrl: URL?) async {
-        guard let videoUrl else { return }
+        guard let videoUrl else {
+            return
+        }
         videoPlayer = AVPlayer(url: videoUrl)
        
         videoPlayer?.isMuted = true
