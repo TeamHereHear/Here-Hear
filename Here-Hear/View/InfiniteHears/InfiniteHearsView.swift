@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct InfiniteHearsView: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: InfiniteHearsViewModel
     @EnvironmentObject private var container: DIContainer
     
-    
     @State private var offset: CGFloat = 0
+    @State private var currentWeather: Weather?
     
     var body: some View {
         ScrollViewReader { proxy in
@@ -25,25 +26,47 @@ struct InfiniteHearsView: View {
                                 hear: viewModel.hears[index]
                             )
                         )
-                            .frame(height: UIScreen.main.bounds.height)
-                            .ignoresSafeArea(.all)
-                            .id(index)
-                            .gesture(
-                                DragGesture(
-                                    minimumDistance: 0,
-                                    coordinateSpace: .local
-                                )
-                                .onEnded { swipeTo($0, currentIndex: index, scrollProxy: proxy) }
+                        .frame(width: UIScreen.current?.bounds.width)
+                        .frame(height: UIScreen.current?.bounds.height)
+                        .id(index)
+                        .gesture(
+                            DragGesture(
+                                minimumDistance: 0,
+                                coordinateSpace: .local
                             )
-                            .task {
-                                await fetchMoreHears(whenIndexIs: index, outOfTotalCount: viewModel.hears.count)
-                            }
+                            .onEnded { swipeTo($0, currentIndex: index, scrollProxy: proxy) }
+                        )
+                        .task {
+                            currentWeather = viewModel.hears[index].weather
+                        }
+                        .task {
+                            await fetchMoreHears(whenIndexIs: index, outOfTotalCount: viewModel.hears.count)
+                        }
                     }
                 }
                 .animation(.spring, value: offset)
                 .offset(y: offset)
             }
             .ignoresSafeArea(.all)
+        }
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                HStack {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "arrow.left")
+                            .font(.system(size: 25))
+                            .foregroundStyle(.white)
+                    }
+                    if let weather = currentWeather {
+                        Image(systemName: weather.imageName)
+                            .foregroundStyle(weather.color)
+                            .font(.system(size: 35))
+                    }
+                }
+            }
         }
         .task {
             await viewModel.fetchHears()

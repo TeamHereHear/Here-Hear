@@ -75,6 +75,7 @@
 		5B3ABD3E2BA9BCE0002C8201 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 5B3ABD3D2BA9BCE0002C8201 /* GoogleSignIn */; };
 		5B3ABD422BA9CD71002C8201 /* HearModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3ABD412BA9CD71002C8201 /* HearModel+Mock.swift */; };
 		5B3FD1C12BC818E1006A94BD /* OpenInOtherMusicServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FD1C02BC818E1006A94BD /* OpenInOtherMusicServiceView.swift */; };
+		5B46FC042C08B55A00C2275D /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B46FC032C08B55A00C2275D /* UIWindow+Extension.swift */; };
 		5B47F8CB2BD14E170059FCA7 /* HearPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B47F8CA2BD14E170059FCA7 /* HearPlayView.swift */; };
 		5B7690712B9892430023A26F /* ProfileImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7690702B9892430023A26F /* ProfileImagePicker.swift */; };
 		5B7690742B98A35E0023A26F /* NavigationAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7690732B98A35E0023A26F /* NavigationAdaptor.swift */; };
@@ -214,6 +215,7 @@
 		5B2F1BFA2BA1D9B60058A64F /* OnBoardingPageOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPageOne.swift; sourceTree = "<group>"; };
 		5B3ABD412BA9CD71002C8201 /* HearModel+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HearModel+Mock.swift"; sourceTree = "<group>"; };
 		5B3FD1C02BC818E1006A94BD /* OpenInOtherMusicServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenInOtherMusicServiceView.swift; sourceTree = "<group>"; };
+		5B46FC032C08B55A00C2275D /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
 		5B47F8CA2BD14E170059FCA7 /* HearPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearPlayView.swift; sourceTree = "<group>"; };
 		5B7690702B9892430023A26F /* ProfileImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagePicker.swift; sourceTree = "<group>"; };
 		5B7690732B98A35E0023A26F /* NavigationAdaptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAdaptor.swift; sourceTree = "<group>"; };
@@ -627,6 +629,7 @@
 				04A747412B8C320C00182C5F /* SHA256.swift */,
 				5BE065912BBD7DA90018479B /* CLLocationCoordinate2D+Extension.swift */,
 				5BC7CB612BC4254500B409A7 /* Constant.swift */,
+				5B46FC032C08B55A00C2275D /* UIWindow+Extension.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -918,6 +921,7 @@
 				5B2F03AB2BBED1D40010266C /* HearListSortingMenu.swift in Sources */,
 				04A747242B85DCDB00182C5F /* Color+StringConverter.swift in Sources */,
 				5BDBBD2C2B8479E700DEB7DC /* MusicService.swift in Sources */,
+				5B46FC042C08B55A00C2275D /* UIWindow+Extension.swift in Sources */,
 				04A747202B85C37E00182C5F /* Weather.swift in Sources */,
 				04A746F12B84672300182C5F /* HearEntity.swift in Sources */,
 				5BD2A5242BA32C0900EC4049 /* OnBoardingPageTwo.swift in Sources */,

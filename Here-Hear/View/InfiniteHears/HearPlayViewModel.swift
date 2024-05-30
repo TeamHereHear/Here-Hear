@@ -15,17 +15,23 @@ class HearPlayViewModel: ObservableObject {
         "\(StoragePath.Thumbnail)/\(hear.id).jpg"
     }
     private let container: DIContainer
-    @Published var viewData: ViewData = .init()
     
-    struct ViewData {
-        var videoURL: URL?
+    @Published var musicData: MusicData = .init()
+    @Published var videoData: VideoData = .init()
+    @Published var videoPlayer: AVPlayer?
+    private var musicPlayer: AVPlayer?
+    @Published var userNickname: String?
+    
+    struct MusicData {
         var music: MusicModel?
-        var userNickname: String?
+        var musicPlayBackProgress: CGFloat?
     }
     
-    @Published var hasVideo: Bool = true
-    @Published var videoPlayer: AVPlayer?
-    @Published var videoProgress: CGFloat?
+    struct VideoData {
+        var videoURL: URL?
+        var hasVideo: Bool = true
+        var videoProgress: CGFloat?
+    }
 
     @Published var error: HearPlayError?
     enum HearPlayError: LocalizedError {
@@ -47,22 +53,26 @@ class HearPlayViewModel: ObservableObject {
         async let videoURL = fetchVideoURL()
         async let music = fetchMusic()
         async let nickname = fetchHearUser()
-        do {
-            try await self.viewData = .init(
-                videoURL: videoURL,
-                music: music,
-                userNickname: nickname
-            )
-            await self.setPlayer(withVideoUrl: videoURL)
-        } catch {
-            self.error = error as? HearPlayError
+        
+        self.videoData = if let url = await videoURL {
+            VideoData(videoURL: url, hasVideo: true)
+        } else {
+            VideoData(hasVideo: false)
         }
+        
+        self.userNickname = try? await nickname
+        self.musicData.music = try? await music
+        
+        await self.setPlayer(withVideoURL: self.videoData.videoURL)
+        await self.setMusicPlayer(
+            withPreviewURL: self.musicData.music?.previewURL,
+            hasVideo: self.videoData.hasVideo
+        )
     }
     
     @MainActor
     private func fetchVideoURL() async -> URL? {        
         let url = try? await container.services.videoService.hearVideoUrl(ofId: hear.id)
-        if url == nil { hasVideo = false }
         
         return url
     }
@@ -93,12 +103,11 @@ class HearPlayViewModel: ObservableObject {
         
     }
     
-    
-    private func setPlayer(withVideoUrl videoUrl: URL?) async {
-        guard let videoUrl else {
+    private func setPlayer(withVideoURL videoURL: URL?) async {
+        guard let videoURL else {
             return
         }
-        videoPlayer = AVPlayer(url: videoUrl)
+        videoPlayer = AVPlayer(url: videoURL)
        
         videoPlayer?.isMuted = true
         
@@ -110,13 +119,50 @@ class HearPlayViewModel: ObservableObject {
             let currentTimeSeconds = CMTimeGetSeconds(time)
             if let totalTime {
                 let totalTimeSeconds = CMTimeGetSeconds(totalTime)
-                self.videoProgress = CGFloat(currentTimeSeconds) / CGFloat(totalTimeSeconds)
+                self.videoData.videoProgress = CGFloat(currentTimeSeconds) / CGFloat(totalTimeSeconds)
             }
+        }
+    }
+    
+    private func setMusicPlayer(withPreviewURL previewURL: URL?, hasVideo: Bool) async {
+        guard let previewURL else { return }
+        musicPlayer = AVPlayer(url: previewURL)
+        await musicPlayer?.play()
+        
+        guard !hasVideo else { return }
+        
+        let interval = CMTime(seconds: 0.01, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        let totalTime = try? await musicPlayer?.currentItem?.asset.load(.duration)
+        musicPlayer?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main) { time in
+            let currentTimeSeconds = CMTimeGetSeconds(time)
+            if let totalTime {
+                let totalTimeSeconds = CMTimeGetSeconds(totalTime)
+                self.musicData.musicPlayBackProgress = CGFloat(currentTimeSeconds) / CGFloat(totalTimeSeconds)
+            }
+        }
+        setUpMusicPlayerEndObserver()
+    }
+    
+    private func setUpMusicPlayerEndObserver() {
+        NotificationCenter.default.addObserver(
+            forName: .AVPlayerItemDidPlayToEndTime,
+            object: musicPlayer?.currentItem,
+            queue: .main
+        ) {  _ in
+            self.musicPlayer?.seek(to: .zero)
+            self.musicPlayer?.play()
         }
     }
     
     func cleanPlayer() {
         videoPlayer?.pause()
+        musicPlayer?.pause()
+        NotificationCenter.default.removeObserver(
+            self,
+            name: .AVPlayerItemDidPlayToEndTime,
+            object: musicPlayer?.currentItem
+        )
+        musicPlayer = nil
         videoPlayer = nil
     }
 }

@@ -9,11 +9,23 @@ import SwiftUI
 import AVKit
 
 struct HearPlayView: View {
+    
     @StateObject var viewModel: HearPlayViewModel
     
     var body: some View {
-        ZStack {
-            if viewModel.hasVideo {
+        VStack(spacing: 0) {
+            if viewModel.videoData.hasVideo {
+                playingMusicView
+            }
+            
+            Spacer()
+            
+            buttons
+            informationView
+           
+        }
+        .background {
+            if viewModel.videoData.hasVideo {
                 if let videoPlayer = viewModel.videoPlayer {
                     Player(player: videoPlayer, loop: true)
                         .ignoresSafeArea()
@@ -30,30 +42,17 @@ struct HearPlayView: View {
                 }
             } else {
                 RemoteImage(
-                    path: viewModel.viewData.music?.artwork?.absoluteString,
+                    path: viewModel.musicData.music?.artwork?.absoluteString,
                     isStorageImage: false,
                     transitionDuration: 1
                 ) {
                     ProgressView()
                 }
+                .scaledToFill()
+                .clipped()
+                .blur(radius: 20)
             }
-           
-            VStack(spacing: 0) {
-                progressBar
-                
-                topBar
-                
-                playingMusicView
-                
-                Spacer()
-                
-                buttons
-
-                informationView
-            }
-            .frame(maxWidth: UIScreen.main.bounds.width)
-            .ignoresSafeArea(edges: .bottom)
-           
+            
         }
         .task {
             await viewModel.fetchAllData()
@@ -65,35 +64,23 @@ struct HearPlayView: View {
     
     @ViewBuilder
     private var progressBar: some View {
-        if let progress = viewModel.videoProgress {
-            HHProgressBar(value: progress)
-                .padding(.horizontal)
-        }
-    }
-    
-    private var topBar: some View {
-        HStack {
-            Button {
-                // TODO: 뒤로가기
-            } label: {
-                Image(systemName: "arrow.left")
-                    .font(.system(size: 25))
-                    .foregroundStyle(.white)
+        if viewModel.videoData.hasVideo {
+            if let progress = viewModel.videoData.videoProgress {
+                HHProgressBar(value: progress)
+                    .padding(.horizontal)
             }
-            if let weather = viewModel.hear.weather {
-                Image(systemName: weather.imageName)
-                    .foregroundStyle(weather.color)
-                    .font(.system(size: 35))
+        } else {
+            if let progress = viewModel.musicData.musicPlayBackProgress {
+                HHProgressBar(value: progress)
+                    .padding(.horizontal)
+                
             }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.vertical, 11)
-        .padding(.horizontal)
     }
     
     @ViewBuilder
     private var playingMusicView: some View {
-        if let music = viewModel.viewData.music {
+        if let music = viewModel.musicData.music {
             HStack(spacing: 15) {
                 RemoteImage(
                     path: music.artwork?.absoluteString,
@@ -163,8 +150,8 @@ struct HearPlayView: View {
                 Circle()
                     .foregroundStyle(.hhGray)
                     .frame(width: 50, height: 50)
-                    
-                Text(viewModel.viewData.userNickname ?? "")
+                
+                Text(viewModel.userNickname ?? "")
                     .foregroundStyle(.white)
                     .font(.caption.weight(.bold))
                 Text("50m")
@@ -178,6 +165,8 @@ struct HearPlayView: View {
             Text("행배야! 오늘 날씨 진짜 즥인다.")
                 .foregroundStyle(.white)
                 .padding(.leading, 55)
+            progressBar
+                .frame(height: 20, alignment: .top)
         }
         .padding(.leading)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -186,7 +175,7 @@ struct HearPlayView: View {
             LinearGradient(
                 stops: [.init(color: .clear, location: 0),
                         .init(color: .black, location: 1)
-                       ],
+                ],
                 startPoint: .init(x: 0.5, y: 0),
                 endPoint: .init(x: 0.5, y: 1)
             )
