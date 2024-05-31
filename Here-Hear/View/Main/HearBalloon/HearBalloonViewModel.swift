@@ -16,6 +16,9 @@ final class HearBalloonViewModel: ObservableObject {
     }
     
     private let hear: HearModel
+    public var location: LocationModel {
+        hear.location
+    }
     private let container: DIContainer
     private var cancellables = Set<AnyCancellable>()
     

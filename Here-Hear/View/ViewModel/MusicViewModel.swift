@@ -128,7 +128,6 @@ class MusicViewModel: ObservableObject {
             self.player?.seek(to: .zero) // 재생 위치 시작으로 이동
             self.currentlyPlayingURL = nil // 현재 재생중인 URL 초기화하기
             self.isPlaying = false // 재생 중이 아님
-
         }
     }
 }

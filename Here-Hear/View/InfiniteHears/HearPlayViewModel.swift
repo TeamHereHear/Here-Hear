@@ -63,12 +63,11 @@ class HearPlayViewModel: ObservableObject {
         self.userNickname = try? await nickname
         self.musicData.music = try? await music
         
-        await self.setPlayer(withVideoURL: self.videoData.videoURL)
-        await self.setMusicPlayer(
-            withPreviewURL: self.musicData.music?.previewURL,
-            hasVideo: self.videoData.hasVideo
-        )
+        self.setPlayer(withVideoURL: self.videoData.videoURL)
+        self.setMusicPlayer(withPreviewURL: self.musicData.music?.previewURL)
     }
+    
+    
     
     @MainActor
     private func fetchVideoURL() async -> URL? {        
@@ -103,12 +102,14 @@ class HearPlayViewModel: ObservableObject {
         
     }
     
-    private func setPlayer(withVideoURL videoURL: URL?) async {
+    private func setPlayer(withVideoURL videoURL: URL?) {
         guard let videoURL else {
             return
         }
         videoPlayer = AVPlayer(url: videoURL)
-       
+    }
+    
+    func playVideo() async {
         videoPlayer?.isMuted = true
         
         await videoPlayer?.play()
@@ -124,12 +125,15 @@ class HearPlayViewModel: ObservableObject {
         }
     }
     
-    private func setMusicPlayer(withPreviewURL previewURL: URL?, hasVideo: Bool) async {
+    private func setMusicPlayer(withPreviewURL previewURL: URL?) {
         guard let previewURL else { return }
         musicPlayer = AVPlayer(url: previewURL)
+    }
+    
+    func playMusic() async {
         await musicPlayer?.play()
         
-        guard !hasVideo else { return }
+        guard !self.videoData.hasVideo else { return }
         
         let interval = CMTime(seconds: 0.01, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         let totalTime = try? await musicPlayer?.currentItem?.asset.load(.duration)
@@ -144,6 +148,11 @@ class HearPlayViewModel: ObservableObject {
     }
     
     private func setUpMusicPlayerEndObserver() {
+        NotificationCenter.default.removeObserver(
+            self,
+            name: .AVPlayerItemDidPlayToEndTime,
+            object: musicPlayer?.currentItem
+        )
         NotificationCenter.default.addObserver(
             forName: .AVPlayerItemDidPlayToEndTime,
             object: musicPlayer?.currentItem,
@@ -152,6 +161,13 @@ class HearPlayViewModel: ObservableObject {
             self.musicPlayer?.seek(to: .zero)
             self.musicPlayer?.play()
         }
+    }
+    
+    func pausePlayer() {
+        videoPlayer?.pause()
+        videoPlayer?.seek(to: .zero)
+        musicPlayer?.pause()
+        musicPlayer?.seek(to: .zero)
     }
     
     func cleanPlayer() {

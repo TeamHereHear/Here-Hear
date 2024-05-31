@@ -23,7 +23,7 @@ struct HearBalloon: View {
         content
             .overlay {
                 NavigationLink {
-                    InfiniteHearsView(viewModel: .init(container: container))
+                    InfiniteHearsView(viewModel: .init(container: container, location: viewModel.location))
                 } label: {
                     Spacer()
                         .frame(maxHeight: .infinity)

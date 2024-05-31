@@ -9,8 +9,9 @@ import SwiftUI
 import AVKit
 
 struct HearPlayView: View {
-    
     @StateObject var viewModel: HearPlayViewModel
+    @Binding var currentIndex: Int
+    let index: Int
     
     var body: some View {
         VStack(spacing: 0) {
@@ -56,10 +57,25 @@ struct HearPlayView: View {
         }
         .task {
             await viewModel.fetchAllData()
+            if index == 0 {
+                await viewModel.playVideo()
+                await viewModel.playMusic()
+            }
         }
-        .onDisappear {
+        .onChange(of: currentIndex) { value in
+            if index == value {
+                Task {
+                    await viewModel.playVideo()
+                    await viewModel.playMusic()
+                }
+            } else {
+                viewModel.pausePlayer()
+            }
+        }
+        .onDisappear(perform: {
             viewModel.cleanPlayer()
-        }
+        })
+      
     }
     
     @ViewBuilder
@@ -184,7 +200,7 @@ struct HearPlayView: View {
 }
 
 #Preview {
-    HearPlayView(viewModel: .init(container: .stub, hear: .onBoardingPageOneStub))
+    HearPlayView(viewModel: .init(container: .stub, hear: .onBoardingPageOneStub), currentIndex: .constant(1), index: 1)
         .environmentObject(
             DIContainer.stub
         )

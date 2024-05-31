@@ -14,6 +14,7 @@ struct InfiniteHearsView: View {
     
     @State private var offset: CGFloat = 0
     @State private var currentWeather: Weather?
+    @State private var currentIndex: Int = 0
     
     var body: some View {
         ScrollViewReader { proxy in
@@ -24,7 +25,9 @@ struct InfiniteHearsView: View {
                             viewModel: .init(
                                 container: container,
                                 hear: viewModel.hears[index]
-                            )
+                            ),
+                            currentIndex: $currentIndex,
+                            index: index
                         )
                         .frame(width: UIScreen.current?.bounds.width)
                         .frame(height: UIScreen.current?.bounds.height)
@@ -36,6 +39,9 @@ struct InfiniteHearsView: View {
                             )
                             .onEnded { swipeTo($0, currentIndex: index, scrollProxy: proxy) }
                         )
+                        .onAppear {
+                            print("hearplayview of index \(index) is appeared")
+                        }
                         .task {
                             currentWeather = viewModel.hears[index].weather
                         }
@@ -83,6 +89,8 @@ struct InfiniteHearsView: View {
     }
     
     private let swipeThreshold: CGFloat = 80
+    
+    @MainActor
     private func swipeTo(
         _ value: DragGesture.Value,
         currentIndex index: Int,
@@ -96,6 +104,7 @@ struct InfiniteHearsView: View {
             withAnimation(.easeInOut) {
                 proxy.scrollTo(index + 1, anchor: .top)
             }
+            self.currentIndex = index + 1
         case -swipeThreshold..<0:
             guard index < hearsCount - 1 else { return }
             offset = -swipeThreshold
@@ -113,6 +122,7 @@ struct InfiniteHearsView: View {
             withAnimation(.easeInOut) {
                 proxy.scrollTo(index - 1, anchor: .top)
             }
+            self.currentIndex = index - 1
         default:
             return
         }
@@ -120,5 +130,14 @@ struct InfiniteHearsView: View {
 }
 
 #Preview {
-    InfiniteHearsView(viewModel: .init(container: .stub))
+    InfiniteHearsView(
+        viewModel: .init(
+            container: .stub,
+            location: .init(
+                latitude: 10,
+                longitude: 10,
+                geohashExact: "aaaaaaµ"
+            )
+        )
+    )
 }
