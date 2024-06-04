@@ -15,7 +15,7 @@ final class HearBalloonViewModel: ObservableObject {
         hear.like
     }
     
-    private let hear: HearModel
+    public let hear: HearModel
     public var location: LocationModel {
         hear.location
     }

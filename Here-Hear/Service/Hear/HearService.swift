@@ -22,6 +22,7 @@ protocol HearServiceInterface {
         radiusInMeter radius: Double,
         inGeohashes geohashArray: [String],
         startAt previousLastDocumentId: String?,
+        excludingHear idOfExcludingHear: String?,
         limit: Int
     ) async throws -> (documents: [HearModel], lastDocumentId: String?)
     
@@ -59,6 +60,7 @@ class HearService: HearServiceInterface {
         radiusInMeter radius: Double,
         inGeohashes geohashArray: [String],
         startAt previousLastDocumentId: String?,
+        excludingHear idOfExcludingHear: String? = nil,
         limit: Int
     ) async throws -> (documents: [HearModel], lastDocumentId: String?) {
         let result = try await repository.fetchAroundHears(
@@ -66,6 +68,7 @@ class HearService: HearServiceInterface {
             radiusInMeter: radius,
             inGeohashes: geohashArray,
             startAt: previousLastDocumentId,
+            excludingHear: idOfExcludingHear,
             limit: limit
         )
         
@@ -121,6 +124,7 @@ class StubHearService: HearServiceInterface {
         radiusInMeter radius: Double,
         inGeohashes geohashArray: [String],
         startAt previousLastDocumentId: String?,
+        excludingHear idOfExcludingHear: String? = nil,
         limit: Int
     ) async throws -> (documents: [HearModel], lastDocumentId: String?) {
         return (HearModel.mocks, nil)

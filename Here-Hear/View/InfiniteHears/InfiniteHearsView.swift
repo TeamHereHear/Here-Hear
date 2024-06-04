@@ -45,9 +45,6 @@ struct InfiniteHearsView: View {
                         .task {
                             currentWeather = viewModel.hears[index].weather
                         }
-                        .task {
-                            await fetchMoreHears(whenIndexIs: index, outOfTotalCount: viewModel.hears.count)
-                        }
                     }
                 }
                 .animation(.spring, value: offset)
@@ -77,15 +74,14 @@ struct InfiniteHearsView: View {
         .task {
             await viewModel.fetchHears()
         }
-    }
-    
-    private func fetchMoreHears(
-        whenIndexIs index: Int,
-        outOfTotalCount count: Int
-    ) async {
-        guard index == Int(Double(count) * 0.8) else { return }
-        
-        await viewModel.fetchHears()
+        .onAppear {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithTransparentBackground()
+            appearance.backgroundColor = .clear
+            
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        }
     }
     
     private let swipeThreshold: CGFloat = 80

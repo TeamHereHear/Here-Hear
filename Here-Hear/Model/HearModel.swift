@@ -42,7 +42,7 @@ extension HearModel {
         location: .init(
             latitude: 37.773619,
             longitude: -122.418793,
-            geohashExact: "aaaaaa"
+        geohashExact: "aaaaaa"
         ),
         musicIds: ["10"],
         feeling: .init(expressionText: String(localized: "hearModel.onBoardingPageOneStub.feeling.expressionText")),

@@ -30,6 +30,7 @@ protocol HearRepositoryInterface {
         radiusInMeter radius: Double,
         inGeohashes geohashArray: [String],
         startAt previousLastDocumentId: String?,
+        excludingHear idOfExcludingHear: String?,
         limit: Int
     ) async throws -> (documents: [HearEntity], lastDocumentId: String?)
     
@@ -43,7 +44,6 @@ class HearRepository: HearRepositoryInterface {
     
     let collectionRef = Firestore.firestore().collection("Hear")
     
-
     func fetchAroundHears(
         from center: CLLocation,
         radiusInMeter radius: Double,
@@ -109,6 +109,7 @@ class HearRepository: HearRepositoryInterface {
         radiusInMeter radius: Double,
         inGeohashes geohashArray: [String],
         startAt previousLastDocumentId: String?,
+        excludingHear idOfExcludingHear: String? = nil,
         limit: Int
     ) async throws -> (documents: [HearEntity], lastDocumentId: String?) {
         guard let precision = geohashArray.first?.count else {
@@ -122,10 +123,18 @@ class HearRepository: HearRepositoryInterface {
                 .getDocument()
         }
         
-        let query = self.collectionRef
-            .whereField(.init(["location", "geohash\(precision)"]), in: geohashArray)
-            .order(by: "createdAt", descending: true)
-            .limit(to: limit)
+        let query = if let idOfExcludingHear {
+            self.collectionRef
+                .whereField(.init(["location", "geohash\(precision)"]), in: geohashArray)
+                .whereField(.init(["id"]), isNotEqualTo: idOfExcludingHear)
+                .order(by: "createdAt", descending: true)
+                .limit(to: limit)
+        } else {
+            self.collectionRef
+                .whereField(.init(["location", "geohash\(precision)"]), in: geohashArray)
+                .order(by: "createdAt", descending: true)
+                .limit(to: limit)
+        }
         
         var result: ([HearEntity], String?)
         
@@ -236,6 +245,7 @@ class StubHearRepository: HearRepositoryInterface {
         radiusInMeter radius: Double,
         inGeohashes geohashArray: [String],
         startAt previousLastDocumentId: String?,
+        excludingHear idOfExcludingHear: String? = nil,
         limit: Int
     ) async throws -> (documents: [HearEntity], lastDocumentId: String?) {
         ([],nil)

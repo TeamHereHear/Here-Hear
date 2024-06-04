@@ -23,7 +23,13 @@ struct HearBalloon: View {
         content
             .overlay {
                 NavigationLink {
-                    InfiniteHearsView(viewModel: .init(container: container, location: viewModel.location))
+                    InfiniteHearsView(
+                        viewModel: .init(
+                            container: container,
+                            hear: viewModel.hear,
+                            location: viewModel.location
+                        )
+                    )
                 } label: {
                     Spacer()
                         .frame(maxHeight: .infinity)
@@ -35,7 +41,6 @@ struct HearBalloon: View {
             }
     }
 
-    
     private var content: some View {
         HStack(spacing: 0) {
             albumArt

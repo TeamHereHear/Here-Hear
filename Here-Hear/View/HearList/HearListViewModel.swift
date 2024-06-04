@@ -68,6 +68,7 @@ final class HearListViewModel: ObservableObject {
                 radiusInMeter: searchingRadiusInMeter,
                 inGeohashes: overlappingGeohashes,
                 startAt: self.lastDocumentID,
+                excludingHear: nil,
                 limit: fetchingLimit
             )
             

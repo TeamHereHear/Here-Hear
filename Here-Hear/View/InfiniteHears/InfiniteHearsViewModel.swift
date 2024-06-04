@@ -44,6 +44,7 @@ enum InfiniteHearsSearchingRadius: Int {
 @Logging
 class InfiniteHearsViewModel: ObservableObject {
     @Published var error: InfiniteHearsViewModelError?
+    private var startingHear: HearModel?
     @Published var hears: [HearModel] = []
     
     @Published var loadingState: LoadingState = .none
@@ -56,10 +57,14 @@ class InfiniteHearsViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var lastDocumentID: String?
     
-    init(container: DIContainer, location: LocationModel) {
-        //TODO: hear 하나를 받아오고 그 위치로부터 반경을 넓혀가며 보이는 것으로
+    init(container: DIContainer, hear: HearModel? = nil, location: LocationModel) {
         self.container = container
         self.location = location
+        self.startingHear = hear
+
+        if let hear {
+            hears.append(hear)
+        }
     }
     
     @MainActor
@@ -79,7 +84,6 @@ class InfiniteHearsViewModel: ObservableObject {
         guard let geohashPrecision = GeohashPrecision
              .minimumGeohashPrecisionLength(when: searchingRadius.meter) else {
             updateLoadingState(to: .failed)
-            //TODO: 에러 신설
             setError(.unknownUserLocation)
             return
         }
@@ -95,12 +99,13 @@ class InfiniteHearsViewModel: ObservableObject {
         )
         
         do {
-            var (models, lastDocumentID) = try await container.services.hearService.fetchAroundHears(
+            let (models, lastDocumentID) = try await container.services.hearService.fetchAroundHears(
                 latitude: latitude,
                 longitude: longitude,
                 radiusInMeter: searchingRadius.meter,
                 inGeohashes: overlappingGeohashes,
                 startAt: self.lastDocumentID,
+                excludingHear: startingHear?.id,
                 limit: fetchingLimit
             )
             
