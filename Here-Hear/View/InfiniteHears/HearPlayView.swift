@@ -16,7 +16,7 @@ struct HearPlayView: View {
     var body: some View {
         VStack(spacing: 0) {
             if viewModel.videoData.hasVideo {
-                playingMusicView
+                playingMusicBarView
             }
             
             Spacer()
@@ -52,6 +52,35 @@ struct HearPlayView: View {
                 .scaledToFill()
                 .clipped()
                 .blur(radius: 20)
+                .overlay {
+                    VStack(alignment: .center) {
+                        RemoteImage(
+                            path: viewModel.musicData.music?.artwork?.absoluteString,
+                            isStorageImage: false,
+                            transitionDuration: 1
+                        ) {
+                            ProgressView()
+                        }
+                        .scaledToFit()
+                        .clipShape(.rect(cornerRadius: 12, style: .continuous))
+                        .frame(width: 280, height: 280)
+                        .shadow(radius: 10)
+                        
+                        MarqueeText(viewModel.musicData.music?.title ?? "No Title")
+                            .font(.title2.weight(.semibold))
+                            .foregroundStyle(.white)
+                            .shadow(radius: 2)
+                            .frame(width: 280, height: 28)
+                
+                        MarqueeText(viewModel.musicData.music?.artist ?? "No Artist")
+                            .font(.body.weight(.regular))
+                            .foregroundStyle(.white)
+                            .shadow(radius: 2)
+                            .frame(width: 280, height: 28)
+                            .padding(.bottom, 56)
+                    }
+                    .frame(width: UIScreen.current?.bounds.width)
+                }
             }
             
         }
@@ -95,7 +124,7 @@ struct HearPlayView: View {
     }
     
     @ViewBuilder
-    private var playingMusicView: some View {
+    private var playingMusicBarView: some View {
         if let music = viewModel.musicData.music {
             HStack(spacing: 15) {
                 RemoteImage(
@@ -140,6 +169,7 @@ struct HearPlayView: View {
                 Image(systemName: "music.note")
                     .font(.system(size: 32, weight: .bold))
                     .foregroundStyle(.hhSecondary)
+                    .shadow(radius: 5)
             }
             
             Button {
@@ -150,10 +180,11 @@ struct HearPlayView: View {
                     .foregroundStyle(.hhSecondary)
                     .padding(.vertical, 12)
                     .overlay(alignment: .bottom) {
-                        Text(100, format: .number)
+                        Text(viewModel.hear.like, format: .number)
                             .font(.system(size: 10))
                             .foregroundStyle(.white)
                     }
+                    .shadow(radius: 5)
             }
         }
         .padding(.trailing, 12)
@@ -165,32 +196,42 @@ struct HearPlayView: View {
             HStack(spacing: 5) {
                 Circle()
                     .foregroundStyle(.hhGray)
-                    .frame(width: 50, height: 50)
+                    .frame(width: 32, height: 32)
                 
                 Text(viewModel.userNickname ?? "")
                     .foregroundStyle(.white)
                     .font(.caption.weight(.bold))
-                Text("50m")
-                    .foregroundStyle(.white)
-                    .font(.caption2)
+                if let distance = viewModel.distance {
+                    Text(Measurement<UnitLength>(value: distance, unit: .meters), format: .measurement(width: .abbreviated, usage: .general))
+                        .foregroundStyle(.white)
+                        .font(.caption2)
+                }
                 Text(viewModel.hear.createdAt, format: .dateTime)
                     .foregroundStyle(.white)
                     .font(.caption2)
+                if let weather = viewModel.hear.weather {
+                    Image(systemName: weather.imageName)
+                        .foregroundStyle(weather.color)
+                        .font(.body)
+                    
+                }
             }
             
-            Text("행배야! 오늘 날씨 진짜 즥인다.")
+            Text(viewModel.hear.feeling.expressionText ?? "")
                 .foregroundStyle(.white)
                 .padding(.leading, 55)
-            progressBar
-                .frame(height: 20, alignment: .top)
+            VStack {
+                progressBar
+            }
+            .frame(height: 20, alignment: .top)
         }
         .padding(.leading)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .frame(height: 150)
+        .frame(height: 160)
         .background {
             LinearGradient(
                 stops: [.init(color: .clear, location: 0),
-                        .init(color: .black, location: 1)
+                        .init(color: .black, location: 2)
                 ],
                 startPoint: .init(x: 0.5, y: 0),
                 endPoint: .init(x: 0.5, y: 1)

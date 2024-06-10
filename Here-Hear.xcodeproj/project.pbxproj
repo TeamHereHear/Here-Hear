@@ -72,6 +72,7 @@
 		5B2F1BF72BA1CEE70058A64F /* HearBalloonBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F1BF62BA1CEE70058A64F /* HearBalloonBackground.swift */; };
 		5B2F1BF92BA1CF7B0058A64F /* HearBalloonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F1BF82BA1CF7B0058A64F /* HearBalloonViewModel.swift */; };
 		5B2F1BFB2BA1D9B60058A64F /* OnBoardingPageOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F1BFA2BA1D9B60058A64F /* OnBoardingPageOne.swift */; };
+		5B3712432C17213400539FB3 /* MarqueeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3712422C17213400539FB3 /* MarqueeText.swift */; };
 		5B3ABD3E2BA9BCE0002C8201 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 5B3ABD3D2BA9BCE0002C8201 /* GoogleSignIn */; };
 		5B3ABD422BA9CD71002C8201 /* HearModel+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3ABD412BA9CD71002C8201 /* HearModel+Mock.swift */; };
 		5B3FD1C12BC818E1006A94BD /* OpenInOtherMusicServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FD1C02BC818E1006A94BD /* OpenInOtherMusicServiceView.swift */; };
@@ -213,6 +214,7 @@
 		5B2F1BF62BA1CEE70058A64F /* HearBalloonBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearBalloonBackground.swift; sourceTree = "<group>"; };
 		5B2F1BF82BA1CF7B0058A64F /* HearBalloonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearBalloonViewModel.swift; sourceTree = "<group>"; };
 		5B2F1BFA2BA1D9B60058A64F /* OnBoardingPageOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPageOne.swift; sourceTree = "<group>"; };
+		5B3712422C17213400539FB3 /* MarqueeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueeText.swift; sourceTree = "<group>"; };
 		5B3ABD412BA9CD71002C8201 /* HearModel+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HearModel+Mock.swift"; sourceTree = "<group>"; };
 		5B3FD1C02BC818E1006A94BD /* OpenInOtherMusicServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenInOtherMusicServiceView.swift; sourceTree = "<group>"; };
 		5B46FC032C08B55A00C2275D /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
@@ -397,10 +399,10 @@
 				04A746E52B8465BC00182C5F /* ViewModel */,
 				5B9769292BA07F5C0054068F /* Main */,
 				5BD2A52B2BA337E700EC4049 /* HearList */,
-				04A7472E2B88600100182C5F /* LoginView.swift */,
 				5B0142D72B9347080033FB9C /* RegisterProfile */,
 				5B0142DC2B9368A80033FB9C /* OnBoard */,
 				5B3FD1C02BC818E1006A94BD /* OpenInOtherMusicServiceView.swift */,
+				04A7472E2B88600100182C5F /* LoginView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -607,6 +609,7 @@
 				5B0142D82B9356670033FB9C /* NicknameTextField.swift */,
 				5B0142E52B960BCB0033FB9C /* HHProgressBar.swift */,
 				5BDD3E682BCBB5D6007DE573 /* HalfSheet.swift */,
+				5B3712422C17213400539FB3 /* MarqueeText.swift */,
 			);
 			path = ViewComponent;
 			sourceTree = "<group>";
@@ -885,6 +888,7 @@
 				04A7472F2B88600100182C5F /* LoginView.swift in Sources */,
 				5BEA6B052B9F3D0A006C48AC /* RemoteImageLoadingState.swift in Sources */,
 				5B97692B2BA07F710054068F /* HearBalloon.swift in Sources */,
+				5B3712432C17213400539FB3 /* MarqueeText.swift in Sources */,
 				04D083232BCEA60700C6A143 /* Player.swift in Sources */,
 				5BDBBD232B8476B900DEB7DC /* HearRepository.swift in Sources */,
 				5B7690712B9892430023A26F /* ProfileImagePicker.swift in Sources */,
@@ -1074,7 +1078,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1132,7 +1136,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1152,7 +1156,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Here-Hear/Preview Content\"";
-				DEVELOPMENT_TEAM = QUMNMR4BSR;
+				DEVELOPMENT_TEAM = UFYNJ2DK59;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1169,7 +1173,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1198,7 +1202,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Here-Hear/Preview Content\"";
-				DEVELOPMENT_TEAM = QUMNMR4BSR;
+				DEVELOPMENT_TEAM = UFYNJ2DK59;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1215,7 +1219,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

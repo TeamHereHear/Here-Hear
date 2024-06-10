@@ -40,17 +40,16 @@ struct InfiniteHearsView: View {
                             .onEnded { swipeTo($0, currentIndex: index, scrollProxy: proxy) }
                         )
                         .onAppear {
-                            print("hearplayview of index \(index) is appeared")
-                        }
-                        .task {
-                            currentWeather = viewModel.hears[index].weather
+                            Task {
+                                await viewModel.fetchHears()
+                            }
                         }
                     }
                 }
                 .animation(.spring, value: offset)
                 .offset(y: offset)
             }
-            .ignoresSafeArea(.all)
+            .ignoresSafeArea(edges: .vertical)
         }
         .navigationBarBackButtonHidden()
         .toolbar {
@@ -63,12 +62,15 @@ struct InfiniteHearsView: View {
                             .font(.system(size: 25))
                             .foregroundStyle(.white)
                     }
-                    if let weather = currentWeather {
+                    Spacer()
+                    if let weather = viewModel.hears[currentIndex].weather {
                         Image(systemName: weather.imageName)
                             .foregroundStyle(weather.color)
-                            .font(.system(size: 35))
+                            .font(.system(size: 28))
                     }
                 }
+                .animation(.easeInOut, value: currentIndex)
+                .frame(maxWidth: 100)
             }
         }
         .task {

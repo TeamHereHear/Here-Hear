@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import AVKit
+import CoreLocation
 
 class HearPlayViewModel: ObservableObject {
     let hear: HearModel
@@ -15,6 +16,7 @@ class HearPlayViewModel: ObservableObject {
         "\(StoragePath.Thumbnail)/\(hear.id).jpg"
     }
     private let container: DIContainer
+    let distance: Double?
     
     @Published var musicData: MusicData = .init()
     @Published var videoData: VideoData = .init()
@@ -46,6 +48,13 @@ class HearPlayViewModel: ObservableObject {
     ) {
         self.container = container
         self.hear = hear
+        
+        if let currentLocation = container.managers.userLocationManager.userLocation {
+            let hearLocation = CLLocation(latitude: hear.location.latitude, longitude: hear.location.longitude)
+            self.distance = hearLocation.distance(from: currentLocation)
+        } else {
+            self.distance = nil
+        }
     }
     
     @MainActor
@@ -66,7 +75,6 @@ class HearPlayViewModel: ObservableObject {
         self.setPlayer(withVideoURL: self.videoData.videoURL)
         self.setMusicPlayer(withPreviewURL: self.musicData.music?.previewURL)
     }
-    
     
     
     @MainActor

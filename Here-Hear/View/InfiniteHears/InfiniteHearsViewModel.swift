@@ -79,12 +79,12 @@ class InfiniteHearsViewModel: ObservableObject {
     
     @MainActor
     func fetchHears() async {
-        guard loadingState != .fetchedAll else { return }
+        guard loadingState == .none else { return }
      
         guard let geohashPrecision = GeohashPrecision
              .minimumGeohashPrecisionLength(when: searchingRadius.meter) else {
             updateLoadingState(to: .failed)
-            setError(.unknownUserLocation)
+            setError(.unexpected)
             return
         }
         
@@ -125,7 +125,6 @@ class InfiniteHearsViewModel: ObservableObject {
             
             if searchingRadius.expand() {
                 updateLoadingState(to: .none)
-                await fetchHears()
                 return
             }
             
